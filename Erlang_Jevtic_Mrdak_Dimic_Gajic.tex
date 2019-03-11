@@ -9,13 +9,14 @@
 \usepackage{graphicx}
 
 \usepackage[english,serbian]{babel}
-%\usepackage[english,serbianc]{babel} %ukljuciti babel sa ovim opcijama, umesto gornjim, ukoliko se koristi cirilica
 
 \usepackage[unicode]{hyperref}
 \hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
 
-%\newtheorem{primer}{Пример}[section] %ćirilični primer
 \newtheorem{primer}{Primer}[section]
+
+\usepackage{listings}
+\lstset{language=erlang}
 
 \begin{document}
 
@@ -23,87 +24,19 @@
 
 \author{Tijana Jevtić, Jelena Mrdak, David Dimić, Zorana Gajić\\
 tijanatijanajevtic@gmail.com, mrdakj@gmail.com,\\daviddimic@hotmail.com, zokaaa\_gajich@bk.ru}
-\date{9.~april 2015.}
+\date{6.~april 2019.}
 \maketitle
 
 \abstract{
 U ovom tekstu je ukratko prikazana osnovna forma seminarskog rada. Obratite pažnju da je pored ove .pdf datoteke, u prilogu i odgovarajuća .tex datoteka, kao i .bib datoteka korišćena za generisanje literature. Na prvoj strani seminarskog rada su naslov, apstrakt i sadržaj, i to sve mora da stane na prvu stranu! Kako bi Vaš seminarski zadovoljio standarde i očekivanja, koristite uputstva i materijale sa predavanja na temu pisanja seminarskih radova.
 
-\setcounter{tocdepth}{1} % Show sections
+\setcounter{tocdepth}{1} 
 \tableofcontents
 
 \newpage
 
 \section{Uvod}
 \label{sec:uvod}
-
-Uz sve novouvedene termine u zagradi naglasiti od koje engleske reči termin potiče. Naredni primeri ilustruju način uvođenja enlegskih termina kao i citiranje.
-
-\begin{primer}
-Problem zaustavljanja (eng.~{\em halting problem}) je neodlučiv \cite{haltingproblem}.
-\end{primer}
-
-\begin{primer}
-Za prevođenje programa napisanih u programskom jeziku C može se koristiti GCC kompajler \cite{gcc}.
-\end{primer}
-
-\begin{primer}
- Da bi se ispitivala ispravost softvera, najpre je potrebno precizno definisati njegovo ponašanje \cite{laski2009software}. 
-\end{primer}
-
-Reference koje se koriste u ovom tekstu zadate su u datoteci {\em seminarski.bib}. Prevođenje u pdf format u Linux okruženju može se uraditi na sledeći način:
-\begin{verbatim}
-pdflatex TemaImePrezime.tex 
-bibtex TemaImePrezime.aux 
-pdflatex TemaImePrezime.tex 
-pdflatex TemaImePrezime.tex 
-\end{verbatim}
-Prvo latexovanje je neophodno da bi se generisao {\em .aux} fajl. {\em bibtex} proizvodi odgovarajući {\em .bbl} fajl koji se koristi za generisanje literature. 
-Potrebna su dva prolaza (dva puta pdflatex) da bi se reference ubacile u tekst (tj da ne bi ostali znakovi pitanja umesto referenci). Dodavanjem novih referenci potrebno je ponoviti ceo postupak.  
-
-
-Broj naslova i podnaslova je proizvoljan. Neophodni su samo Uvod i Zaključak. Na poglavlja unutar teksta referisati se po potrebi. 
-\begin{primer}
-U odeljku \ref{sec:naslov1} precizirani su osnovni pojmovi, dok su zaključci dati u odeljku \ref{sec:zakljucak}.
-\end{primer}
-
-Još jednom da napomenem da nema razloga da pišete:
-\begin{verbatim}
-\v{s} i \v{c} i \'c ...
-\end{verbatim}
-Možete koristiti srpska slova
-\begin{verbatim}
-š i č i ć ... 
-\end{verbatim}
-
-
-Ovde pišem uvodni tekst.
-Ovde pišem uvodni tekst. 
-Ovde pišem uvodni tekst. 
-Ovde pišem uvodni tekst. 
-
-
-\section{Slike i tabele}
-\label{slike_i_tabele}
-
-Slike i tabele treba da budu u svom okruženju, sa odgovarajućim naslovima, obeležene labelom da koje omogućava referenciranje. 
-
-\begin{primer} Ovako se ubacuje slika. Obratiti pažnju da je dodato i 
-\begin{verbatim}
-\usepackage{graphicx}
-\end{verbatim}
-
-
-%\begin{figure}[h!]
-%\begin{center}
-%\includegraphics[scale=0.75]{panda.jpg}
-%\end{center}
-%\caption{Pande}
-%\label{fig:pande}
-%\end{figure}
-
-Na svaku sliku neophodno je referisati se negde u tekstu. Na primer, na slici %\ref{fig:pande} prikazane su pande.
-\end{primer}
 
 \begin{primer} I tabele treba da budu u svom okruženju, i na njih je neophodno referisati se u tekstu. Na primer, u tabeli \ref{tab:tabela1} su prikazana različita poravnanja u tabelama.
 
@@ -121,13 +54,27 @@ d &e&f\\ \hline
 
 \end{primer}
 
-
-
-
-
 \section{Nastanak i istorijski razvoj}
 \label{sec:nastanak}
 
+1981. godine je oformljena nova laboratorija, Erikson CSLab (eng.~{\em The Ericsson CSLab}) u okviru firme Erikson sa
+ciljem da predlaže i stvara nove arhitekture, koncepte i strukture za buduće softverske sisteme.
+Eksperimentisanje sa dodavanjem konkurentnih procesa u programski jezik Prolog je bio jedan
+od projekata Erikson CSLab-a i predstavlja začetak novog programskog jezika.
+Taj programski jezik je 1987. godine nazvan Erlang
+\footnote{Erlang je jedinica saobraćaja u oblasti telekomunikacija 
+i predstavlja kontinuirano korišćenje jednog kanala 
+(npr. ako jedna osoba obavi jedan poziv telefonom u trajanju od sat vremena, 
+tada se kaže da sistem ima 1 Erlang saobraćaja na tom kanalu).}.    
+Sve do 1990., Erlang se mogao posmatrati kao dijalekt Prologa. Od tada, Erlang
+ima svoju sintaksu i postoji kao potpuno samostalan programski jezik.
+Godine rada su rezultirale u sve bržim, boljim i stabilnijim verzijama jezika, kao
+i u nastanku standardne biblioteke OTP (eng.~{\em The Open Telecom Platform}) \cite{phdthesis}.
+Od decembra 1998. godine, Erlang i OTP su postali deo slobodnog softvera (eng.~{\em open source software})
+i mogu se slobodno preuzeti sa Erlangovog zvaničnog sajta \cite{sajt}.
+Danas, veliki broj kompanija koristi Erlang u razvoju
+svojih softverskih rešenja. Neke od njih su: Erikson, Motorola, Votsap (eng.~{\em Whatsapp}), 
+Jahu (eng.~{\em Yahoo!}), Amazon, Fejsbuk (eng.~{\em Facebook}).
 
 \subsection{Mesto u razvojnom stablu}
 \label{subsec:razvojnoStablo}
@@ -135,7 +82,18 @@ d &e&f\\ \hline
 
 \subsection{Uticaji drugih programskih jezika}
 \label{subsec:uticaji}
- 
+
+Erlang je funkcionalan i konkurentan programski jezik.
+Na njega, kao na funkcionalan jezik, uticao je Lisp funkcionalnom paradigmom koju je 
+prvi predstavio. Na planu konkurentnosti Erlang svojevrstan primer (detaljnije u odeljku \ref{sec:osobine}). \\
+Na početku, Erlang je stvaran kao neki dodatak na Prolog, vremenom prerastao u 
+dijalekt Prologa, a kasnije je zbog svoje kompleksnosti i sveobuhvatnosti evoluirao
+u potpuno novi programski jezik. Stoga je uticaj Prologa na Erlang bio 
+neminovan. Sintaksa Erlanga u velikoj meri podseća na Prologovu 
+(npr. promenljive moraju počinjati velikim slovom u oba jezika, 
+svaka funkcionalna celina se završava tačkom), oba jezika u velikoj meri koriste poklapanje obrazaca
+(eng.~{\em pattern matching}). \\
+Sa druge strane, Erlang je uticao na nastanak programskog jezika Eliksir (eng.~{\em Elixir}).
 
 \section{Osnovna namena, svrha i mogućnosti}
 \label{sec:namena}
@@ -160,10 +118,22 @@ d &e&f\\ \hline
 \section{Instalacija i pokretanje}
 \label{sec:instalacija}
 
+Postoji više načina da se instalira Erlang sa neophodnim paketima.
+U ovom odeljku će biti predstavljena instalacija korišćenjem prekompajliranih binarnih fajlova 
+za neke operativne sisteme zasnovane na Linuksovom kernelu i pokretanje na jednom od njih, kao 
+i instalacija za Windows.
 
 \subsection{Linux}
 \label{subsec:instalacijaLinux}
 
+Nakon uspešne instalacije, Erlang kod je moguće kompajlovati
+ili interpretirati i pokretati u interpretatoru.
+Interpretator se pokreće kucanjem komande {\em erl} u terminalu, a iz istog
+se izlazi sa {\em Ctrl+G} iza kog sledi {\em q} \cite{book_joe}.
+Erlang interpretator ima u sebi ugradjen editor teksta koji je baziran na {\em emacs-u} \cite{book_fred}. \\
+Kod iz datoteke se kompajluje komandom {\em erlc} i navođenjem imena fajla sa ekstenzijom {\em erl} nakon iste.
+Nakon toga se dobija izvršna datoteka sa ekstenzijom {\em beam} koja se može
+pokrenuti uz navođenje adekvatnih flegova. 
 
 \subsection{Windows}
 \label{subsec:instalacijaWindows}
