@@ -20,7 +20,7 @@
 
 \begin{document}
 
-\title{Naslov seminarskog rada\\ \small{Seminarski rad u okviru kursa\\Metodologija stručnog i naučnog rada\\ Matematički fakultet}}
+\title{Erlang - funkcionalno rešenje za konkurentni svet\\ \small{Seminarski rad u okviru kursa\\Metodologija stručnog i naučnog rada\\ Matematički fakultet}}
 
 \author{Tijana Jevtić, Jelena Mrdak, David Dimić, Zorana Gajić\\
 tijanatijanajevtic@gmail.com, mrdakj@gmail.com,\\daviddimic@hotmail.com, zokaaa\_gajich@bk.ru}
@@ -28,7 +28,12 @@ tijanatijanajevtic@gmail.com, mrdakj@gmail.com,\\daviddimic@hotmail.com, zokaaa\
 \maketitle
 
 \abstract{
-U ovom tekstu je ukratko prikazana osnovna forma seminarskog rada. Obratite pažnju da je pored ove .pdf datoteke, u prilogu i odgovarajuća .tex datoteka, kao i .bib datoteka korišćena za generisanje literature. Na prvoj strani seminarskog rada su naslov, apstrakt i sadržaj, i to sve mora da stane na prvu stranu! Kako bi Vaš seminarski zadovoljio standarde i očekivanja, koristite uputstva i materijale sa predavanja na temu pisanja seminarskih radova.
+U ovom radu je prikazan programski jezik Erlang iz različitih uglova.
+Kroz niz poglavlja i primera, ispričana je njegova istorija - kad, kako, gde i zašto je nastao, 
+po čemu je karakterističan, šta ga to izdvaja od drugih programskih jezika, koji su to 
+koncepti koji su svojevrsni Erlangu. \\
+Nakon čitanja rada, čitalac će imati globalnu sliku o jeziku i detaljniji pogled na neke važne koncepte, 
+kao i uvid u korišćenu literaturu koju može konsultovati radi daljeg informisanja o temi.
 
 \setcounter{tocdepth}{1} 
 \tableofcontents
@@ -75,9 +80,6 @@ i mogu se slobodno preuzeti sa Erlangovog zvaničnog sajta \cite{sajt}.
 Danas, veliki broj kompanija koristi Erlang u razvoju
 svojih softverskih rešenja. Neke od njih su: Erikson, Motorola, Votsap (eng.~{\em Whatsapp}), 
 Jahu (eng.~{\em Yahoo!}), Amazon, Fejsbuk (eng.~{\em Facebook}).
-
-\subsection{Mesto u razvojnom stablu}
-\label{subsec:razvojnoStablo}
 
 
 \subsection{Uticaji drugih programskih jezika}
@@ -126,12 +128,14 @@ i instalacija za Windows.
 \subsection{Linux}
 \label{subsec:instalacijaLinux}
 
+Na operativnim sistemima zasnovanim na {\em Ubuntu}, Erlang se može instalirati sa:
+{\em sudo apt-get install erlang}. \\
 Nakon uspešne instalacije, Erlang kod je moguće kompajlovati
 ili interpretirati i pokretati u interpretatoru.
 Interpretator se pokreće kucanjem komande {\em erl} u terminalu, a iz istog
 se izlazi sa {\em Ctrl+G} iza kog sledi {\em q} \cite{book_joe}.
 Erlang interpretator ima u sebi ugradjen editor teksta koji je baziran na {\em emacs-u} \cite{book_fred}. \\
-Kod iz datoteke se kompajluje komandom {\em erlc} i navođenjem imena fajla sa ekstenzijom {\em erl} nakon iste.
+Kod iz datoteke se kompajluje komandom {\em erlc} i navođenjem imena fajla sa ekstenzijom {\em erl}.
 Nakon toga se dobija izvršna datoteka sa ekstenzijom {\em beam} koja se može
 pokrenuti uz navođenje adekvatnih flegova. 
 
