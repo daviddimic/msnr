@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{sort}\PYG{p}{([}\PYG{n+nv}{Pivot}\PYG{p}{|}\PYG{n+nv}{T}\PYG{p}{])} \PYG{o}{\PYGZhy{}\PYGZgt{}}
+    \PYG{n}{sort}\PYG{p}{([} \PYG{n+nv}{X} \PYG{p}{||} \PYG{n+nv}{X} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nv}{T}\PYG{p}{,} \PYG{n+nv}{X} \PYG{o}{\PYGZlt{}} \PYG{n+nv}{Pivot}\PYG{p}{])} \PYG{o}{++}
+    \PYG{p}{[}\PYG{n+nv}{Pivot}\PYG{p}{]} \PYG{o}{++}
+    \PYG{n}{sort}\PYG{p}{([} \PYG{n+nv}{X} \PYG{p}{||} \PYG{n+nv}{X} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nv}{T}\PYG{p}{,} \PYG{n+nv}{X} \PYG{o}{\PYGZgt{}=} \PYG{n+nv}{Pivot}\PYG{p}{]);}
+\PYG{n+nf}{sort}\PYG{p}{([])} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[].}
+\end{Verbatim}

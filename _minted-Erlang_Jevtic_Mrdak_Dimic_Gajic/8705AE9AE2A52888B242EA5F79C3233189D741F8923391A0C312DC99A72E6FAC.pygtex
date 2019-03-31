@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZlt{}?php}
+\PYG{k}{echo} \PYG{l+s+s2}{\PYGZdq{}Hello, }\PYG{l+s+si}{\PYGZdl{}x}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{;}
+\PYG{c+cp}{?\PYGZgt{}}
+\end{Verbatim}

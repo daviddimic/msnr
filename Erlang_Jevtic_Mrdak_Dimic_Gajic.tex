@@ -1,3 +1,4 @@
+% compile: xelatex  -shell-escape Erlang_Jevtic_Mrdak_Dimic_Gajic.tex
 % !TEX encoding = UTF-8 Unicode
 
 \documentclass[a4paper]{article}
@@ -14,6 +15,9 @@
 \hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
 
 \newtheorem{primer}{Primer}[section]
+
+\usepackage{minted}
+\usemintedstyle{colorful}
 
 \usepackage{listings}
 \lstset{language=erlang}
@@ -145,7 +149,68 @@ pokrenuti uz navođenje adekvatnih flegova.
 
 \section{Primeri kodova sa objašnjenjima}
 \label{sec:primeri}
+Po\v ce\' cemo od primera "Hello World". Da bismo \v zeljeni tekst prikazali u konzoli, koristi\' cemo \textbf{io} modul. Pritom, 
+$\textasciitilde n$ koristimo za novi red.
+\begin{minted}{erlang}
+-module(hello_world).
+-compile(export_all).
 
+hello() ->
+    io:format("hello world~n").
+\end{minted}
+
+Kao i ve\' cina funkcionalnih jezika, i Erlang podr\v zava shvatanje listi (eng. list comprehensions), \v sto ilustrujemo narednim primerima.
+\begin{minted}{erlang}
+> [X || X <- [1,2,a,3,4,b,5,6], X > 3].
+\end{minted}
+\begin{minted}{erlang}
+[a,4,b,5,6]
+\end{minted}
+Notacija {\mintinline{erlang}{X <- [1, 2, a, ...]}} je generator, dok je izraz {\mintinline{erlang}{X>3}} filter.\\
+
+Mo\v zemo primeniti vi\v se filtera.
+\begin{minted}{erlang}
+> [X || X <- [1,2,a,3,4,b,5,6], integer(X), X > 3].
+\end{minted}
+\begin{minted}{erlang}
+[4,5,6]
+\end{minted}
+
+Tako\dj e, mogu\' ce je kombinovati i generatore. Na primer, Dekartov proizvod dve liste mo\v zemo napisati kao
+\begin{minted}{erlang}
+> [{X, Y} || X <- [1,2,3], Y <- [a,b]].
+\end{minted}
+\begin{minted}{erlang}
+[{1,a},{1,b},{2,a},{2,b},{3,a},{3,b}]
+\end{minted}
+
+Algoritam QuickSort u Erlangu se mo\v ze implementirati na slede\' ci na\v cin:
+\begin{minted}{erlang}
+sort([Pivot|T]) ->
+    sort([ X || X <- T, X < Pivot]) ++
+    [Pivot] ++
+    sort([ X || X <- T, X >= Pivot]);
+sort([]) -> [].
+\end{minted}
+Izraz {\mintinline{erlang}{[X || X <- T, X < Pivot]}} e lista svih elemenata iz T koji su manji od pivota. Sli\v cno, {\mintinline{erlang}{[X || X <- T, X >= Pivot]}} je lista svih elemenata iz T koji su ve\' ci ili jednaki od pivota.\\
+
+Neizostavna funkcija svih funkcionalnih programskih jezika jeste map.
+map(F, List) je funkcija koja prima funkciju F i listu L i vra\' ca novu listu dobijenu primernom funkcije F na svaki element liste L.
+\begin{minted}{erlang}
+map(F, [H|T]) -> [F(H)|map(F, T)];
+map(F, [])    -> [].
+\end{minted}
+
+\begin{minted}{erlang}
+double(L)  -> map(fun(X) -> 2*X end, L).
+\end{minted}
+
+\begin{minted}{erlang}
+> double([1,2,3,4]).
+\end{minted}
+\begin{minted}{erlang}
+[2,4,6,8]
+\end{minted}
 
 \section{Specifičnosti}
 \label{sec:specificnosti}

@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{double}\PYG{p}{(}\PYG{n+nv}{L}\PYG{p}{)}  \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{map}\PYG{p}{(}\PYG{k}{fun}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n+nv}{X} \PYG{k}{end}\PYG{p}{,} \PYG{n+nv}{L}\PYG{p}{).}
+\end{Verbatim}
