@@ -154,6 +154,13 @@ U slučaju da više procesa žele da menjaju istu memoriju, tzv. kritična sekci
 nekako zaštiti taj deo memorije (muteksi, katanci i dr.). U slučaju da do greške dođe baš u kritičnoj sekciji,
 ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem slučaju sistem prekida sa radom. 
 
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.5]{actor_model.png}
+\end{center}
+\caption{Konkurentnost u Erlangu}
+\label{fig:actor_model}
+\end{figure}
 
 \section{Okruženja (framework) i njihove karakteristike}
 \label{sec:okruzenja}
