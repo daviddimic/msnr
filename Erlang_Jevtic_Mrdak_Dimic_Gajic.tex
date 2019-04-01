@@ -195,15 +195,41 @@ pokrenuti uz navođenje adekvatnih flegova.
 
 \section{Primeri kodova sa objašnjenjima}
 \label{sec:primeri}
-Po\v ce\' cemo od primera "Hello World". Da bismo \v zeljeni tekst prikazali u konzoli, koristi\' cemo \textbf{io} modul. Pritom, 
-$\textasciitilde n$ koristimo za novi red.
+Po\v ce\' cemo od primera "Hello World".  
 \begin{minted}{erlang}
--module(hello_world).
--compile(export_all).
+% hello world program
+-module(helloworld). 
+-export([start/0]). 
 
-hello() ->
-    io:format("hello world~n").
+start() -> 
+   io:fwrite("Hello, world!\n").
 \end{minted}
+\begin{minted}{erlang}
+> Hello, world!
+\end{minted}
+
+Nekoliko napomena:
+\begin{itemize}
+  \item Znak \% ozna\v cava linijski komentar.
+  \item Modul je ekvivalent namespace-u u drugim jezicima.
+  \item Export funkcija se koristi da bi funkcija definisana u programu mogla da se koristi. Mi defini\v semo funkciju start, a da bismo mogli da je koristimo potreban nam je export. /0 ozna\v cava da funkcija \textit{start} prima 0 argumenata.
+  \item Da bismo \v zeljeni tekst prikazali u konzoli, koristimo \textbf{io} modul koji sadr\v zi potrebne IO funkcije u Erlangu.
+\end{itemize}
+
+Po\v sto smo videli kako string mo\v zemo ispisati na standardni izlaz, sada \' cemo videti kako broj mo\v zemo ispisati. Slede\' ci program prikazuje zbir dva intiger-a.
+
+\begin{minted}{erlang}
+-module(helloworld).
+-export([start/0]).
+
+start() ->
+   io:fwrite("~w",[1+1]).
+\end{minted}
+\begin{minted}{erlang}
+> 2
+\end{minted}
+
+Na sli\v can na\v cin mo\v zemo ispisivati i razne druge tipove.\\
 
 Kao i ve\' cina funkcionalnih jezika, i Erlang podr\v zava shvatanje listi (eng. list comprehensions), \v sto ilustrujemo narednim primerima.
 \begin{minted}{erlang}
