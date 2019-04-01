@@ -267,7 +267,7 @@ Za {\em Nitrogen} \cite{NitrogenDocumentation} je karakteran {\em veb DSL} \cite
 U tabeli \ref{tab:tabela_okruzenja_serveri} možemo videti za koje servere postoji podrška u datim veb okruženjima.
 \begin{table}[h!]
 \begin{center}
-\caption{Poređenje Erlang veb okruženja prema serverima}
+\caption{Poređenje Erlang veb okruženja prema podržanim serverima}
 \begin{tabular}{|c|c|c|c|}\hline
 Server &ChicagoBoss &Nitrogen &Zotonic \\ \hline
 Mochiweb &\checkmark &\checkmark &\checkmark  v(0.x) \\ \hline
@@ -310,7 +310,7 @@ pokrenuti uz navođenje adekvatnih flegova.
 
 \section{Primeri kodova sa objašnjenjima}
 \label{sec:primeri}
-Po\v ce\' cemo od primera "Hello World".  
+Počećemo od primera "Hello World".  
 \begin{minted}{erlang}
 % hello world program
 -module(helloworld). 
@@ -325,13 +325,13 @@ start() ->
 
 Nekoliko napomena:
 \begin{itemize}
-  \item Znak \% ozna\v cava linijski komentar.
+  \item Znak \% označava linijski komentar.
   \item Modul je ekvivalent namespace-u u drugim jezicima.
-  \item Export funkcija se koristi da bi funkcija definisana u programu mogla da se koristi. Mi defini\v semo funkciju start, a da bismo mogli da je koristimo potreban nam je export. /0 ozna\v cava da funkcija \textit{start} prima 0 argumenata.
-  \item Da bismo \v zeljeni tekst prikazali u konzoli, koristimo \textbf{io} modul koji sadr\v zi potrebne IO funkcije u Erlangu.
+  \item Export funkcija se koristi da bi funkcija definisana u programu mogla da se koristi. Mi definišemo funkciju start, a da bismo mogli da je koristimo potreban nam je export. /0 označava da funkcija \textit{start} prima 0 argumenata.
+  \item Da bismo željeni tekst prikazali u konzoli, koristimo \textbf{io} modul koji sadrži potrebne IO funkcije u Erlangu.
 \end{itemize}
 
-Po\v sto smo videli kako string mo\v zemo ispisati na standardni izlaz, sada \' cemo videti kako broj mo\v zemo ispisati. Slede\' ci program prikazuje zbir dva intiger-a.
+Pošto smo videli kako string možemo ispisati na standardni izlaz, sada ćemo videti kako broj možemo ispisati. Sledeći program prikazuje zbir dva intiger-a.
 
 \begin{minted}{erlang}
 -module(helloworld).
@@ -344,9 +344,9 @@ start() ->
 > 2
 \end{minted}
 
-Na sli\v can na\v cin mo\v zemo ispisivati i razne druge tipove.\\
+Na sličan način možemo ispisivati i razne druge tipove.\\
 
-Kao i ve\' cina funkcionalnih jezika, i Erlang podr\v zava shvatanje listi (eng. list comprehensions), \v sto ilustrujemo narednim primerima.
+Kao i većina funkcionalnih jezika, i Erlang podržava shvatanje listi (eng. list comprehensions), što ilustrujemo narednim primerima.
 \begin{minted}{erlang}
 > [X || X <- [1,2,a,3,4,b,5,6], X > 3].
 \end{minted}
@@ -355,7 +355,7 @@ Kao i ve\' cina funkcionalnih jezika, i Erlang podr\v zava shvatanje listi (eng.
 \end{minted}
 Notacija {\mintinline{erlang}{X <- [1, 2, a, ...]}} je generator, dok je izraz {\mintinline{erlang}{X>3}} filter.\\
 
-Mo\v zemo primeniti vi\v se filtera.
+Možemo primeniti više filtera.
 \begin{minted}{erlang}
 > [X || X <- [1,2,a,3,4,b,5,6], integer(X), X > 3].
 \end{minted}
@@ -363,7 +363,7 @@ Mo\v zemo primeniti vi\v se filtera.
 [4,5,6]
 \end{minted}
 
-Tako\dj e, mogu\' ce je kombinovati i generatore. Na primer, Dekartov proizvod dve liste mo\v zemo napisati kao
+Takođe, moguće je kombinovati i generatore. Na primer, Dekartov proizvod dve liste možemo napisati kao
 \begin{minted}{erlang}
 > [{X, Y} || X <- [1,2,3], Y <- [a,b]].
 \end{minted}
@@ -371,7 +371,7 @@ Tako\dj e, mogu\' ce je kombinovati i generatore. Na primer, Dekartov proizvod d
 [{1,a},{1,b},{2,a},{2,b},{3,a},{3,b}]
 \end{minted}
 
-Algoritam QuickSort u Erlangu se mo\v ze implementirati na slede\' ci na\v cin:
+Algoritam QuickSort u Erlangu se može implementirati na sledeći način:
 \begin{minted}{erlang}
 sort([Pivot|T]) ->
     sort([ X || X <- T, X < Pivot]) ++
@@ -379,10 +379,10 @@ sort([Pivot|T]) ->
     sort([ X || X <- T, X >= Pivot]);
 sort([]) -> [].
 \end{minted}
-Izraz {\mintinline{erlang}{[X || X <- T, X < Pivot]}} e lista svih elemenata iz T koji su manji od pivota. Sli\v cno, {\mintinline{erlang}{[X || X <- T, X >= Pivot]}} je lista svih elemenata iz T koji su ve\' ci ili jednaki od pivota.\\
+Izraz {\mintinline{erlang}{[X || X <- T, X < Pivot]}} e lista svih elemenata iz T koji su manji od pivota. Slično, {\mintinline{erlang}{[X || X <- T, X >= Pivot]}} je lista svih elemenata iz T koji su veći ili jednaki od pivota.\\
 
 Neizostavna funkcija svih funkcionalnih programskih jezika jeste map.
-map(F, List) je funkcija koja prima funkciju F i listu L i vra\' ca novu listu dobijenu primernom funkcije F na svaki element liste L.
+map(F, List) je funkcija koja prima funkciju F i listu L i vraća novu listu dobijenu primernom funkcije F na svaki element liste L.
 \begin{minted}{erlang}
 map(F, [H|T]) -> [F(H)|map(F, T)];
 map(F, [])    -> [].
