@@ -8,6 +8,8 @@
 \usepackage[T2A]{fontenc} % enable Cyrillic fonts
 \usepackage[utf8]{inputenc} % make weird characters work
 \usepackage{graphicx}
+\usepackage{amsthm}
+\newtheorem{definition}{Definicija}
 
 \usepackage[english,serbian]{babel}
 
@@ -123,7 +125,78 @@ inicijalni skup mogućnosti i namena \cite{book_joe}.
 
 \section{Osnovne osobine}
 \label{sec:osobine}
+Erlang je zasnovan na deklarativnoj i funckionalnoj paradigmi sa akcentom na konkurentnosti. Kao pripadnik funkcionalne paradigme poseduje sakupljač otpadaka koji upravlja memorijom u realnom vremenu tako da se ne mogu pojaviti greške programera pri rukovanju memorijom. Takođe, sistem ima ugrađenu kontrolu vremena, u smislu da se može odrediti koliko će neki proces čekati na poruku pre nego što se aktivira, pa omogućava pisanje aplikacija koje rade u mekom realnom vremenu (odziv od nekoliko milisekudni). U ovom poglavlju videćemo koji su tipovi podžani u Erlangu da bi se njegove osibine i namene opisane u poglavlju \ref{sec:namena} ostvarile, kao i neka osnovna svojstva i koncepte.
+
+
+
+\subsection{Tipovi i promenjive}
+Na raspolaganju nam je 8 primitivnih tipova. Osim uobičajnih celobrojnih, realnih vrednosti i referenci, Erlang uvodi i neke specifične tipove kao što su:
+
+\begin{list}{•}{}
+\item Atomi koji se pišu malim slovima i predstavljaju konstante i enumerisane tipove. Samo ime je njihova vrednost i nema potrebne za dodelom brojevne vrednosti
+\item Binarne vrednosti omogućavaju lako i čitljivo prelamanje broja na segmente u binarni zapis na zadatoj širini. U oznaci <<vrednost:širina>>
+\item Identifikatori procesa predstavljaju reference na procese. Kreiraju se funkcijom spawn
+\item Portovi služe za komunikaciju sa spoljašnjim svetom. Ako su u skladu sa protokolom portova preko njih se mogu slati i primati poruke
+\end{list}
  
+Tu su i dve osnovne strukture: torke za fiksirani broj elemenata u njima. Definišu se sa $\{elem_1, eleme_2, ... elemt_n\}$. 
+Dok su za čuvanje promenjivog broja elemenata na raspolaganju liste $[elem_1, elem_2, ...]$. Osnovni operator konstrukcije liste je $[Glava | Rep]$. U okviru listi se prikazuju i niske, za koje ne postoji ugrađeni poseban tip, već su one liste vrednost koje odgovaraju vrednostima karaktera. 
+Ovo i nije neki nedostatak s obzirom na to da se niske retko koriste u telekomunikaciji.\\
+
+Promenjive mogu biti vezane, one kojima je dodeljena neka vrednost, i slobodne. Dodela se vrši najviše jednom i vrednost vezanih promenjihiv više se ne može menjati (eng.~{\em single assignment variables}) osim ako se ne pozove funkicija f() koja sve promenjive načini slobodnim. 
+Ovo je u skladu sa idejom funkcionalnih jezika da nema sporednih efekata, iako Erlang nije čisto funkcionalan jezik.
+
+
+\subsection{Poklapanje obrazaca}
+Svaki program sastoji se od niza funkcija pisanih poklapanjem obrazaca. Čak je i obična dodela (operatorom =) jedno poklapanje obrazaca.
+Da bismo objasnili ovaj ključni koncepat potrebno je prvo da definišemo pojmove terma, obrasca i čuvara.
+
+\theoremstyle{definition}
+\begin{definition}{Osnonvni term (eng.~{\em ground term})}
+se definiše kao primitivni tip, uređeni par ili lista osnovnog terma.
+\end{definition}
+
+\begin{definition}{Obrazac ili šablon (eng.~{\em pattern})}
+može biti primitivni tip, promenjiva, uređeni par ili lista šablona.
+Ako su u obrascu sve promenjive različite onda se on naziva primitivnim.
+\end{definition}
+
+\begin{definition}{Poklapanje obrazaca (eng.~{\em pattern matching})}
+je postupak poređenja terma sa obrascem.
+\end{definition}
+Neformalno, ako obrazac i term imaju isti oblik, poklapanje uspeva, pri čemu će svaka promenjiva biti vezana sa podatkom na njemu odgovarajućoj poziciji. 
+Ovaj proces poznat je kao {\em unifikacija}. Sledeća prva tri primera uspešno su se unifikovala, dok je u poslednjem pokušana unifikacija X sa 51 što nije uspelo kako je X već vezano za \{137, 42\}.
+
+\begin{minted}{erlang}
+Z = 2.
+{X, macka} = {{137, 42}, macka}.
+[Glava|Rep] = [1,2,3,4,5,6].
+{X, Y} = {51, kuce}.
+\end{minted}
+
+
+
+\begin{definition}{Čuvari (eng.~{\em guards})}
+su izrazi koji sadrže samo predikate oblika A op B odvojeni zarezom pri čemu su op validni binarni operatori poređenja\footnote{Operatori poređenja su: <, =<, >, =>, ==, /=, =:=, =/=}. Izraz sa čuvarima može da se evaluira samo u true ili false.
+\end{definition}
+Čuvari sa ključnom rečju {\em when} predstavljaju dodatno proširenje mogućnosti poklapanja obrazaca, za izvođenje jednostavnih testova i poređenja u šablonu kao u primeru funkcije za maksimum dve vrednosti:
+\begin{minted}{erlang}
+max(X, Y) when X > Y -> X;
+max(X, Y) -> Y.
+\end{minted}
+
+\subsection{Funkcije}
+%TODO
+\begin{minted}{erlang}
+ime_funckije(a11, a12, ... a1N) when g11, g12, ... g1N -> 
+	telo1;
+ime_funckije(a21, a22, ... a2N) when g21, g22, ... g2N -> 
+	telo2;
+...
+ime_funckije(aM1, aM2, ... aMN) when gM1, gM2, ... gMN -> 
+	teloM.
+\end{minted}
+
 
 \subsection{Podržane paradigme}
 \label{subsec:paradigme}
