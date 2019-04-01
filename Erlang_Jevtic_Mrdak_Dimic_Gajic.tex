@@ -21,6 +21,9 @@
 \usepackage{minted}
 \usemintedstyle{colorful}
 
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+
 \usepackage{listings}
 \lstset{language=erlang}
 
@@ -48,22 +51,8 @@ kao i uvid u korišćenu literaturu koju može konsultovati radi daljeg informis
 
 \section{Uvod}
 \label{sec:uvod}
-
-\begin{primer} I tabele treba da budu u svom okruženju, i na njih je neophodno referisati se u tekstu. Na primer, u tabeli \ref{tab:tabela1} su prikazana različita poravnanja u tabelama.
-
-\begin{table}[h!]
-\begin{center}
-\caption{Razlčita poravnanja u okviru iste tabele ne treba koristiti jer su nepregledna.}
-\begin{tabular}{|c|l|r|} \hline
-centralno poravnanje& levo poravnanje& desno poravnanje\\ \hline
-a &b&c\\ \hline
-d &e&f\\ \hline
-\end{tabular}
-\label{tab:tabela1}
-\end{center}
-\end{table}
-
-\end{primer}
+%TODO
+uvod bla bla bla
 
 \section{Nastanak i istorijski razvoj}
 \label{sec:nastanak}
@@ -237,7 +226,48 @@ ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem sluča
 
 \section{Okruženja (framework) i njihove karakteristike}
 \label{sec:okruzenja}
- 
+Programski jezik Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}) ali takođe nudi mnoštvo mogućnosti koje ga čine odgovarajućim jezikom za Veb programiranje. Naprimer mogućnost reagovanja na više korisničkih zahteva istovremeno ne razmišljajući o problemima konkurentnosti.\\
+
+Poredili smo 3 glavna Veb okruženja: {\em ChicagoBoss}, {\em Nitrogen} i {\em Zotonic}. U tabeli \ref{tab:tabela_okruzenja} smo prikazali neke interesantne osobine.\\
+
+\begin{table}[h!]
+\begin{center}
+\caption{Poređenje Erlang Veb okruženja}
+\begin{tabular}{|c|c|c|c|}\hline
+ &ChicagoBoss &Nitrogen &Zotonic \\ \hline
+Razvoj zasnovan na događajima &\checkmark  &\checkmark & \checkmark  \\ \hline
+Okruženje za testove &\checkmark  &\checkmark & \checkmark  \\ \hline
+Generisanje koda &\checkmark & N/A & - \\ \hline
+Django šabloni &\checkmark & - &\checkmark  \\ \hline
+Integrisani mejl server &\checkmark & N/A &\checkmark  \\ \hline
+UTF-8 u Erlang kodu &\checkmark & - &\checkmark  \\ \hline
+Višejezični podaci & - & - &\checkmark  \\ \hline
+Generisanje {\em JavaScript} koda & - &\checkmark & \checkmark  \\ \hline
+Generisanje {\em JSON} formata &\checkmark  &\checkmark & \checkmark  \\ \hline
+Integrisani WebSocket &\checkmark  &\checkmark & \checkmark  \\ \hline
+
+
+ \end{tabular}
+\label{tab:tabela_okruzenja}
+\end{center}
+\end{table} 
+
+Okruženje {\em ChicagoBoss} sadrži sloj apstrakcije baze podataka (eng.~{\em database abstraction layer}) pod nazivom {\em BossDB} \cite{ChicagoBossDocumentation} koji je zaslužan za postavljanje upita nad bazom podataka i njeno ažuriranje. Podržani su MySQL, Mnesia, Tokyo Tyrant i PostgreSQL. Za razliku od {\em ChicagoBoss-a} {\em Nitrogen} okruženje ne podržava model podataka uopšte.\\
+
+Takođe je interesantno videti da neka okruženja imaju integrisani mejl server koji nudi funkcije za primanje i slanje e-pošte i ostale mogućnosti, olakšavajući rad korisnicima. Naprimer slanje pošte izgleda ovako: \\
+
+\begin{minted}{erlang}
+boss_mail:send(FromAddress, ToAddress, Subject, Body)
+\end{minted} 
+
+U tabeli \ref{tab:tabela_okruzenja} smo videli da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nastavaka (eng.~{\em trees of continuations}). Detaljnije o ovome možete pogledati u radu autora {\em ChicagoBoss} okruženja \cite{EvanMillerTesting}. Postoje gotove funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je provera da li je e-pošta ispravno primljena/poslata, da li je stranica na vebu modifikovana itd. \\
+
+{\em Django} šabloni (eng.~{\em Django templates}) \cite{DjangoTempDoc} služe za jednostavnije i brže generisanje dinamičkih HTML stranica pomoću gotovih šablona. {\em Nitrogen} ima svoje {\em Nitrogen HTML} šablone ali je u procesu prelazak na {\em Django} šablone. \\
+
+Za {\em Nitrogen} je karakteran {\em Veb DSL} \cite{WebDSL} sa korišćenjem Nitrogen elemenata \cite{NitrogenDocumentation} .
+
+
+
 
 \section{Instalacija i pokretanje}
 \label{sec:instalacija}
