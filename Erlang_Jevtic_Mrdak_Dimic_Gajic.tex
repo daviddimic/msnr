@@ -226,13 +226,13 @@ ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem sluča
 
 \section{Okruženja (framework) i njihove karakteristike}
 \label{sec:okruzenja}
-Programski jezik Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}) ali takođe nudi mnoštvo mogućnosti koje ga čine odgovarajućim jezikom za Veb programiranje. Naprimer mogućnost reagovanja na više korisničkih zahteva istovremeno ne razmišljajući o problemima konkurentnosti.\\
+Programski jezik Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}) ali takođe nudi mnoštvo mogućnosti koje ga čine odgovarajućim jezikom za veb programiranje. Naprimer mogućnost reagovanja na više korisničkih zahteva istovremeno ne razmišljajući o problemima konkurentnosti.\\
 
-Poredili smo 3 glavna Veb okruženja: {\em ChicagoBoss}, {\em Nitrogen} i {\em Zotonic}. U tabeli \ref{tab:tabela_okruzenja} smo prikazali neke interesantne osobine.\\
+Poredili smo 3 glavna veb okruženja: {\em ChicagoBoss}, {\em Nitrogen} i {\em Zotonic}. U tabeli \ref{tab:tabela_okruzenja} smo prikazali neke interesantne osobine.\\
 
 \begin{table}[h!]
 \begin{center}
-\caption{Poređenje Erlang Veb okruženja}
+\caption{Poređenje Erlang veb okruženja}
 \begin{tabular}{|c|c|c|c|}\hline
  &ChicagoBoss &Nitrogen &Zotonic \\ \hline
 Razvoj zasnovan na događajima &\checkmark  &\checkmark & \checkmark  \\ \hline
@@ -245,14 +245,12 @@ Višejezični podaci & - & - &\checkmark  \\ \hline
 Generisanje {\em JavaScript} koda & - &\checkmark & \checkmark  \\ \hline
 Generisanje {\em JSON} formata &\checkmark  &\checkmark & \checkmark  \\ \hline
 Integrisani WebSocket &\checkmark  &\checkmark & \checkmark  \\ \hline
-
-
  \end{tabular}
 \label{tab:tabela_okruzenja}
 \end{center}
 \end{table} 
 
-Okruženje {\em ChicagoBoss} sadrži sloj apstrakcije baze podataka (eng.~{\em database abstraction layer}) pod nazivom {\em BossDB} \cite{ChicagoBossDocumentation} koji je zaslužan za postavljanje upita nad bazom podataka i njeno ažuriranje. Podržani su MySQL, Mnesia, Tokyo Tyrant i PostgreSQL. Za razliku od {\em ChicagoBoss-a} {\em Nitrogen} okruženje ne podržava model podataka uopšte.\\
+Okruženje {\em ChicagoBoss} sadrži sloj apstrakcije baze podataka (eng.~{\em database abstraction layer}) pod nazivom {\em BossDB} \cite{ChicagoBossDocumentation} koji je zaslužan za postavljanje upita nad bazom podataka i njeno ažuriranje. Podržani su {\em MySQL, Mnesia, Tokyo Tyrant i PostgreSQL}. Za razliku od {\em ChicagoBoss-a} {\em Nitrogen} okruženje ne podržava model podataka uopšte, a {\em Zotonic} \cite{ZotonicDocumentation} podržava isključivo {\em PostgreSQL}.\\
 
 Takođe je interesantno videti da neka okruženja imaju integrisani mejl server koji nudi funkcije za primanje i slanje e-pošte i ostale mogućnosti, olakšavajući rad korisnicima. Naprimer slanje pošte izgleda ovako: \\
 
@@ -260,14 +258,28 @@ Takođe je interesantno videti da neka okruženja imaju integrisani mejl server 
 boss_mail:send(FromAddress, ToAddress, Subject, Body)
 \end{minted} 
 
-U tabeli \ref{tab:tabela_okruzenja} smo videli da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nastavaka (eng.~{\em trees of continuations}). Detaljnije o ovome možete pogledati u radu autora {\em ChicagoBoss} okruženja \cite{EvanMillerTesting}. Postoje gotove funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je provera da li je e-pošta ispravno primljena/poslata, da li je stranica na vebu modifikovana itd. \\
+U tabeli \ref{tab:tabela_okruzenja} smo videli da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nastavaka (eng.~{\em trees of continuations}). Detaljnije o ovome možete pogledati u radu autora {\em ChicagoBoss} okruženja \cite{EvanMillerTesting}. Postoje gotove funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je provera da li je e-pošta ispravno primljena/poslata, da li je stranica na veb-u modifikovana itd. \\
 
 {\em Django} šabloni (eng.~{\em Django templates}) \cite{DjangoTempDoc} služe za jednostavnije i brže generisanje dinamičkih HTML stranica pomoću gotovih šablona. {\em Nitrogen} ima svoje {\em Nitrogen HTML} šablone ali je u procesu prelazak na {\em Django} šablone. \\
 
-Za {\em Nitrogen} je karakteran {\em Veb DSL} \cite{WebDSL} sa korišćenjem Nitrogen elemenata \cite{NitrogenDocumentation} .
+Za {\em Nitrogen} \cite{NitrogenDocumentation} je karakteran {\em veb DSL} \cite{WebDSL} sa korišćenjem Nitrogen elemenata \cite{NitrogenDocumentation} što u suštini omogućava pisanje HTML/Javascript korišćenjem Erlang uslova pre nego HTML uslova. \\
 
+U tabeli \ref{tab:tabela_okruzenja_serveri} možemo videti za koje servere postoji podrška u datim veb okruženjima.
+\begin{table}[h!]
+\begin{center}
+\caption{Poređenje Erlang veb okruženja prema serverima}
+\begin{tabular}{|c|c|c|c|}\hline
+Server &ChicagoBoss &Nitrogen &Zotonic \\ \hline
+Mochiweb &\checkmark &\checkmark &\checkmark  v(0.x) \\ \hline
+Cowboy &\checkmark &\checkmark &\checkmark  v(1.0) \\ \hline
+Yaws & - &\checkmark & - \\ \hline
+Misultin &\checkmark & - & - \\ \hline
+ \end{tabular}
+\label{tab:tabela_okruzenja_serveri}
+\end{center}
+\end{table} 
 
-
+Svaki od opisanih okruženja ima svoje prednosti i mane i zato nije jednostavno presuditi koji od ovih okruženja treba koristiti zasigurno, a koji ne treba. U zavisnosti od onoga šta je prioritet biramo odgovarajuće okruženje.
 
 \section{Instalacija i pokretanje}
 \label{sec:instalacija}
@@ -287,7 +299,7 @@ Nakon uspešne instalacije, Erlang kod je moguće kompajlovati
 ili interpretirati i pokretati u interpretatoru.
 Interpretator se pokreće kucanjem komande {\em erl} u terminalu, a iz istog
 se izlazi sa {\em Ctrl+G} iza kog sledi {\em q} \cite{book_joe}.
-Erlang interpretator ima u sebi ugradjen editor teksta koji je baziran na {\em emacs-u} \cite{book_fred}.
+Erlang interpretator ima u sebi ugrađen editor teksta koji je baziran na {\em emacs-u} \cite{book_fred}.
 Kod iz datoteke se kompajluje komandom {\em erlc} i navođenjem imena fajla sa ekstenzijom {\em erl}.
 Nakon toga se dobija izvršna datoteka sa ekstenzijom {\em beam} koja se može
 pokrenuti uz navođenje adekvatnih flegova. 
