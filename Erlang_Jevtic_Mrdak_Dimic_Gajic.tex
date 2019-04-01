@@ -35,7 +35,7 @@ tijanatijanajevtic@gmail.com, mrdakj@gmail.com,\\daviddimic@hotmail.com, zokaaa\
 U ovom radu je prikazan programski jezik Erlang iz različitih uglova.
 Kroz niz poglavlja i primera, ispričana je njegova istorija - kad, kako, gde i zašto je nastao, 
 po čemu je karakterističan, šta ga to izdvaja od drugih programskih jezika, koji su to 
-koncepti koji su svojevrsni Erlangu. \\
+koncepti koji su svojevrsni Erlangu.
 Nakon čitanja rada, čitalac će imati globalnu sliku o jeziku i detaljniji pogled na neke važne koncepte, 
 kao i uvid u korišćenu literaturu koju može konsultovati radi daljeg informisanja o temi.
 
@@ -86,12 +86,13 @@ svojih softverskih rešenja. Neke od njih su: Erikson, Motorola, Votsap (eng.~{\
 Jahu (eng.~{\em Yahoo!}), Amazon, Fejsbuk (eng.~{\em Facebook}).
 
 
-\subsection{Uticaji drugih programskih jezika}
+\subsection{Uticaji}
 \label{subsec:uticaji}
 
 Erlang je funkcionalan i konkurentan programski jezik.
 Na njega, kao na funkcionalan jezik, uticao je Lisp funkcionalnom paradigmom koju je 
-prvi predstavio. Na planu konkurentnosti Erlang svojevrstan primer (detaljnije u odeljku \ref{sec:osobine}). \\
+prvi predstavio. Na planu konkurentnosti Erlang svojevrstan primer (detaljnije u poglavlju \ref{sec:osobine}). \\ 
+
 Na početku, Erlang je stvaran kao neki dodatak na Prolog, vremenom prerastao u 
 dijalekt Prologa, a kasnije je zbog svoje kompleksnosti i sveobuhvatnosti evoluirao
 u potpuno novi programski jezik. Stoga je uticaj Prologa na Erlang bio 
@@ -99,7 +100,9 @@ neminovan. Sintaksa Erlanga u velikoj meri podseća na Prologovu
 (npr. promenljive moraju počinjati velikim slovom u oba jezika, 
 svaka funkcionalna celina se završava tačkom), oba jezika u velikoj meri koriste poklapanje obrazaca
 (eng.~{\em pattern matching}). \\
-Sa druge strane, Erlang je uticao na nastanak programskog jezika Eliksir (eng.~{\em Elixir}).
+
+Sa druge strane, Erlang je uticao na nastanak programskog jezika Eliksir (eng.~{\em Elixir}). Eliksir,
+uz izmenjenu Erlangovu sintaksu, dopunjenu Erlangovu standardnu biblioteku, uživa široku popularnost.
 
 \section{Osnovna namena, svrha i mogućnosti}
 \label{sec:namena}
@@ -107,12 +110,16 @@ Sa druge strane, Erlang je uticao na nastanak programskog jezika Eliksir (eng.~{
 Sa početkom od 1981. godine, jedan od zadataka Eriksonove laboratorije za računarstvo je bio pronalaženje načina za bolje programiranje aplikacija
 za telekomunikaciju \cite{phdthesis}. Takve aplikacije su ogromni programi i od velike važnosti je da rade sve vreme (koliko je to moguće). 
 Naravno, poznato je da će tolika količina koda zasigurno imati greške, ali u toj vrsti industrije, greške mogu biti fatalne. Na primer, 
-šta se dešava ako je došlo do nekog kvara na nekoj telefonskoj liniji, a telefon nam je hitno potreban (recimo, neko ima srčani udar).
-Jednostavno nije moguće zaustaviti takvu aplikaciju, popraviti je i nanovo pustiti u rad. Posledice mogu biti fatalne.
+šta se dešava ako je došlo do kvara na nekoj telefonskoj liniji, a telefon nam je hitno potreban (recimo, neko ima srčani udar).
+Jednostavno nije moguće zaustaviti takvu aplikaciju, popraviti je i nanovo pustiti u rad.
 Kako se izboriti sa greškama u softverskim sistemima kada su one neminovne je osnovna motivacija za razvoj Erlanga. \\
+
 Tako, jedna od njegovih namena jeste pisanje što sigurnijih programa koje je moguće popraviti bez potrebe za isključivanjem čitavog sistema \cite{book_joe}.
 Vrlo brzi konkurentni i distribuirani programi su još jedna od Erlangovih specijalnosti. 
-
+Poseban koncept konkurentnosti koji je implementiran u Erlangu (više u poglavlju \ref{sec:osobine}), kao i funkcionalna paradigma 
+omogućavaju lako skaliranje programa i pravljenje velikih konkurentnih i distribuiranih sistema.
+Velika zajednica koja se godinama razvijala je doprinela stvaranju velikog broja biblioteka i okruženja za Erlang, te proširila njegov 
+inicijalni skup mogućnosti i namena. 
 
 \section{Osnovne osobine}
 \label{sec:osobine}
@@ -143,11 +150,12 @@ i instalacija za Windows.
 
 Na operativnim sistemima zasnovanim na {\em Ubuntu}, Erlang se može instalirati sa:
 {\em sudo apt-get install erlang}. \\
+
 Nakon uspešne instalacije, Erlang kod je moguće kompajlovati
 ili interpretirati i pokretati u interpretatoru.
 Interpretator se pokreće kucanjem komande {\em erl} u terminalu, a iz istog
 se izlazi sa {\em Ctrl+G} iza kog sledi {\em q} \cite{book_joe}.
-Erlang interpretator ima u sebi ugradjen editor teksta koji je baziran na {\em emacs-u} \cite{book_fred}. \\
+Erlang interpretator ima u sebi ugradjen editor teksta koji je baziran na {\em emacs-u} \cite{book_fred}.
 Kod iz datoteke se kompajluje komandom {\em erlc} i navođenjem imena fajla sa ekstenzijom {\em erl}.
 Nakon toga se dobija izvršna datoteka sa ekstenzijom {\em beam} koja se može
 pokrenuti uz navođenje adekvatnih flegova. 
