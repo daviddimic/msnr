@@ -132,6 +132,16 @@ inicijalni skup mogućnosti i namena.
 \subsection{Koncepti}
 \label{subsec:koncepti}
 
+Jedna od osnovnih osobina Erlanga je konkurentnost i koncept na kom je zasnovana.
+Reč konkurentnost se odnosi na više radnji koje se dešavaju u istom trenutku. Posmatrajući svet oko
+sebe, uviđamo da je on u suštini konkurentan - u istom trenutku se dešava veliki broj procesa. \cite{phdthesis}
+U tom istom trenutku, mi smo sposobni da takav svet pojmimo i odreagujemo na sve što se dešava oko nas. Dakle, mi prirodno razumemo konkurentnost.
+Tako se i prirodno nameće potreba za programskim jezikom koji bi omogućavao jednostavno modelovanje sveta kakav on stvarno jeste. \\
+
+Koncept konkurentnosti implementiran u Erlangu se zove konkurentnost slanjem poruka (eng.~{\em message passing concurrency})
+i podrazumeva postojanje velikog broja procesa koji nikad ne dele memoriju, već komuniciraju isključivo asinhronim slanjem poruka \cite{book_joe}.
+Sva izračunavanja se obavljaju u okviru procesa.
+
 
 \section{Okruženja (framework) i njihove karakteristike}
 \label{sec:okruzenja}
