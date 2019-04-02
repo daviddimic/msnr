@@ -1,3 +1,3 @@
 .PHONY: clean
 clean:
-	rm *.bbl *.blg *.log *.out *.gz *.bak *.toc *.aux *.dvi
+	rm *.bbl *.blg *.log *.out *.gz *.bak *.toc *.aux 

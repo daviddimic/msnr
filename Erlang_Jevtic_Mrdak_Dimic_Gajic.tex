@@ -226,24 +226,24 @@ ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem sluča
 
 \section{Okruženja (framework) i njihove karakteristike}
 \label{sec:okruzenja}
-Programski jezik Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}) ali takođe nudi mnoštvo mogućnosti koje ga čine odgovarajućim jezikom za veb programiranje. Naprimer mogućnost reagovanja na više korisničkih zahteva istovremeno ne razmišljajući o problemima konkurentnosti.\\
+Programski jezik Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}) ali takođe nudi mnoštvo mogućnosti koje ga čine odgovarajućim jezikom za veb programiranje. Na primer mogućnost reagovanja na više korisničkih zahteva istovremeno ne razmišljajući o problemima konkurentnosti.\\
 
-Poredili smo 3 glavna veb okruženja: {\em ChicagoBoss}, {\em Nitrogen} i {\em Zotonic}. U tabeli \ref{tab:tabela_okruzenja} smo prikazali neke interesantne osobine.\\
+U tabeli \ref{tab:tabela_okruzenja} je prikazano poređenje 3 glavna veb okruženja: {\em ChicagoBoss}, {\em Nitrogen} i {\em Zotonic} po nekim interesantnim osobinama.
 
 \begin{table}[h!]
 \begin{center}
 \caption{Poređenje Erlang veb okruženja}
-\begin{tabular}{|c|c|c|c|}\hline
+\begin{tabular}{|c|c c c|}\hline
  &ChicagoBoss &Nitrogen &Zotonic \\ \hline
-Razvoj zasnovan na događajima &\checkmark  &\checkmark & \checkmark  \\ \hline
-Okruženje za testove &\checkmark  &\checkmark & \checkmark  \\ \hline
-Generisanje koda &\checkmark & N/A & - \\ \hline
-Django šabloni &\checkmark & - &\checkmark  \\ \hline
-Integrisani mejl server &\checkmark & N/A &\checkmark  \\ \hline
-UTF-8 u Erlang kodu &\checkmark & - &\checkmark  \\ \hline
-Višejezični podaci & - & - &\checkmark  \\ \hline
-Generisanje {\em JavaScript} koda & - &\checkmark & \checkmark  \\ \hline
-Generisanje {\em JSON} formata &\checkmark  &\checkmark & \checkmark  \\ \hline
+Razvoj zasnovan na događajima &\checkmark  &\checkmark & \checkmark  \\ 
+Okruženje za testove &\checkmark  &\checkmark & \checkmark  \\ 
+Generisanje koda &\checkmark & - & - \\ 
+Django šabloni &\checkmark & - &\checkmark  \\
+Integrisani mejl server &\checkmark & - &\checkmark  \\ 
+UTF-8 u Erlang kodu &\checkmark & - &\checkmark  \\ 
+Višejezični podaci & - & - &\checkmark  \\ 
+Generisanje {\em JavaScript} koda & - &\checkmark & \checkmark  \\ 
+Generisanje {\em JSON} formata &\checkmark  &\checkmark & \checkmark  \\ 
 Integrisani WebSocket &\checkmark  &\checkmark & \checkmark  \\ \hline
  \end{tabular}
 \label{tab:tabela_okruzenja}
@@ -252,7 +252,7 @@ Integrisani WebSocket &\checkmark  &\checkmark & \checkmark  \\ \hline
 
 Okruženje {\em ChicagoBoss} sadrži sloj apstrakcije baze podataka (eng.~{\em database abstraction layer}) pod nazivom {\em BossDB} \cite{ChicagoBossDocumentation} koji je zaslužan za postavljanje upita nad bazom podataka i njeno ažuriranje. Podržani su {\em MySQL, Mnesia, Tokyo Tyrant i PostgreSQL}. Za razliku od {\em ChicagoBoss-a} {\em Nitrogen} okruženje ne podržava model podataka uopšte, a {\em Zotonic} \cite{ZotonicDocumentation} podržava isključivo {\em PostgreSQL}.\\
 
-Takođe je interesantno videti da neka okruženja imaju integrisani mejl server koji nudi funkcije za primanje i slanje e-pošte i ostale mogućnosti, olakšavajući rad korisnicima. Naprimer slanje e-pošte izgleda ovako: \\
+Takođe je interesantno primetiti da neka okruženja imaju integrisani mejl server koji nudi funkcije za primanje i slanje e-pošte i ostale mogućnosti, olakšavajući rad korisnicima. Na primer slanje e-pošte u okruženju {\em ChicahoBoss} izgleda ovako: \\
 
 \begin{minted}{erlang}
 boss_mail:send(FromAddress, ToAddress, Subject, Body)
@@ -264,22 +264,7 @@ U tabeli \ref{tab:tabela_okruzenja} smo videli da sva tri okruženja podržavaju
 
 Za {\em Nitrogen} \cite{NitrogenDocumentation} je karakteran {\em veb DSL} \cite{WebDSL} sa korišćenjem Nitrogen elemenata \cite{NitrogenDocumentation} što u suštini omogućava pisanje HTML/Javascript korišćenjem Erlang uslova pre nego HTML uslova. \\
 
-U tabeli \ref{tab:tabela_okruzenja_serveri} možemo videti za koje servere postoji podrška u datim veb okruženjima.
-\begin{table}[h!]
-\begin{center}
-\caption{Poređenje Erlang veb okruženja prema podržanim serverima}
-\begin{tabular}{|c|c|c|c|}\hline
-Server &ChicagoBoss &Nitrogen &Zotonic \\ \hline
-Mochiweb &\checkmark &\checkmark &\checkmark  v(0.x) \\ \hline
-Cowboy &\checkmark &\checkmark &\checkmark  v(1.0) \\ \hline
-Yaws & - &\checkmark & - \\ \hline
-Misultin &\checkmark & - & - \\ \hline
- \end{tabular}
-\label{tab:tabela_okruzenja_serveri}
-\end{center}
-\end{table} 
-
-Svaki od opisanih okruženja ima svoje prednosti i mane i zato nije jednostavno presuditi koji od ovih okruženja treba koristiti zasigurno, a koji ne treba. U zavisnosti od onoga šta je prioritet biramo odgovarajuće okruženje.
+Svaki od opisanih okruženja ima svoje prednosti i mane i zato nije jednostavno presuditi koji od ovih okruženja treba koristiti zasigurno, a koji ne treba. U zavisnosti od onoga šta je prioritet bira se odgovarajuće okruženje.
 
 \section{Instalacija i pokretanje}
 \label{sec:instalacija}
@@ -305,7 +290,7 @@ pokrenuti uz navođenje adekvatnih flegova.
 
 \subsection{Windows}
 \label{subsec:instalacijaWindows}
-Na operativnim sistemima zasnovanim na {\em Windows}, Erlang možemo instalirati preuzimanjem binarne datoteke sa oficijalnog sajta programskog jezika \cite{sajt}. Dupli klik na {\em .exe} fajl i onda je potrebno ispratiti uputstva. \\
+Na operativnom sistemu {\em Windows}, Erlang se može instalirati preuzimanjem binarne datoteke sa oficijalnog sajta programskog jezika. Dupli klik na {\em .exe} fajl i onda je potrebno ispratiti uputstva. \\
 
 Pokretanje interpretatora se vrši na isti način kao i na {\em Linux} sistemima. Ukoliko naiđete na neki problem sa instalacijom i kompilacijom možete pronaći rešenje u dokumentaciji programskog jezika \cite{sajt}.
 
