@@ -223,8 +223,8 @@ fun(a1, a2, ... aN) -> telo end.
 
 
 
-\subsection{Koncepti}
-\label{subsec:koncepti}
+\subsection{Konkurentnost}
+\label{subsec:konkurentnost}
 
 Jedna od osnovnih osobina Erlanga je konkurentnost i koncept na kom je zasnovana.
 Reč konkurentnost se odnosi na više radnji koje se dešavaju u istom trenutku. Posmatrajući svet oko
@@ -246,7 +246,7 @@ koncept konkurentnosti deljenih stanja (eng.~{\em shared state concurrency}) gde
 menjaju memoriju (nasuprot tome, u Erlangu vrednost promenljivoj može biti dodeljena samo jednom) \cite{book_joe}. 
 U slučaju da više procesa žele da menjaju istu memoriju, tzv. kritična sekcija, potrebno je 
 nekako zaštiti taj deo memorije (muteksi, katanci i dr.). U slučaju da do greške dođe baš u kritičnoj sekciji,
-ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem slučaju sistem prekida sa radom. 
+ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem slučaju sistem prekida sa radom. \\
 
 \begin{figure}[h!]
 \begin{center}
@@ -254,7 +254,78 @@ ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem sluča
 \end{center}
 \caption{Konkurentnost u Erlangu}
 \label{fig:actor_model}
-\end{figure}
+\end{figure} 
+
+%TODO Skrati ovo tako da bude 1-2 primera koji obuhvata sve ovo
+%TODO Primer celokupnog kratkog konkuretnog programa iz knjige - strana 148 na e-readingK
+%TODO Registrovani procesi?
+%TODO Klijent-server ?
+
+Programski jezik Erlang omogućava na jednostavan način kreiranje novog konkurentnog procesa jednim pozivom funkcije {\em spawn} koja vraća pid (eng.~{\em process identifier}) na osnovu kojeg svaki proces može da razlikuje ostale procese:
+\begin{minted}{erlang}
+Pid = spawn(Module, FunctionName, ArgumentList) 
+\end{minted}
+Može da se koristi i kraći zapis:
+\begin{minted}{erlang}
+Pid = spawn(FunctionName) 
+\end{minted}
+
+Kao što smo već rekli, jedini način za ostvarivanje komunikacije između dva procesa je putem slanja poruka korišćenjem operatora '!': 
+\begin{minted}{erlang}
+Pid ! Message 
+\end{minted}
+Ovakav zapis omogućava da se procesu sa identifikatorom {\em Pid} pošalje poruka sadržana u promenljivoj {\em Message}. Ono što je zanimljivo je da operator '!' vraća baš sadržaj poruke, pa ako bismo želeli poslati poruku svim procesima to bi izgledalo ovako:
+\begin{minted}{erlang}
+Pid1 ! Pid2 ! ... ! PidN ! Message 
+\end{minted} 
+
+Bitno je napomenuti da je slanje poruka u Erlang-u asinhrono, odnosno pošiljaoc neće čekati da poslata poruka stigne na odredište niti da bude primljena. \\
+
+Za primanje poruka koristi se operator {\em receive} na sledeći način:
+\begin{minted}{erlang}
+receive
+    Pattern1 [when Guard1] ->
+        Expressions1 ;
+    Pattern2 [when Guard2] ->
+        Expressions2 ;
+	... 
+end
+\end{minted}
+Kada poruka stigne procesu prvo se pokušava poklapanje dobijene poruke sa gotovim šablonom 
+{\em Pattern1}. Ako uspe da se poklopi, onda se izvršavaju akcije date sa {\em Expressions1}, u suprotnom pokušava sa ostalim šablonima. Ukoliko se ne poklopi ni sa jednim, onda se ta poruka čuva za kasnije obrađivanje. \\
+
+Ovakav prijem poruka ima veliku manu. Naime, šta ako poslata poruka nikad ne stigne na odredište? To može da se desi kao posledica na primer pada procesa koji je poslao poruku. Da bismo izbegli večno čekanje, uvodi se maksimalno vreme čekanja poruke (eng.~{\em timeout}):
+\begin{minted}{erlang}
+receive
+    Pattern1 [when Guard1] ->
+        Expressions1 ;
+    Pattern2 [when Guard2] ->
+        Expressions2 ;
+	... 
+after Time -> 
+	Expressions
+end
+\end{minted}
+
+Ukoliko  želimo da primimo bilo koju poruku to može da se uradi korišćenjem {\em AnyMessage}:
+\begin{minted}{erlang}
+receive
+	AnyMessage ->
+		Expressions
+end
+\end{minted}
+
+Ako bismo želeli da primimo poruku od konkretnog procesa neobhodno da pri slanju poruke pošiljaoc pošalje i svoj pid:
+\begin{minted}{erlang}
+Pid ! {self(), Message}
+\end{minted}
+
+Onda primanje poruke izgleda:
+\begin{minted}{erlang}
+receive
+            {Pid,Msg} ->
+... end
+\end{minted}
 
 \section{Okruženja (framework) i njihove karakteristike}
 \label{sec:okruzenja}
@@ -433,6 +504,5 @@ double(L)  -> map(fun(X) -> 2*X end, L).
 
 \appendix
 \section{Dodatak}
-
 
 \end{document}

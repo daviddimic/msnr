@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{receive}
+    \PYG{n+nv}{Pattern1} \PYG{p}{[}\PYG{k}{when} \PYG{n+nv}{Guard1}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}}
+        \PYG{n+nv}{Expressions1} \PYG{p}{;}
+    \PYG{n+nv}{Pattern2} \PYG{p}{[}\PYG{k}{when} \PYG{n+nv}{Guard2}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}}
+        \PYG{n+nv}{Expressions2} \PYG{p}{;}
+	\PYG{p}{...}
+\PYG{k}{after} \PYG{n+nv}{Time} \PYG{o}{\PYGZhy{}\PYGZgt{}}
+	\PYG{n+nv}{Expressions}
+\PYG{k}{end}
+\end{Verbatim}
