@@ -152,7 +152,7 @@ Ovde vidimo i neka elementarna izračunavanja i kako sa \# možemo elegantno kor
 
 Promenjive mogu biti vezane (eng.~{\em bound}), one kojima je ''dodeljena'' neka vrednost, i slobodne. 
 Vezivanje se vrši najviše jednom i vrednost vezanih promenjihiv više se ne može menjati (eng.~{\em single assignment variables}) osim ako se u interpreteru ne pozove funkicija f() koja sve promenjive načini slobodnim. 
-Ovo je u skladu sa idejom funkcionalnih jezika da nema sporednih efekata, iako Erlang nije čisto funkcionalan jezik.
+Ovo je u skladu sa idejom funkcionalnih jezika da nema sporednih efekata što za posledicu ima jednostavno izvođenje konkurentnosti, iako Erlang nije čisto funkcionalan jezik.
 Zapravo, operator = ne predstavlja nikakvu dodelu već poklapanje obrazaca.
 
 
@@ -172,28 +172,37 @@ Ako su u obrascu sve promenjive različite onda se on naziva primitivnim.
 
 Poklapanje obrazaca (eng.~{\em pattern matching}) je postupak poređenja terma sa obrascem. 
 Neformalno\footnote{Formalna definicija u dodatku}, ako obrazac i term imaju isti oblik, poklapanje uspeva, pri čemu će svaka promenjiva biti vezana sa podatkom na njemu odgovarajućoj poziciji. 
-Ovaj proces poznat je kao {\em unifikacija}. Sledeća prva tri primera uspešno su se unifikovala, dok je u poslednjem pokušana unifikacija X sa 51 što nije uspelo kako je X već vezano za \{137, 42\}.
+Ovaj proces poznat je kao {\em unifikacija}. 
+Pri unifikaciji na raspolaganju je i posebna anonimna promenjiva koja se označava sa \_ , a koju koristimo kada nas neka vrednost ne zanima i ne želimo ni jednu promenjivu da vežemo za tu vrednost. U sledećem primeru prve tri linije pokazuju uspešnu unifikaciju, dok je u poslednjoj pokušana unifikacija X sa 51, što nije uspelo kako je X već vezano za \{137, 42\}.
 
 \begin{minted}{erlang}
 1> Z = 2.
 2> {X, macka} = {{137, 42}, macka}.
-3> [Glava|Rep] = [1,2,3,4,5,6].
+3> [Glava|_] = [1,2,3,4,5,6].
 4> {X, Y} = {51, kuce}.
 \end{minted}
-
-
 
 \begin{definition}{Čuvari (eng.~{\em guards})}
 su izrazi koji sadrže samo predikate oblika A op B odvojeni zarezom pri čemu su op validni binarni operatori poređenja\footnote{Operatori poređenja su: <, =<, >, =>, ==, /=, =:=, =/=}. Izraz sa čuvarima može da se evaluira samo u true ili false.
 \end{definition}
-Čuvari sa ključnom rečju {\em when} predstavljaju dodatno proširenje mogućnosti poklapanja obrazaca, za izvođenje jednostavnih testova i poređenja u šablonu kao u primeru funkcije za maksimum dve vrednosti:
+Čuvari sa ključnom rečju {\em when} predstavljaju dodatno proširenje mogućnosti poklapanja obrazaca, za izvođenje jednostavnih testova i poređenja u šablonu, kao u primeru funkcije za maksimum dve vrednosti:
+
 \begin{minted}{erlang}
 max(X, Y) when X > Y -> X;
 max(X, Y) -> Y.
 \end{minted}
 
+Sama funkcija je definisana preko pokpalanja obrazaca sa korišćenjem čuvara. U sledećem delu formalizovaćemo šta je funkcija u Erlangu i kako se definiše.
+
+
+
 \subsection{Funkcije}
-%TODO
+
+Svaka funkcija može imati više slučajeva odvojenih sa ';' 
+do kojih će doći poklapanjem obrazaca ili preko argumenata ili preko čuvara u {\em when} delu koji je opcioni. 
+Tačkom se završava definicija i odvaja od ostalih funkcija. 
+Njihovi primeri i korišćenja biće detaljnije opisani u delu \ref{sec:primeri}.
+
 \begin{minted}{erlang}
 ime_funckije(a11, a12, ... a1N) when g11, g12, ... g1N -> 
 	telo1;
@@ -203,6 +212,15 @@ ime_funckije(a21, a22, ... a2N) when g21, g22, ... g2N ->
 ime_funckije(aM1, aM2, ... aMN) when gM1, gM2, ... gMN -> 
 	teloM.
 \end{minted}
+
+Kao u svakom funkcionalnom jeziku funkcije su građni prvog reda, 
+tako da ih možemo prosleđivati kao argumente, vraćati kao povratnu vrednost itd. Na raspolaganju sam i anonimne lamda funkcije koje imaju sledeći oblik:
+
+\begin{minted}{erlang}
+fun(a1, a2, ... aN) -> telo end.
+\end{minted}
+
+
 
 
 \subsection{Koncepti}
