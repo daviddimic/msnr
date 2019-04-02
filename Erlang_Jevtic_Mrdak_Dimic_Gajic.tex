@@ -252,7 +252,7 @@ Integrisani WebSocket &\checkmark  &\checkmark & \checkmark  \\ \hline
 
 Okruženje {\em ChicagoBoss} sadrži sloj apstrakcije baze podataka (eng.~{\em database abstraction layer}) pod nazivom {\em BossDB} \cite{ChicagoBossDocumentation} koji je zaslužan za postavljanje upita nad bazom podataka i njeno ažuriranje. Podržani su {\em MySQL, Mnesia, Tokyo Tyrant i PostgreSQL}. Za razliku od {\em ChicagoBoss-a} {\em Nitrogen} okruženje ne podržava model podataka uopšte, a {\em Zotonic} \cite{ZotonicDocumentation} podržava isključivo {\em PostgreSQL}.\\
 
-Takođe je interesantno videti da neka okruženja imaju integrisani mejl server koji nudi funkcije za primanje i slanje e-pošte i ostale mogućnosti, olakšavajući rad korisnicima. Naprimer slanje pošte izgleda ovako: \\
+Takođe je interesantno videti da neka okruženja imaju integrisani mejl server koji nudi funkcije za primanje i slanje e-pošte i ostale mogućnosti, olakšavajući rad korisnicima. Naprimer slanje e-pošte izgleda ovako: \\
 
 \begin{minted}{erlang}
 boss_mail:send(FromAddress, ToAddress, Subject, Body)
@@ -286,8 +286,7 @@ Svaki od opisanih okruženja ima svoje prednosti i mane i zato nije jednostavno 
 
 Postoji više načina da se instalira Erlang sa neophodnim paketima.
 U ovom odeljku će biti predstavljena instalacija korišćenjem prekompajliranih binarnih fajlova 
-za neke operativne sisteme zasnovane na Linuksovom kernelu i pokretanje na jednom od njih, kao 
-i instalacija za Windows.
+za neke operativne sisteme zasnovane na Linuksovom kernelu i pokretanje na jednom od njih, kao i instalacija za Windows.
 
 \subsection{Linux}
 \label{subsec:instalacijaLinux}
@@ -306,7 +305,9 @@ pokrenuti uz navođenje adekvatnih flegova.
 
 \subsection{Windows}
 \label{subsec:instalacijaWindows}
+Na operativnim sistemima zasnovanim na {\em Windows}, Erlang možemo instalirati preuzimanjem binarne datoteke sa oficijalnog sajta programskog jezika \cite{sajt}. Dupli klik na {\em .exe} fajl i onda je potrebno ispratiti uputstva. \\
 
+Pokretanje interpretatora se vrši na isti način kao i na {\em Linux} sistemima. Ukoliko naiđete na neki problem sa instalacijom i kompilacijom možete pronaći rešenje u dokumentaciji programskog jezika \cite{sajt}.
 
 \section{Primeri kodova sa objašnjenjima}
 \label{sec:primeri}
@@ -415,7 +416,6 @@ double(L)  -> map(fun(X) -> 2*X end, L).
 
 \appendix
 \section{Dodatak}
-
 
 
 \end{document}
