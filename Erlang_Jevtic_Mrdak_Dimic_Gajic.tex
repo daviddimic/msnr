@@ -205,10 +205,6 @@ ime_funckije(aM1, aM2, ... aMN) when gM1, gM2, ... gMN ->
 \end{minted}
 
 
-\subsection{Podržane paradigme}
-\label{subsec:paradigme}
-
-
 \subsection{Koncepti}
 \label{subsec:koncepti}
 
@@ -244,7 +240,7 @@ ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem sluča
 
 \section{Okruženja (framework) i njihove karakteristike}
 \label{sec:okruzenja}
-Programski jezik Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}) ali takođe nudi mnoštvo mogućnosti koje ga čine odgovarajućim jezikom za veb programiranje. Na primer mogućnost reagovanja na više korisničkih zahteva istovremeno ne razmišljajući o problemima konkurentnosti.\\
+Programski jezik Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}), ali takođe nudi mnoštvo mogućnosti koje ga čine dobrim jezikom za veb programiranje. Na primer, mogućnost reagovanja na više korisničkih zahteva istovremeno, ne razmišljajući o problemima konkurentnosti.\\
 
 U tabeli \ref{tab:tabela_okruzenja} je prikazano poređenje 3 glavna veb okruženja: {\em ChicagoBoss}, {\em Nitrogen} i {\em Zotonic} po nekim interesantnim osobinama.
 
@@ -268,27 +264,27 @@ Integrisani WebSocket &\checkmark  &\checkmark & \checkmark  \\ \hline
 \end{center}
 \end{table} 
 
-Okruženje {\em ChicagoBoss} sadrži sloj apstrakcije baze podataka (eng.~{\em database abstraction layer}) pod nazivom {\em BossDB} \cite{ChicagoBossDocumentation} koji je zaslužan za postavljanje upita nad bazom podataka i njeno ažuriranje. Podržani su {\em MySQL, Mnesia, Tokyo Tyrant i PostgreSQL}. Za razliku od {\em ChicagoBoss-a} {\em Nitrogen} okruženje ne podržava model podataka uopšte, a {\em Zotonic} \cite{ZotonicDocumentation} podržava isključivo {\em PostgreSQL}.\\
+Okruženje {\em ChicagoBoss} sadrži sloj apstrakcije baze podataka (eng.~{\em database abstraction layer}) pod nazivom {\em BossDB} \cite{ChicagoBossDocumentation} koji je zaslužan za postavljanje upita nad bazom podataka i njeno ažuriranje. Podržani su {\em MySQL, Mnesia, Tokyo Tyrant i PostgreSQL}. Za razliku od {\em ChicagoBoss-a}, {\em Nitrogen} okruženje ne podržava model podataka uopšte, dok {\em Zotonic} \cite{ZotonicDocumentation} podržava isključivo {\em PostgreSQL}.\\
 
-Takođe je interesantno primetiti da neka okruženja imaju integrisani mejl server koji nudi funkcije za primanje i slanje e-pošte i ostale mogućnosti, olakšavajući rad korisnicima. Na primer slanje e-pošte u okruženju {\em ChicahoBoss} izgleda ovako: \\
+Takođe, interesantno je primetiti da neka okruženja imaju integrisani mejl server koji nudi funkcije za primanje i slanje e-pošte i ostale mogućnosti, čime olakšava rad korisnicima. Na primer, slanje e-pošte u okruženju {\em ChicahoBoss} izgleda ovako:
 
 \begin{minted}{erlang}
 boss_mail:send(FromAddress, ToAddress, Subject, Body)
 \end{minted} 
 
-U tabeli \ref{tab:tabela_okruzenja} smo videli da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nastavaka (eng.~{\em trees of continuations}). Detaljnije o ovome možete pogledati u radu autora {\em ChicagoBoss} okruženja \cite{EvanMillerTesting}. Postoje gotove funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je provera da li je e-pošta ispravno primljena/poslata, da li je stranica na veb-u modifikovana itd. \\
+U tabeli \ref{tab:tabela_okruzenja} videli smo da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nastavaka (eng.~{\em trees of continuations}). Detaljnije o ovome možete pogledati u radu autora {\em ChicagoBoss} okruženja \cite{EvanMillerTesting}. Postoje gotove funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je provera da li je e-pošta ispravno primljena/poslata, da li je stranica na vebu modifikovana itd. \\
 
 {\em Django} šabloni (eng.~{\em Django templates}) \cite{DjangoTempDoc} služe za jednostavnije i brže generisanje dinamičkih HTML stranica pomoću gotovih šablona. {\em Nitrogen} ima svoje {\em Nitrogen HTML} šablone ali je u procesu prelazak na {\em Django} šablone. \\
 
 Za {\em Nitrogen} \cite{NitrogenDocumentation} je karakteran {\em veb DSL} \cite{WebDSL} sa korišćenjem Nitrogen elemenata \cite{NitrogenDocumentation} što u suštini omogućava pisanje HTML/Javascript korišćenjem Erlang uslova pre nego HTML uslova. \\
 
-Svaki od opisanih okruženja ima svoje prednosti i mane i zato nije jednostavno presuditi koji od ovih okruženja treba koristiti zasigurno, a koji ne treba. U zavisnosti od onoga šta je prioritet bira se odgovarajuće okruženje.
+Svaki od opisanih okruženja ima svoje prednosti i mane, te zato nije jednostavno presuditi koji od ovih okruženja treba koristiti zasigurno, a koji ne treba. U zavisnosti od onoga šta je prioritet bira se odgovarajuće okruženje.
 
 \section{Instalacija i pokretanje}
 \label{sec:instalacija}
 
 Postoji više načina da se instalira Erlang sa neophodnim paketima.
-U ovom odeljku će biti predstavljena instalacija korišćenjem prekompajliranih binarnih fajlova 
+U ovom poglavlju će biti predstavljena instalacija korišćenjem prekompajliranih binarnih fajlova 
 za neke operativne sisteme zasnovane na Linuksovom kernelu i pokretanje na jednom od njih, kao i instalacija za Windows.
 
 \subsection{Linux}
@@ -302,13 +298,13 @@ ili interpretirati i pokretati u interpretatoru.
 Interpretator se pokreće kucanjem komande {\em erl} u terminalu, a iz istog
 se izlazi sa {\em Ctrl+G} iza kog sledi {\em q} \cite{book_joe}.
 Erlang interpretator ima u sebi ugrađen editor teksta koji je baziran na {\em emacs-u} \cite{book_fred}.
-Kod iz datoteke se kompajluje komandom {\em erlc} i navođenjem imena fajla sa ekstenzijom {\em erl}.
+K\^od iz datoteke se kompajluje komandom {\em erlc} i navođenjem imena fajla sa ekstenzijom {\em erl}.
 Nakon toga se dobija izvršna datoteka sa ekstenzijom {\em beam} koja se može
 pokrenuti uz navođenje adekvatnih flegova. 
 
 \subsection{Windows}
 \label{subsec:instalacijaWindows}
-Na operativnom sistemu {\em Windows}, Erlang se može instalirati preuzimanjem binarne datoteke sa oficijalnog sajta programskog jezika. Dupli klik na {\em .exe} fajl i onda je potrebno ispratiti uputstva. \\
+Na operativnom sistemu {\em Windows}, Erlang se može instalirati preuzimanjem binarne datoteke sa oficijalnog sajta \cite{sajt} programskog jezika. Posle duplog klika na {\em .exe} fajl samo je potrebno ispratiti uputstva. \\
 
 Pokretanje interpretatora se vrši na isti način kao i na {\em Linux} sistemima. Ukoliko naiđete na neki problem sa instalacijom i kompilacijom možete pronaći rešenje u dokumentaciji programskog jezika \cite{sajt}.
 
