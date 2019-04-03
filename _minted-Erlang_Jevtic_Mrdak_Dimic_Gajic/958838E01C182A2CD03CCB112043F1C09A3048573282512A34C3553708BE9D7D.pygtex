@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{ime\PYGZus{}funckije}\PYG{p}{(}\PYG{n}{a11}\PYG{p}{,} \PYG{n}{a12}\PYG{p}{,} \PYG{p}{...} \PYG{n}{a1N}\PYG{p}{)} \PYG{p}{[}\PYG{k}{when} \PYG{n}{g11}\PYG{p}{,} \PYG{n}{g12}\PYG{p}{,} \PYG{p}{...} \PYG{n}{g1N}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}}
+	\PYG{n}{telo1}\PYG{p}{;}
+\PYG{p}{...}
+\PYG{n+nf}{ime\PYGZus{}funckije}\PYG{p}{(}\PYG{n}{aM1}\PYG{p}{,} \PYG{n}{aM2}\PYG{p}{,} \PYG{p}{...} \PYG{n}{aMN}\PYG{p}{)} \PYG{p}{[}\PYG{k}{when} \PYG{n}{gM1}\PYG{p}{,} \PYG{n}{gM2}\PYG{p}{,} \PYG{p}{...} \PYG{n}{gMN}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}}
+	\PYG{n}{teloM}\PYG{p}{.}
+\end{Verbatim}

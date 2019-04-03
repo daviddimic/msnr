@@ -200,62 +200,48 @@ su izrazi koji sadrže samo predikate oblika A op B odvojeni zarezom pri čemu s
 max(X, Y) when X > Y -> X;
 max(X, Y) -> Y.
 \end{minted}
-
 Sama funkcija je definisana preko pokpalanja obrazaca sa korišćenjem čuvara. U sledećem delu formalizovaćemo šta je funkcija u Erlangu i kako se definiše.
 
 
-
 \subsection{Funkcije}
-
 Svaka funkcija može imati više slučajeva odvojenih sa ';' 
 do kojih će doći poklapanjem obrazaca ili preko argumenata ili preko čuvara u {\em when} delu koji je opcioni. 
+Telo funkcije od niza izraza razdvojenih ','.
 Tačkom se završava definicija i odvaja od ostalih funkcija. 
 Njihovi primeri i korišćenja biće detaljnije opisani u delu \ref{sec:primeri}.
-
 \begin{minted}{erlang}
-ime_funckije(a11, a12, ... a1N) when g11, g12, ... g1N -> 
+ime_funckije(a11, a12, ... a1N) [when g11, g12, ... g1N] -> 
 	telo1;
-ime_funckije(a21, a22, ... a2N) when g21, g22, ... g2N -> 
-	telo2;
 ...
-ime_funckije(aM1, aM2, ... aMN) when gM1, gM2, ... gMN -> 
+ime_funckije(aM1, aM2, ... aMN) [when gM1, gM2, ... gMN] -> 
 	teloM.
 \end{minted}
 
 Kao u svakom funkcionalnom jeziku funkcije su građni prvog reda, 
-tako da ih možemo prosleđivati kao argumente, vraćati kao povratnu vrednost itd. Na raspolaganju sam i anonimne lamda funkcije koje imaju sledeći oblik:
-
+tako da ih možemo prosleđivati kao argumente, vraćati kao povratnu vrednost itd. Na raspolaganju su nam i anonimne lamda funkcije koje imaju sledeći oblik:
 \begin{minted}{erlang}
 fun(a1, a2, ... aN) -> telo end.
 \end{minted}
 
+Česte su rekurzivne definicije funkcija, 
+ali moramo imati na umu da su najefikasnija repna rekurzija za koje nije potreban stek. Mnoge funkcije u Erlangu dizajnirane su da se vrte u beskonačnim petljama, posebno u klijent-server modelu u ulozi servera opisanog u narednom poglavlju \ref{sec:konkurentnost}.
 
 
-
-\subsection{Konkurentnost}
-\label{subsec:konkurentnost}
-
-Jedna od osnovnih osobina Erlanga je konkurentnost i koncept na kom je zasnovana.
-Reč konkurentnost se odnosi na više radnji koje se dešavaju u istom trenutku. Posmatrajući svet oko
+\section{Konkurentnost kao glavna specifičnost}
+\label{sec:konkurentnost}
+Jedna od osnovnih osobina Erlanga i specifičnost po kojom se izdvaja od drugih jezika je konkurentnost i koncept na kom je zasnovana.
+Posmatrajući svet oko
 sebe, uviđamo da je on u suštini konkurentan - u istom trenutku se dešava veliki broj procesa. \cite{phdthesis}
 U tom istom trenutku, mi smo sposobni da takav svet pojmimo i odreagujemo na sve što se u njemu dešava. Dakle, mi prirodno razumemo konkurentnost.
-Tako se i prirodno nameće potreba za programskim jezikom koji bi omogućavao jednostavno modelovanje sveta kakav on stvarno jeste. \\
+Tako se i prirodno nameće potreba za programskim jezikom koji bi omogućavao jednostavno modelovanje sveta kakav on stvarno jeste.
 
-Koncept konkurentnosti implementiran u Erlangu se zove konkurentnost slanjem poruka (eng.~{\em message passing concurrency}) (šematski prikazan na slici \ref{fig:concurrency})
-i podrazumeva postojanje velikog broja procesa koji nikad ne dele memoriju, već komuniciraju isključivo asinhronim slanjem poruka \cite{book_joe}.
+\subsection{Implenetacija}
+Koncept konkurentnosti implementiran u Erlangu se zove konkurentnost slanjem poruka (eng.~{\em message passing concurrency}, šematski prikazan na slici \ref{fig:concurrency}). Ovo podrazumeva postojanje velikog broja procesa koji nikad ne dele memoriju, već komuniciraju isključivo asinhronim slanjem poruka \cite{book_joe}.
 Sva izračunavanja se obavljaju u okviru procesa i trebalo bi da sistem bude dizajniran tako da jedan proces radi jedan mali posao.
 Važno je napomenuti da procesi u Erlangu nisu procesi operativnog sistema, već Erlanga.
 To je moguće zbog toga što se programi napisani u Erlangu izvršavaju na BEAM virtuelnoj mašini.
 Tako, procesi u Erlangu se prave i uništavaju jako brzo, zauzimaju samo onoliko memorije koliko je neophodno, u većini slučajeva jako malo
 i ponašaju se isto na svim operativnim sistemima \cite{book_joe}.
-\\
-
-Poređenja radi, koncept konkurentnosti korišćen od strane većine programskih jezika je takozvani 
-koncept konkurentnosti deljenih stanja (eng.~{\em shared state concurrency}) gde procesi 
-menjaju memoriju (nasuprot tome, u Erlangu vrednost promenljivoj može biti dodeljena samo jednom) \cite{book_joe}. 
-U slučaju da više procesa žele da menjaju istu memoriju, tzv. kritična sekcija, potrebno je 
-nekako zaštiti taj deo memorije (muteksi, katanci i dr.). U slučaju da do greške dođe baš u kritičnoj sekciji,
-ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem slučaju sistem prekida sa radom. \\
 
 \begin{figure}[h!]
 \begin{center}
@@ -265,81 +251,78 @@ ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem sluča
 \label{fig:concurrency}
 \end{figure} 
 
-%TODO Skrati ovo tako da bude 1-2 primera koji obuhvata sve ovo
-%TODO Primer celokupnog kratkog konkuretnog programa iz knjige - strana 148 na e-readingK
-%TODO Registrovani procesi?
-%TODO Klijent-server ?
+Poređenja radi, koncept konkurentnosti korišćen od strane većine programskih jezika je takozvani 
+koncept konkurentnosti deljenih stanja (eng.~{\em shared state concurrency}) gde procesi 
+menjaju memoriju (nasuprot tome, u Erlangu vrednost promenljivoj može biti dodeljena samo jednom) \cite{book_joe}. 
+U slučaju da više procesa žele da menjaju istu memoriju, tzv. kritična sekcija, potrebno je 
+nekako zaštiti taj deo memorije (muteksi, katanci i dr.). U slučaju da do greške dođe baš u kritičnoj sekciji,
+ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem slučaju sistem prekida sa radom.
 
-Programski jezik Erlang omogućava kreiranje novog procesa na jednostavan način, jednim pozivom funkcije {\em spawn} koja vraća identifikator procesa (eng.~{\em process identifier}) na osnovu kog procesi mogu da se razlikuju:
+\subsection{Slanje i primanje poruka}
+%Slanje
+Erlang omogućava jednostavano kreiranje novog procesa pozivom funkcije {\em spawn} koja vraća pid (eng.~{\em process identifier}) na osnovu kojeg svaki proces može da razlikuje ostale procese.
 \begin{minted}{erlang}
-Pid = spawn(Module, FunctionName, ArgumentList) 
-\end{minted}
-Može da se koristi i kraći zapis:
-\begin{minted}{erlang}
-Pid = spawn(FunctionName) 
+Pid = spawn([Module], FunctionName, [ArgumentList]) 
 \end{minted}
 
-Kao što smo već rekli, jedini način za ostvarivanje komunikacije između dva procesa je putem slanja poruka korišćenjem operatora '!': 
+Jedini način za ostvarivanje komunikacije između dva procesa je putem slanja poruka korišćenjem operatora '!'. Procesu sa identifikatorom {\em Pid} šalje se poruka sadržana u promenljivoj {\em Message}, 
+pri čemu poruka može biti bilo koji validni term. 
+Operator `!` evoluira svoje argumente – prvo levi argument da bi se dobio pid procesa koji prima poruku, 
+a potom desni da bi se dobila poruka koja se šalje. 
+Povratna vrednost je baš ta poruka.
+Slanje poruka je asinhrono, pošiljalac neće čekati da poslata poruka stigne na odredište niti da bude primljena.
 \begin{minted}{erlang}
 Pid ! Message 
 \end{minted}
-Ovakav zapis omogućava da se procesu sa identifikatorom {\em Pid} pošalje poruka sadržana u promenljivoj {\em Message}. Ono što je zanimljivo je da operator '!' vraća baš sadržaj poruke, pa ako bismo želeli poslati poruku svim procesima to bi izgledalo ovako:
-\begin{minted}{erlang}
-Pid1 ! Pid2 ! ... ! PidN ! Message 
-\end{minted} 
 
-Bitno je napomenuti da je slanje poruka u Erlang-u asinhrono, odnosno pošiljaoc neće čekati da poslata poruka stigne na odredište niti da bude primljena. \\
-
-Za primanje poruka koristi se operator {\em receive} na sledeći način:
-\begin{minted}{erlang}
-receive
-    Pattern1 [when Guard1] ->
-        Expressions1 ;
-    Pattern2 [when Guard2] ->
-        Expressions2 ;
-	... 
-end
-\end{minted}
-Kada poruka stigne procesu prvo se pokušava poklapanje dobijene poruke sa gotovim šablonom 
-{\em Pattern1}. Ako uspe da se poklopi, onda se izvršavaju akcije date sa {\em Expressions1}, u suprotnom pokušava sa ostalim šablonima. Ukoliko se ne poklopi ni sa jednim, onda se ta poruka čuva za kasnije obrađivanje. \\
-
-Ovakav prijem poruka ima veliku manu. Naime, šta ako poslata poruka nikad ne stigne na odredište? To može da se desi kao posledica na primer pada procesa koji je poslao poruku. Da bismo izbegli večno čekanje, uvodi se maksimalno vreme čekanja poruke (eng.~{\em timeout}):
+%Primanje
+Za primanje poruka koristi se operator {\em receive}. 
+Svaki proces ima svoje sanduče gde se nalaze poruke u redosledu pristizanja. 
+Poruke se porede poklapanjem obrazaca. 
+Kada poklapanje uspe poruka se vadi iz sandučeta i izvršava se navedena akcija. 
+{\em Receive} vraća vrednost poslednjg izraza iz izvršene akcije.
+Ako poslata poruka nikad ne stigne na odredište, što se može desiti npr. kao posledica pada procesa koji je poslao poruku, izbegavamo beskonačno čekanje tako što se uvodi maksimalno vreme čekanja (eng.~{\em timeout}).
 \begin{minted}{erlang}
 receive
     Pattern1 [when Guard1] ->
-        Expressions1 ;
+        Expressions1;
     Pattern2 [when Guard2] ->
-        Expressions2 ;
+        Expressions2;
 	... 
-after Time -> 
-	Expressions
+	[after Time -> 
+		Expressions]
 end
 \end{minted}
 
-Ukoliko  želimo da primimo bilo koju poruku to može da se uradi korišćenjem {\em AnyMessage}:
-\begin{minted}{erlang}
-receive
-	AnyMessage ->
-		Expressions
-end
-\end{minted}
-
-Ako bismo želeli da primimo poruku od konkretnog procesa neobhodno da pri slanju poruke pošiljaoc pošalje i svoj pid:
+Ukoliko želimo da primimo bilo koju poruku to može da se uradi korišćenjem {\em AnyMessage}. 
+Ali, češće želimo da primamo samo one poruke koje su namenjene nama. 
+Da bismo to ostvarili moramo poslati svoj pid 
+(ako šaljemo pismo moramo napisati svoju adresu da bismo dobili odgovor) 
+što se postiže sa self() funkcijom koja vraća pid procesa koji šalje zahtev.
 \begin{minted}{erlang}
 Pid ! {self(), Message}
 \end{minted}
 
-Onda primanje poruke izgleda:
+\subsection{Klijent-server model}
+Kada šaljemo poruku procesu moramo znati njegov pid. 
+Ovo često nije praktično zbog mogućeg velikog broja procesa, niti poželjno iz bezbedonosnih razloga 
+(neki procesi bi trebalo da sakriju svoj identitet). 
+Da bi bilo omogućeno slanje poruka bez poznavanja identifikatora uvodi se pojam {\em registrovanja procesa}, tj. davanje imena koje mora biti atom. 
+Funkcijom {\em register} atom se vezuje za pid i na dalje ga možemo indentifikovati preko dodeljenog atoma.
 \begin{minted}{erlang}
-receive
-            {Pid,Msg} ->
-... end
+register(name, Pid)
 \end{minted}
 
-\section{Okruženja (framework) i njihove karakteristike}
-\label{sec:okruzenja}
-Programski jezik Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}), ali takođe nudi mnoštvo mogućnosti koje ga čine dobrim jezikom za veb programiranje. Na primer, mogućnost reagovanja na više korisničkih zahteva istovremeno, ne razmišljajući o problemima konkurentnosti.\\
+Glavni razlog registrovanja procesa je da se omogući {\em klijent-server model} koji je ključni za komunikaciju između procesa u Erlangu.
+U ovom modelu obe strane mogu biti procesi na istoj ili različitim mašinama. 
+Klijent uvek započinje neko izračunavanje obraćajući se serveru, 
+koji obrađuje zahtev i vraća odgovor klijentu. Jedan jednostavan primer ovog modela biće objašnjen u delu \ref{sec:primeri}.
 
+
+
+\section{Okruženja i njihove karakteristike}
+\label{sec:okruzenja}
+Programski jezik Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}), ali takođe nudi mnoštvo mogućnosti koje ga čine dobrim jezikom za veb programiranje. Na primer, mogućnost reagovanja na više korisničkih zahteva istovremeno, ne razmišljajući o problemima konkurentnosti.
 U tabeli \ref{tab:tabela_okruzenja} je prikazano poređenje 3 glavna veb okruženja: {\em ChicagoBoss}, {\em Nitrogen} i {\em Zotonic} po nekim interesantnim osobinama.
 
 \begin{table}[h!]
@@ -362,21 +345,28 @@ Integrisani WebSocket &\checkmark  &\checkmark & \checkmark  \\ \hline
 \end{center}
 \end{table} 
 
-Okruženje {\em ChicagoBoss} sadrži sloj apstrakcije baze podataka (eng.~{\em database abstraction layer}) pod nazivom {\em BossDB} \cite{ChicagoBossDocumentation} koji je zaslužan za postavljanje upita nad bazom podataka i njeno ažuriranje. Podržani su {\em MySQL, Mnesia, Tokyo Tyrant i PostgreSQL}. Za razliku od {\em ChicagoBoss-a}, {\em Nitrogen} okruženje ne podržava model podataka uopšte, dok {\em Zotonic} \cite{ZotonicDocumentation} podržava isključivo {\em PostgreSQL}.\\
+Okruženje {\em ChicagoBoss} sadrži sloj apstrakcije baze podataka (eng.~{\em database abstraction layer}) pod nazivom {\em BossDB} \cite{ChicagoBossDocumentation} koji je zaslužan za postavljanje upita nad bazom podataka i njeno ažuriranje. 
+Podržani su {\em MySQL, Mnesia, Tokyo Tyrant i PostgreSQL}. 
+Za razliku od {\em ChicagoBoss-a}, {\em Nitrogen} okruženje ne podržava model podataka uopšte, dok {\em Zotonic} \cite{ZotonicDocumentation} podržava isključivo {\em PostgreSQL}.\\
 
-Takođe, interesantno je primetiti da neka okruženja imaju integrisani mejl server koji nudi funkcije za primanje i slanje e-pošte i ostale mogućnosti, čime olakšava rad korisnicima. Na primer, slanje e-pošte u okruženju {\em ChicahoBoss} izgleda ovako:
+Takođe, interesantno je primetiti da neka okruženja imaju integrisani mejl server koji nudi funkcije za primanje i slanje e-pošte i ostale mogućnosti, 
+čime olakšava rad korisnicima. 
+Na primer, slanje e-pošte u okruženju {\em ChicahoBoss} izgleda ovako:
 
 \begin{minted}{erlang}
 boss_mail:send(FromAddress, ToAddress, Subject, Body)
 \end{minted} 
 
-U tabeli \ref{tab:tabela_okruzenja} videli smo da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nastavaka (eng.~{\em trees of continuations}). Detaljnije o ovome možete pogledati u radu autora {\em ChicagoBoss} okruženja \cite{EvanMillerTesting}. Postoje gotove funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je provera da li je e-pošta ispravno primljena/poslata, da li je stranica na vebu modifikovana itd. \\
+U tabeli \ref{tab:tabela_okruzenja} videli smo da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nastavaka (eng.~{\em trees of continuations}). 
+Detaljnije o ovome možete pogledati u radu autora {\em ChicagoBoss} okruženja \cite{EvanMillerTesting}. 
+Postoje gotove funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je provera da li je e-pošta ispravno primljena/poslata, da li je stranica na vebu modifikovana itd. \\
 
-{\em Django} šabloni (eng.~{\em Django templates}) \cite{DjangoTempDoc} služe za jednostavnije i brže generisanje dinamičkih HTML stranica pomoću gotovih šablona. {\em Nitrogen} ima svoje {\em Nitrogen HTML} šablone ali je u procesu prelazak na {\em Django} šablone. \\
-
+{\em Django} šabloni (eng.~{\em Django templates}) \cite{DjangoTempDoc} služe za jednostavnije i brže generisanje dinamičkih HTML stranica pomoću gotovih šablona.
+ {\em Nitrogen} ima svoje {\em Nitrogen HTML} šablone ali je u procesu prelazak na {\em Django} šablone.
 Za {\em Nitrogen} \cite{NitrogenDocumentation} je karakteran {\em veb DSL} \cite{WebDSL} sa korišćenjem Nitrogen elemenata \cite{NitrogenDocumentation} što u suštini omogućava pisanje HTML/Javascript korišćenjem Erlang uslova pre nego HTML uslova. \\
 
-Svaki od opisanih okruženja ima svoje prednosti i mane, te zato nije jednostavno presuditi koji od ovih okruženja treba koristiti zasigurno, a koji ne treba. U zavisnosti od onoga šta je prioritet bira se odgovarajuće okruženje.
+Svaki od opisanih okruženja ima svoje prednosti i mane, te zato nije jednostavno presuditi koji od ovih okruženja treba koristiti zasigurno, a koji ne treba. 
+U zavisnosti od onoga šta je prioritet bira se odgovarajuće okruženje.
 
 \section{Instalacija i pokretanje}
 \label{sec:instalacija}
@@ -497,8 +487,6 @@ double(L)  -> map(fun(X) -> 2*X end, L).
 [2,4,6,8]
 \end{minted}
 
-\section{Specifičnosti}
-\label{sec:specificnosti}
 
 
 \section{Zaključak}
