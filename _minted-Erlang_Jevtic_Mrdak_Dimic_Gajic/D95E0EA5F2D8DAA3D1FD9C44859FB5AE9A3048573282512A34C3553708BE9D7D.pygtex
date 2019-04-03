@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+m+mi}{1}\PYG{o}{\PYGZgt{}} \PYG{n+nv}{Pid} \PYG{o}{=} \PYG{n+nb}{spawn}\PYG{p}{(}\PYG{k}{fun} \PYG{n+nn}{trougao}\PYG{p}{:}\PYG{n}{loop}\PYG{o}{/}\PYG{l+m+mi}{0}\PYG{p}{).}
+\PYG{l+m+mi}{2}\PYG{o}{\PYGZgt{}} \PYG{n+nb}{register}\PYG{p}{(}\PYG{n}{server}\PYG{p}{,} \PYG{n+nv}{Pid}\PYG{p}{).}
+\PYG{l+m+mi}{3}\PYG{o}{\PYGZgt{}} \PYG{n+nn}{trougao}\PYG{p}{:}\PYG{n+nf}{klijent}\PYG{p}{(}\PYG{n}{server}\PYG{p}{,} \PYG{p}{\PYGZob{}}\PYG{n}{hipotenuza}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{\PYGZcb{}).}
+\PYG{l+m+mi}{5}\PYG{p}{.}\PYG{l+m+mi}{0}
+\end{Verbatim}

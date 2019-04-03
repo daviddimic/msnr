@@ -137,7 +137,6 @@ kao i neka osnovna svojstva i koncepte.
 \subsection{Tipovi i promenjive}
 Na raspolaganju nam je 8 primitivnih tipova. 
 Osim uobičajnih celobrojnih, realnih vrednosti i referenci, Erlang uvodi i neke specifične tipove kao što su:
-
 \begin{list}{•}{}
 \item Atomi koji se pišu malim slovima i predstavljaju konstante i enumerisane tipove. Samo ime je njihova vrednost
 \item Binarne vrednosti omogućavaju lako i čitljivo prelamanje broja na segmente u binarni zapis na zadatoj širini. U oznaci <<vrednost:širina>>
@@ -157,11 +156,15 @@ već su one liste vrednost koje odgovaraju vrednostima karaktera. Ako svi elemen
 [65,97,2]
 \end{minted}
 U drugom primeru 2 se ne može prikazati kao karakter pa lista nije prikazana kao niska. 
-Ovde vidimo i neka elementarna izračunavanja i kako sa \# možemo elegantno koristiti bilo koju brojevnu osnovu. Da bismo sačuvali izračunavanja potrebne su nam promenjive.\\
+Ovde vidimo i neka elementarna izračunavanja i kako sa \# možemo elegantno koristiti bilo koju brojevnu osnovu. 
+Da bismo sačuvali izračunavanja potrebne su nam promenjive.\\
 
 Promenjive mogu biti vezane (eng.~{\em bound}), one kojima je ''dodeljena'' neka vrednost, i slobodne. 
-Vezivanje se vrši najviše jednom i vrednost vezanih promenjihiv više se ne može menjati (eng.~{\em single assignment variables}) osim ako se u interpreteru ne pozove funkicija f() koja sve promenjive načini slobodnim. 
-Ovo je u skladu sa idejom funkcionalnih jezika da nema sporednih efekata što za posledicu ima jednostavno izvođenje konkurentnosti, iako Erlang nije čisto funkcionalan jezik.
+Vezivanje se vrši najviše jednom i vrednost vezanih promenjihiv više se ne može menjati (eng.~{\em single assignment variables}) 
+osim ako se u interpreteru ne pozove funkicija f() koja sve promenjive načini slobodnim. 
+Ovo je u skladu sa idejom funkcionalnih jezika da nema sporednih efekata 
+što za posledicu ima jednostavno izvođenje konkurentnosti, 
+iako Erlang nije čisto funkcionalan jezik.
 Zapravo, operator = ne predstavlja nikakvu dodelu već poklapanje obrazaca.
 
 
@@ -195,7 +198,6 @@ Pri unifikaciji na raspolaganju je i posebna anonimna promenjiva koja se označa
 su izrazi koji sadrže samo predikate oblika A op B odvojeni zarezom pri čemu su op validni binarni operatori poređenja\footnote{Operatori poređenja su: <, =<, >, =>, ==, /=, =:=, =/=}. Izraz sa čuvarima može da se evaluira samo u true ili false.
 \end{definition}
 Čuvari sa ključnom rečju {\em when} predstavljaju dodatno proširenje mogućnosti poklapanja obrazaca, za izvođenje jednostavnih testova i poređenja u šablonu, kao u primeru funkcije za maksimum dve vrednosti:
-
 \begin{minted}{erlang}
 max(X, Y) when X > Y -> X;
 max(X, Y) -> Y.
@@ -224,7 +226,9 @@ fun(a1, a2, ... aN) -> telo end.
 \end{minted}
 
 Česte su rekurzivne definicije funkcija, 
-ali moramo imati na umu da su najefikasnija repna rekurzija za koje nije potreban stek. Mnoge funkcije u Erlangu dizajnirane su da se vrte u beskonačnim petljama, posebno u klijent-server modelu u ulozi servera opisanog u narednom poglavlju \ref{sec:konkurentnost}.
+ali moramo imati na umu da su najefikasnije repne rekurzivne za koje nije potreban stek. 
+Mnoge funkcije u Erlangu dizajnirane su da se vrte u beskonačnim petljama, 
+posebno u klijent-server modelu u ulozi servera opisanog u narednom poglavlju \ref{sec:konkurentnost}.
 
 
 \section{Konkurentnost kao glavna specifičnost}
@@ -398,7 +402,12 @@ Pokretanje interpretatora se vrši na isti način kao i na {\em Linux} sistemima
 
 \section{Primeri kodova sa objašnjenjima}
 \label{sec:primeri}
-Počećemo od primera "Hello World".  
+Počećemo od jednostavnog primera ''Hello World'' i videti osnovnu sintaksu. 
+Jednolinijski komentari počinju znakom \%. 
+Prvo navodimo naziv našeg modula u kome se nalaze funkcije koje pišemo, 
+a da bi one mogle da se koriste izvan modula potrebno je da ih navedemo u export naredbi. /0 označava da funkcija \textit{start} prima 0 argumenata.
+Da bismo željeni tekst prikazali u konzoli, koristimo \textbf{io} modul koji sadrži potrebne IO funkcije u Erlangu.
+
 \begin{minted}{erlang}
 % hello world program
 -module(helloworld). 
@@ -411,13 +420,6 @@ start() ->
 > Hello, world!
 \end{minted}
 
-Nekoliko napomena:
-\begin{itemize}
-  \item Znak \% označava linijski komentar.
-  \item Modul je ekvivalent namespace-u u drugim jezicima.
-  \item Export funkcija se koristi da bi funkcija definisana u programu mogla da se koristi. Mi definišemo funkciju start, a da bismo mogli da je koristimo potreban nam je export. /0 označava da funkcija \textit{start} prima 0 argumenata.
-  \item Da bismo željeni tekst prikazali u konzoli, koristimo \textbf{io} modul koji sadrži potrebne IO funkcije u Erlangu.
-\end{itemize}
 
 Pošto smo videli kako string možemo ispisati na standardni izlaz, sada ćemo videti kako broj možemo ispisati. Sledeći program prikazuje zbir dva intiger-a.
 
@@ -485,6 +487,46 @@ double(L)  -> map(fun(X) -> 2*X end, L).
 \end{minted}
 \begin{minted}{erlang}
 [2,4,6,8]
+\end{minted}
+
+
+%primer konkurentnost
+Naredni primer pokazuje kako komuniciraju procesi u klijent-server modelu opisanog u delu \ref{sec:konkurentnost}.
+Klijent šalje zahtev serveru za računanje hipotenuze ili površine pravouglog trougla,
+a server vrši izračunavanje u funkciji {\em loop} i vraća odgovoru klijentu. 
+Kada modul {\em trougao} bude implementiran, izvršavanje će izgledati ovako:
+\begin{minted}{erlang}
+1> Pid = spawn(fun trougao:loop/0).
+2> register(server, Pid).
+3> trougao:klijent(server, {hipotenuza,3,4}).
+5.0
+\end{minted}
+
+Prvo kreiramo novi serverski proces i dobijemo njegov pid, 
+potom ga registrujemo i pozovemo funkciju {\em klijent} koja enkapsulira slanje zahteva i primanje odgovora. U njoj klijent mora da uključi svoju adresu sa self().
+Potom čeka odgovor koji je namenjen njemu, odnosno prihvata odgovor kada se poklopi obrazac torke \{Pid, Response\}.
+\begin{minted}{erlang}
+klijent(Pid, Request) ->
+    Pid ! {self(), Request},
+    receive
+	{Pid, Response} ->
+	    Response
+    end.
+\end{minted}
+
+Sa klijetske strane takođe se vrši poklapanje obrazaca sa atomom koji je poslat u zahtevu (šta klijent želi da računa), 
+izračunavanje i slanje odgovora na adresu klijenta.
+Kompletan kod dostupan je na: %TODO link
+\begin{minted}{erlang}
+loop() ->
+    receive
+	{From, {hipotenuza, A, B}} -> 
+	    From ! {self(), sqrt(A*A + B*B)}, loop();
+	{From, {povrsina, A, B}} -> 
+	    From !  {self(), A * B / 2}, loop();
+	{From, Other} ->
+	    From ! {self(), {error, Other}}, loop()
+    end.
 \end{minted}
 
 
