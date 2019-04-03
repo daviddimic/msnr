@@ -75,7 +75,6 @@ Na samom početku rada u poglavlju \ref{sec:nastanak} ćemo se upoznati sa istor
 
 \section{Nastanak i istorijski razvoj}
 \label{sec:nastanak}
-
 1981. godine je oformljena nova laboratorija, Erikson CSLab (eng.~{\em The Ericsson CSLab}) u okviru firme Erikson sa
 ciljem da predlaže i stvara nove arhitekture, koncepte i strukture za buduće softverske sisteme.
 Eksperimentisanje sa dodavanjem konkurentnih procesa u programski jezik Prolog je bio jedan
@@ -98,7 +97,6 @@ Jahu (eng.~{\em Yahoo!}), Amazon, Fejsbuk (eng.~{\em Facebook}).
 
 \subsection{Uticaji}
 \label{subsec:uticaji}
-
 Erlang je funkcionalan i konkurentan programski jezik.
 Na njega, kao na funkcionalan jezik, uticao je Lisp funkcionalnom paradigmom koju je 
 prvi predstavio. Na planu konkurentnosti Erlang je svojevrstan primer (detaljnije u poglavlju \ref{sec:osobine}). \\ 
@@ -107,16 +105,16 @@ Na početku, Erlang je stvaran kao neki dodatak na Prolog, vremenom prerastao u
 dijalekt Prologa, a kasnije je zbog svoje kompleksnosti i sveobuhvatnosti evoluirao
 u potpuno novi programski jezik. Stoga je uticaj Prologa na Erlang bio 
 neminovan. Sintaksa Erlanga u velikoj meri podseća na Prologovu 
-(npr. promenljive moraju počinjati velikim slovom u oba jezika, 
+(npr. promenljive moraju počinjati velikim slovom, 
 svaka funkcionalna celina se završava tačkom), oba jezika u velikoj meri koriste poklapanje obrazaca
 (eng.~{\em pattern matching}). \\
 
 Sa druge strane, Erlang je uticao na nastanak programskog jezika Eliksir (eng.~{\em Elixir}). Eliksir,
 uz izmenjenu Erlangovu sintaksu, dopunjenu Erlangovu standardnu biblioteku, uživa široku popularnost.
 
+
 \section{Osnovna namena, svrha i mogućnosti}
 \label{sec:namena}
-
 Sa početkom od 1981. godine, jedan od zadataka Eriksonove laboratorije za računarstvo je bio pronalaženje načina za bolje programiranje aplikacija
 za telekomunikacije \cite{phdthesis}. Takve aplikacije su ogromni programi i od velike važnosti je da rade sve vreme (koliko je to moguće). 
 Naravno, poznato je da će tolika količina koda zasigurno imati greške, ali u toj vrsti industrije, greške mogu biti fatalne. Na primer, 
@@ -126,16 +124,16 @@ Kako se izboriti sa greškama u softverskim sistemima kada su one neminovne je o
 
 Tako, jedna od njegovih namena jeste pisanje što sigurnijih programa koje je moguće popraviti bez potrebe za isključivanjem čitavog sistema \cite{book_joe}.
 Vrlo brzi konkurentni i distribuirani programi su još jedna od Erlangovih specijalnosti. 
-Poseban koncept konkurentnosti koji je implementiran u Erlangu (više u poglavlju \ref{sec:osobine}), kao i funkcionalna paradigma 
+Poseban koncept konkurentnosti koji je implementiran u Erlangu (više u poglavlju \ref{sec:konkurentnost}), kao i funkcionalna paradigma 
 omogućavaju lako skaliranje programa i pravljenje velikih konkurentnih i distribuiranih sistema.
 Velika zajednica koja se godinama razvijala je doprinela stvaranju velikog broja biblioteka i okruženja za Erlang, te proširila njegov 
 inicijalni skup mogućnosti i namena \cite{book_joe}. 
 
+
 \section{Osnovne osobine}
 \label{sec:osobine}
-Erlang je zasnovan na deklarativnoj i funckionalnoj paradigmi sa akcentom na konkurentnosti. 
-Kao pripadnik funkcionalne paradigme poseduje sakupljač otpadaka 
-koji upravlja memorijom u realnom vremenu tako da se ne mogu pojaviti greške programera pri rukovanju memorijom. 
+Erlang je zasnovan na funckionalnoj i deklarativnoj paradigmi sa akcentom na konkurentnosti. 
+Kao pripadnik funkcionalne paradigme poseduje sakupljač otpadaka u realnom vremenu, tako da se ne mogu pojaviti greške programera pri rukovanju memorijom. 
 Takođe, sistem ima ugrađenu kontrolu vremena, 
 u smislu da se može odrediti koliko će neki proces čekati na poruku pre nego što se aktivira, 
 pa omogućava pisanje aplikacija koje rade u mekom realnom vremenu (eng.~{\em soft real-time systems}) sa odzivom od nekoliko milisekudni. 
@@ -145,10 +143,11 @@ kao i neka osnovna svojstva i koncepte.
 
 
 \subsection{Tipovi i promenjive}
+Erlang je dinamički jako tipiziran jezik. 
 Na raspolaganju nam je 8 primitivnih tipova. 
 Osim uobičajnih celobrojnih, realnih vrednosti i referenci, Erlang uvodi i neke specifične tipove kao što su:
 \begin{list}{•}{}
-\item Atomi koji se pišu malim slovima i predstavljaju konstante i enumerisane tipove. Samo ime je njihova vrednost
+\item Atomi koji se pišu malim slovima i predstavljaju konstante i enumerisane tipove. Samo ime je njihova vrednost. Pandan su makroima i enumerisanim tipovima u C-u.
 \item Binarne vrednosti omogućavaju lako i čitljivo prelamanje broja na segmente u binarni zapis na zadatoj širini. U oznaci <<vrednost:širina>>
 \item Identifikatori procesa predstavljaju reference na procese. Kreiraju se funkcijom spawn
 \item Portovi služe za komunikaciju sa spoljašnjim svetom. Ako su u skladu sa protokolom portova preko njih se mogu slati i primati poruke
@@ -245,16 +244,16 @@ posebno u klijent-server modelu u ulozi servera opisanog u narednom poglavlju \r
 \label{sec:konkurentnost}
 Jedna od osnovnih osobina Erlanga i specifičnost po kojom se izdvaja od drugih jezika je konkurentnost i koncept na kom je zasnovana.
 Posmatrajući svet oko
-sebe, uviđamo da je on u suštini konkurentan - u istom trenutku se dešava veliki broj procesa. \cite{phdthesis}
+sebe, uviđamo da je on u suštini konkurentan - u istom trenutku se dešava veliki broj procesa \cite{phdthesis}. 
 U tom istom trenutku, mi smo sposobni da takav svet pojmimo i odreagujemo na sve što se u njemu dešava. Dakle, mi prirodno razumemo konkurentnost.
 Tako se i prirodno nameće potreba za programskim jezikom koji bi omogućavao jednostavno modelovanje sveta kakav on stvarno jeste.
 
-\subsection{Implementacija}
-Koncept konkurentnosti implementiran u Erlangu se zove konkurentnost slanjem poruka (eng.~{\em message passing concurrency}, šematski prikazan na slici \ref{fig:concurrency}). Ovo podrazumeva postojanje velikog broja procesa koji nikad ne dele memoriju, već komuniciraju isključivo asinhronim slanjem poruka \cite{book_joe}.
+\subsection{Koncept}
+Koncept konkurentnosti implementiran u Erlangu se zove konkurentnost slanjem poruka (eng.~{\em message passing concurrency}), šematski prikazan na slici \ref{fig:concurrency}. Ovo podrazumeva postojanje velikog broja procesa koji nikad ne dele memoriju, već komuniciraju isključivo asinhronim slanjem poruka \cite{book_joe}.
 Sva izračunavanja se obavljaju u okviru procesa i trebalo bi da sistem bude dizajniran tako da jedan proces radi jedan mali posao.
 Važno je napomenuti da procesi u Erlangu nisu procesi operativnog sistema, već Erlanga.
-To je moguće zbog toga što se programi napisani u Erlangu izvršavaju na BEAM virtuelnoj mašini.
-Tako, procesi u Erlangu se prave i uništavaju jako brzo, zauzimaju samo onoliko memorije koliko je neophodno, u većini slučajeva jako malo
+To je moguće zbog toga što se njegovi programi izvršavaju na BEAM virtuelnoj mašini.
+Procesi se prave i uništavaju jako brzo, zauzimaju samo onoliko memorije koliko je neophodno (u većini slučajeva vrlo malo)
 i ponašaju se isto na svim operativnim sistemima \cite{book_joe}.
 
 \begin{figure}[h!]
@@ -279,15 +278,12 @@ Erlang omogućava jednostavano kreiranje novog procesa pozivom funkcije {\em spa
 Pid = spawn([Module], FunctionName, [ArgumentList]) 
 \end{minted}
 
-Jedini način za ostvarivanje komunikacije između dva procesa je putem slanja poruka korišćenjem operatora '!'. Procesu sa identifikatorom {\em Pid} šalje se poruka sadržana u promenljivoj {\em Message}, 
+Jedini način za ostvarivanje komunikacije između dva procesa je putem slanja poruka korišćenjem operatora '!'. U {\mintinline{erlang}{Pid ! Message}} procesu sa identifikatorom {\em Pid} šalje se poruka sadržana u promenljivoj {\em Message}, 
 pri čemu poruka može biti bilo koji validni term. 
-Operator `!` evoluira svoje argumente – prvo levi argument da bi se dobio pid procesa koji prima poruku, 
+Operator slanja evoluira svoje argumente – prvo levi argument da bi se dobio pid procesa koji prima poruku, 
 a potom desni da bi se dobila poruka koja se šalje. 
 Povratna vrednost je baš ta poruka.
-Slanje poruka je asinhrono, pošiljalac neće čekati da poslata poruka stigne na odredište niti da bude primljena.
-\begin{minted}{erlang}
-Pid ! Message 
-\end{minted}
+Slanje poruka je asinhrono, pošiljalac neće čekati da poslata poruka stigne na odredište niti da bude primljena.\\
 
 %Primanje
 Za primanje poruka koristi se operator {\em receive}. 
@@ -312,7 +308,7 @@ Ukoliko želimo da primimo bilo koju poruku to može da se uradi korišćenjem {
 Ali, češće želimo da primamo samo one poruke koje su namenjene nama. 
 Da bismo to ostvarili moramo poslati svoj pid 
 (ako šaljemo pismo moramo napisati svoju adresu da bismo dobili odgovor) 
-što se postiže sa self() funkcijom koja vraća pid procesa koji šalje zahtev.
+što se postiže sa funkcijom self().
 \begin{minted}{erlang}
 Pid ! {self(), Message}
 \end{minted}
@@ -322,10 +318,7 @@ Kada šaljemo poruku procesu moramo znati njegov pid.
 Ovo često nije praktično zbog mogućeg velikog broja procesa, niti poželjno iz bezbedonosnih razloga 
 (neki procesi bi trebalo da sakriju svoj identitet). 
 Da bi bilo omogućeno slanje poruka bez poznavanja identifikatora uvodi se pojam {\em registrovanja procesa}, tj. davanje imena koje mora biti atom. 
-Funkcijom {\em register} atom se vezuje za pid i na dalje ga možemo indentifikovati preko dodeljenog atoma.
-\begin{minted}{erlang}
-register(name, Pid)
-\end{minted}
+Funkcijom {\mintinline{erlang}{register(name, Pid)}} atom {\em name} se vezuje za {\em Pid} i na dalje ga možemo indentifikovati preko dodeljenog atoma.\\
 
 Glavni razlog registrovanja procesa je da se omogući {\em klijent-server model} koji je ključni za komunikaciju između procesa u Erlangu.
 U ovom modelu obe strane mogu biti procesi na istoj ili različitim mašinama. 
@@ -335,7 +328,7 @@ koji obrađuje zahtev i vraća odgovor klijentu. Jedan jednostavan primer ovog m
 
 \section{Okruženja i njihove karakteristike}
 \label{sec:okruzenja}
-Programski jezik Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}), ali takođe nudi mnoštvo mogućnosti koje ga čine dobrim jezikom za veb programiranje. Na primer, mogućnost reagovanja na više korisničkih zahteva istovremeno, ne razmišljajući o problemima konkurentnosti.
+Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}), ali takođe nudi mnoštvo mogućnosti koje ga čine dobrim jezikom za veb programiranje. Na primer, mogućnost reagovanja na više korisničkih zahteva istovremeno, ne razmišljajući o problemima konkurentnosti.
 U tabeli \ref{tab:tabela_okruzenja} je prikazano poređenje 3 glavna veb okruženja: {\em ChicagoBoss}, {\em Nitrogen} i {\em Zotonic} po nekim interesantnim osobinama.
 
 \begin{table}[h!]
@@ -370,9 +363,8 @@ Na primer, slanje e-pošte u okruženju {\em ChicahoBoss} izgleda ovako:
 boss_mail:send(FromAddress, ToAddress, Subject, Body)
 \end{minted} 
 
-U tabeli \ref{tab:tabela_okruzenja} videli smo da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nastavaka %TODO PREVOD??
- (eng.~{\em trees of continuations}). 
-Detaljnije o ovome možete pogledati u radu autora {\em ChicagoBoss} okruženja \cite{EvanMillerTesting}. 
+U tabeli \ref{tab:tabela_okruzenja} vidimo da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nastavaka %TODO PREVOD??
+ (eng.~{\em trees of continuations}) \cite{EvanMillerTesting}. 
 Postoje gotove funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je provera da li je e-pošta ispravno primljena/poslata, da li je stranica na vebu modifikovana itd. \\
 
 {\em Django} šabloni (eng.~{\em Django templates}) \cite{DjangoTempDoc} služe za jednostavnije i brže generisanje dinamičkih HTML stranica pomoću gotovih šablona.
@@ -382,17 +374,15 @@ Svaki od opisanih okruženja ima svoje prednosti i mane, te zato nije jednostavn
 
 \section{Instalacija i pokretanje}
 \label{sec:instalacija}
-
 Postoji više načina da se instalira Erlang sa neophodnim paketima.
-U ovom poglavlju će biti predstavljena instalacija korišćenjem prekompajliranih binarnih fajlova 
+Ovde će biti predstavljena instalacija korišćenjem prekompajliranih binarnih fajlova 
 za neke operativne sisteme zasnovane na Linuksovom kernelu i pokretanje na jednom od njih, kao i instalacija za Windows.
+
 
 \subsection{Linux}
 \label{subsec:instalacijaLinux}
-
 Na operativnim sistemima zasnovanim na {\em Ubuntu}, Erlang se može instalirati sa:
-{\em sudo apt-get install erlang}. \\
-
+{\em sudo apt-get install erlang}. 
 Nakon uspešne instalacije, Erlang kod je moguće kompajlovati
 ili interpretirati i pokretati u interpretatoru.
 Interpretator se pokreće kucanjem komande {\em erl} u terminalu, a iz istog
@@ -402,20 +392,19 @@ K\^od iz datoteke se kompajluje komandom {\em erlc} i navođenjem imena fajla sa
 Nakon toga se dobija izvršna datoteka sa ekstenzijom {\em beam} koja se može
 pokrenuti uz navođenje adekvatnih flegova. 
 
+
 \subsection{Windows}
 \label{subsec:instalacijaWindows}
-Na operativnom sistemu {\em Windows}, Erlang se može instalirati preuzimanjem binarne datoteke sa oficijalnog sajta \cite{sajt} programskog jezika. Posle duplog klika na {\em .exe} fajl samo je potrebno ispratiti uputstva. \\
+Na operativnom sistemu {\em Windows}, Erlang se može instalirati preuzimanjem binarne datoteke sa oficijalnog sajta \cite{sajt} programskog jezika. Posle duplog klika na {\em .exe} fajl samo je potrebno ispratiti uputstva. Pokretanje interpretatora se vrši na isti način kao i na Linuks sistemima.
 
-Pokretanje interpretatora se vrši na isti način kao i na {\em Linux} sistemima. Ukoliko naiđete na neki problem sa instalacijom i kompilacijom možete pronaći rešenje u dokumentaciji programskog jezika \cite{sajt}.
 
 \section{Primeri kodova sa objašnjenjima}
 \label{sec:primeri}
-Počećemo od jednostavnog primera ''Hello World'' i videti osnovnu sintaksu. 
+Počećemo od jednostavnog primera ''Hello World'' i videti osnovnu sintaksu jezika. 
 Jednolinijski komentari počinju znakom \%. 
 Prvo navodimo naziv našeg modula u kome se nalaze funkcije koje pišemo, 
 a da bi one mogle da se koriste izvan modula potrebno je da ih navedemo u export naredbi. /0 označava da funkcija \textit{start} prima 0 argumenata.
 Da bismo željeni tekst prikazali u konzoli, koristimo \textbf{io} modul koji sadrži potrebne IO funkcije u Erlangu.
-
 \begin{minted}{erlang}
 % hello world program
 -module(helloworld). 
@@ -423,32 +412,13 @@ Da bismo željeni tekst prikazali u konzoli, koristimo \textbf{io} modul koji sa
 
 start() -> 
    io:fwrite("Hello, world!\n").
-\end{minted}
-\begin{minted}{erlang}
+
 > Hello, world!
 \end{minted}
-
-
-Pošto smo videli kako string možemo ispisati na standardni izlaz, sada ćemo videti kako broj možemo ispisati. Sledeći program prikazuje zbir dva intiger-a.
-
-\begin{minted}{erlang}
--module(helloworld).
--export([start/0]).
-
-start() ->
-   io:fwrite("~w",[1+1]).
-\end{minted}
-\begin{minted}{erlang}
-> 2
-\end{minted}
-
-Na sličan način možemo ispisivati i razne druge tipove.\\
 
 Kao i većina funkcionalnih jezika, i Erlang podržava shvatanje listi (eng. list comprehensions), što ilustrujemo narednim primerima.
 \begin{minted}{erlang}
 > [X || X <- [1,2,a,3,4,b,5,6], X > 3].
-\end{minted}
-\begin{minted}{erlang}
 [a,4,b,5,6]
 \end{minted}
 Notacija {\mintinline{erlang}{X <- [1, 2, a, ...]}} je generator, dok je izraz {\mintinline{erlang}{X>3}} filter.\\
@@ -456,16 +426,12 @@ Notacija {\mintinline{erlang}{X <- [1, 2, a, ...]}} je generator, dok je izraz {
 Možemo primeniti više filtera.
 \begin{minted}{erlang}
 > [X || X <- [1,2,a,3,4,b,5,6], integer(X), X > 3].
-\end{minted}
-\begin{minted}{erlang}
 [4,5,6]
 \end{minted}
 
 Takođe, moguće je kombinovati i generatore. Na primer, Dekartov proizvod dve liste možemo napisati kao
 \begin{minted}{erlang}
 > [{X, Y} || X <- [1,2,3], Y <- [a,b]].
-\end{minted}
-\begin{minted}{erlang}
 [{1,a},{1,b},{2,a},{2,b},{3,a},{3,b}]
 \end{minted}
 
@@ -484,16 +450,10 @@ map(F, List) je funkcija koja prima funkciju F i listu L i vraća novu listu dob
 \begin{minted}{erlang}
 map(F, [H|T]) -> [F(H)|map(F, T)];
 map(F, [])    -> [].
-\end{minted}
 
-\begin{minted}{erlang}
 double(L)  -> map(fun(X) -> 2*X end, L).
-\end{minted}
 
-\begin{minted}{erlang}
 > double([1,2,3,4]).
-\end{minted}
-\begin{minted}{erlang}
 [2,4,6,8]
 \end{minted}
 
@@ -502,7 +462,8 @@ double(L)  -> map(fun(X) -> 2*X end, L).
 Naredni primer pokazuje kako komuniciraju procesi u klijent-server modelu opisanog u delu \ref{sec:konkurentnost}.
 Klijent šalje zahtev serveru za računanje hipotenuze ili površine pravouglog trougla,
 a server vrši izračunavanje u funkciji {\em loop} i vraća odgovoru klijentu. 
-Kada modul {\em trougao} bude implementiran, izvršavanje će izgledati ovako:
+Kada modul {\em trougao} bude implementiran, izvršavanje će izgledati ovako: U liniji 1 kreiramo novi serverski proces i dobijemo njegov pid, 
+potom ga registrujemo i pozovemo funkciju {\em klijent} koja enkapsulira slanje zahteva i primanje odgovora.
 \begin{minted}{erlang}
 1> Pid = spawn(fun trougao:loop/0).
 2> register(server, Pid).
@@ -510,9 +471,8 @@ Kada modul {\em trougao} bude implementiran, izvršavanje će izgledati ovako:
 5.0
 \end{minted}
 
-Prvo kreiramo novi serverski proces i dobijemo njegov pid, 
-potom ga registrujemo i pozovemo funkciju {\em klijent} koja enkapsulira slanje zahteva i primanje odgovora. U njoj klijent mora da uključi svoju adresu sa self().
-Potom čeka odgovor koji je namenjen njemu, odnosno prihvata odgovor kada se poklopi obrazac torke \{Pid, Response\}.
+U klijentskoj funkciji pošaljilac mora da uključi svoju adresu sa {\em self()} i pošalje zahtev na serverski proces.
+Potom čeka odgovor koji je namenjen njemu, odnosno prihvata odgovor kada se poklopi obrazac torke \{Pid, Response\}. Tačnije, {\em Pid} je vezana, a {\em Response} slobodan promenjiva koja će biti vezana kada stigne odgovor.
 \begin{minted}{erlang}
 klijent(Pid, Request) ->
     Pid ! {self(), Request},
@@ -524,7 +484,7 @@ klijent(Pid, Request) ->
 
 Sa klijetske strane takođe se vrši poklapanje obrazaca sa atomom koji je poslat u zahtevu (šta klijent želi da računa), 
 izračunavanje i slanje odgovora na adresu klijenta.
-Kompletan kod dostupan je na: %TODO link
+Kompletan kod dostupan je u datoteci \href{https://raw.githubusercontent.com/mrdakj/msnr/master/trougao.erl}{trougao.erl}
 \begin{minted}{erlang}
 loop() ->
     receive
@@ -539,7 +499,12 @@ loop() ->
 
 \section{Zaključak}
 \label{sec:zakljucak}
-%TODO 1. Ukratko opisati glavne doprinose rada
+U ovom radu sažete su i objašnjene najvažnije osobine i paradigme Erlanga. 
+Od elementarnih primera i upoznavanja sa sintaksom do njegove pune izražajnosti
+kada je u pitanju konkurentnost. 
+Elegantan i jednostavan rad sa komunikacijom procesa u potpunosti su opravdali ideju i namenu za koju je jezik nastao.
+Kroz izložene koncepte ovaj rad pruža odličan uvod za upoznavanje sa Erlangom i podstek čitaocu na dalje i dublje istraživanje.
+%TODO 		 1. Ukratko opisati glavne doprinose rada
 %			 2. Sta je to po cemu treba pamtiti rad - konkuretnost, brzina?, sigurnost? jezika
 %			 3. Sumirati nalaze, navesti osnovne zakljucke
 %			 4. Pravci buduceg razvoja, nove upotrebe, nove mogucnosti - mozda spomenuti primenu u distribuiranim okruzenjima

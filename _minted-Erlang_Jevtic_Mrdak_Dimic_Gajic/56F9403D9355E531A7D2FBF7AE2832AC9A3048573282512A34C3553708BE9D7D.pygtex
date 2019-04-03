@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{map}\PYG{p}{(}\PYG{n+nv}{F}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{H}\PYG{p}{|}\PYG{n+nv}{T}\PYG{p}{])} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n+nv}{F}\PYG{p}{(}\PYG{n+nv}{H}\PYG{p}{)|}\PYG{n}{map}\PYG{p}{(}\PYG{n+nv}{F}\PYG{p}{,} \PYG{n+nv}{T}\PYG{p}{)];}
+\PYG{n+nf}{map}\PYG{p}{(}\PYG{n+nv}{F}\PYG{p}{,} \PYG{p}{[])}    \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[].}
+
+\PYG{n+nf}{double}\PYG{p}{(}\PYG{n+nv}{L}\PYG{p}{)}  \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{map}\PYG{p}{(}\PYG{k}{fun}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n+nv}{X} \PYG{k}{end}\PYG{p}{,} \PYG{n+nv}{L}\PYG{p}{).}
+
+\PYG{o}{\PYGZgt{}} \PYG{n}{double}\PYG{p}{([}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{]).}
+\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{l+m+mi}{6}\PYG{p}{,}\PYG{l+m+mi}{8}\PYG{p}{]}
+\end{Verbatim}
