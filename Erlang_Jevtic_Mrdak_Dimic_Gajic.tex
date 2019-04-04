@@ -314,6 +314,7 @@ Pid ! {self(), Message}
 \end{minted}
 
 \subsection{Klijent-server model}
+\label{sec:ksmodel}
 Kada šaljemo poruku procesu moramo znati njegov pid. 
 Ovo često nije praktično zbog mogućeg velikog broja procesa, niti poželjno iz bezbedonosnih razloga 
 (neki procesi bi trebalo da sakriju svoj identitet). 
@@ -325,6 +326,55 @@ U ovom modelu obe strane mogu biti procesi na istoj ili različitim mašinama.
 Klijent uvek započinje neko izračunavanje obraćajući se serveru, 
 koji obrađuje zahtev i vraća odgovor klijentu. Jedan jednostavan primer ovog modela biće objašnjen u delu \ref{sec:primeri}.
 
+\subsection{Greške u konkurentnim programima}
+Za pravljenje sistema otpornog na greške neophodna su nam dva računara, jedan koji će izvršavati posao i drugi koji će posmatrati i biti spreman da preduzme posao u trenutku kada se dogodi pad prvog  (eng.~{\em worker-supervisor relationship}) \cite{book_joe}. U Erlang-u je ovo omogućeno korišćenjem povezivanja procesa funkcijom {\em link}. Pretpostavićemo da su neki procesi A i B  linkovani. Ako proces A iznenada prestane sa radom onda se proces B obaveštava takozvanim {\em završnim signalom}. Ukoliko je obrnuto, obaveštava se proces A. Šta se dešava kada proces dobije završni signal? Ako proces nije bio aktivan u tom trenutku onda se on uništava, a inače proces može da traži da se uhvate signali. Proces u ovakvom stanju se naziva {\em sistemskim procesom}. \\
+%TODO neka referenca na knjigu ?
+%TODO prevod process dies -- > iznenada prestane sa radom, pad procesa, proces umre
+
+Sledeći primer prikazuje kako uhvatiti završni signal. Funkcija {\em on\_exit(Pid, Fun) } pravi link ka procesu {\em Pid}. Pozivom funkcije {\em process\_flag} kreirani novi proces se transformiše u sistemski proces i onda se povezuje se sa procesom {\em Pid} uz pomoć funkcije {\em link(Pid)}. Kada proces umre onda je primljen i obrađen blokom {\em receive ... end}.
+\begin{minted}{erlang} 
+on_exit(Pid, Fun) ->	
+    spawn(fun() ->    
+                   process_flag(trap_exit, true),
+                   link(Pid),
+                   receive
+                       {'EXIT', Pid, Why} ->
+                              Fun(Why)
+                   end
+          end).
+\end{minted}
+
+Testiranje se vrši kreiranjem funkcije {\em F} koja čeka na poruku {\em X} od koje onda kreira atom i nekog procesa {\em Pid}. Onda se za nadgledanje postavlja funkcija {\em on\_exit}.
+\begin{minted}{erlang} 
+1> F = fun() ->
+     receive
+         X -> list_to_atom(X)
+     end
+   end.
+
+2> Pid = spawn(F).
+
+3> on_exit(Pid,
+           fun(Why) ->
+               io:format(" ~p died with:~p~n",[Pid, Why])
+           end).
+
+\end{minted}
+
+Ako se procesu {\em Pid} pošalje atom, on će umreti jer će pokušati da izračuna funkciju {\em list\_to\_atom} sa argumentom koji nije lista i onda će funkcija {\em on\_exit} prijaviti grešku.
+\begin{minted}{erlang} 
+4> Pid ! Zdravo.
+Zdravo
+<0.61.0> died with:{badarg,[{erlang,list_to_atom,[hello]}]}
+\end{minted}
+
+Još jedan način za razrešavanje greški je takozvanim živo-održivim procesima (eng.~{\em a keep-alive process}). Ideja je kreirati registrovane procese, koje smo spomenuli u poglavlju \ref{sec:ksmodel}, koji će uvek biti živi i ako prestanu sa radom iz bilo kog razloga, odmah će se restartovati. U narednom primeru se kreira registrovani proces pod nazivom {\em Name} koji izvršava {\em spawn(Fun)}. 
+\begin{minted}{erlang} 
+keep_alive(Name, Fun) ->
+    register(Name, Pid = spawn(Fun)),
+    on_exit(Pid, fun(_Why) -> keep_alive(Name, Fun) end).
+\end{minted}
+ 
 
 \section{Okruženja i njihove karakteristike}
 \label{sec:okruzenja}
@@ -363,8 +413,7 @@ Na primer, slanje e-pošte u okruženju {\em ChicahoBoss} izgleda ovako:
 boss_mail:send(FromAddress, ToAddress, Subject, Body)
 \end{minted} 
 
-U tabeli \ref{tab:tabela_okruzenja} vidimo da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nastavaka %TODO PREVOD??
- (eng.~{\em trees of continuations}) \cite{EvanMillerTesting}. 
+U tabeli \ref{tab:tabela_okruzenja} vidimo da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nadovezivanja (eng.~{\em trees of continuations}) \cite{EvanMillerTesting}. 
 Postoje gotove funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je provera da li je e-pošta ispravno primljena/poslata, da li je stranica na vebu modifikovana itd. \\
 
 {\em Django} šabloni (eng.~{\em Django templates}) \cite{DjangoTempDoc} služe za jednostavnije i brže generisanje dinamičkih HTML stranica pomoću gotovih šablona.
@@ -504,7 +553,7 @@ Od elementarnih primera i upoznavanja sa sintaksom do njegove pune izražajnosti
 kada je u pitanju konkurentnost. 
 Elegantan i jednostavan rad sa komunikacijom procesa u potpunosti su opravdali ideju i namenu za koju je jezik nastao.
 Kroz izložene koncepte ovaj rad pruža odličan uvod za upoznavanje sa Erlangom i podstek čitaocu na dalje i dublje istraživanje.
-%TODO 		 1. Ukratko opisati glavne doprinose rada
+%TODO 1. Ukratko opisati glavne doprinose rada
 %			 2. Sta je to po cemu treba pamtiti rad - konkuretnost, brzina?, sigurnost? jezika
 %			 3. Sumirati nalaze, navesti osnovne zakljucke
 %			 4. Pravci buduceg razvoja, nove upotrebe, nove mogucnosti - mozda spomenuti primenu u distribuiranim okruzenjima

@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{keep\PYGZus{}alive}\PYG{p}{(}\PYG{n+nv}{Name}\PYG{p}{,} \PYG{n+nv}{Fun}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}}
+    \PYG{n+nb}{register}\PYG{p}{(}\PYG{n+nv}{Name}\PYG{p}{,} \PYG{n+nv}{Pid} \PYG{o}{=} \PYG{n+nb}{spawn}\PYG{p}{(}\PYG{n+nv}{Fun}\PYG{p}{)),}
+    \PYG{n}{on\PYGZus{}exit}\PYG{p}{(}\PYG{n+nv}{Pid}\PYG{p}{,} \PYG{k}{fun}\PYG{p}{(\PYGZus{}}\PYG{n+nv}{Why}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{keep\PYGZus{}alive}\PYG{p}{(}\PYG{n+nv}{Name}\PYG{p}{,} \PYG{n+nv}{Fun}\PYG{p}{)} \PYG{k}{end}\PYG{p}{).}
+\end{Verbatim}
