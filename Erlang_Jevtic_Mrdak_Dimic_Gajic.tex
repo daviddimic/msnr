@@ -464,6 +464,65 @@ start() ->
 > Hello, world!
 \end{minted}
 
+Kako su rekurzija i liste jedna od prvih asocijacija na funkcionalni jezik, po\v ce\' cemo primere od faktorijela, pa \' cemo nastaviti sa listama.\\
+
+U narednom primeru je dat modul koji defini\v se rekurzivnu funkciju za ra\v cunanje faktorijela i pritom ilustruje poklapanje \v sablona i \v cuvare (engl. guards).
+
+\begin{minted}{erlang}
+ -module(math).
+ -export([factorial/1]).
+
+ factorial(0) ->
+   1;
+ factorial(X) when X > 0 ->
+   X * factorial(X-1).
+\end{minted}
+
+Liste predstavljaju osnovu svih funkcionalnih jezika, pa i Erlang-a. Liste mogu sadr\v zati brojeve, torke, druge liste itd. Stringovi su tako\dj e liste, \v sto mo\v zemo videti u primeru.
+
+\begin{minted}{erlang}
+> [97, 98, 99].
+"abc"
+\end{minted}
+
+Posmatrajmo slede\' ci primer:
+\begin{minted}{erlang}
+> [97,98,99,4,5,6].
+[97,98,99,4,5,6]
+> [233].
+"é"
+\end{minted}
+
+Dakle, Erlang \' ce listu brojeva posmatrati kao listu brojeva ako ne postoji broj u listi koji je ujedno i karakter.
+
+Za konkatenaciju dve liste koristi se operator $++$, dok je njemu suprotan operator $--$.
+\begin{minted}{erlang}
+> [1,2,3] ++ [4,5].
+[1,2,3,4,5]
+> [1,2,3,4,5] -- [1,2,3].
+[4,5]
+> [2,4,2] -- [2,4].
+[2]
+> [2,4,2] -- [2,4,2].
+[]
+\end{minted}
+
+Oba ova operatora su desno asocijativna.
+\begin{minted}{erlang}
+> [1,2,3] -- [1,2] -- [3].
+[3]
+> [1,2,3] -- [1,2] -- [2].
+[2,3]
+\end{minted}
+
+Glavu liste dobijamo pomoću funkcije \textbf{hd}, dok za rep koristimo funkciju \textbf{tl}.
+\begin{minted}{erlang}
+> hd([1,2,3,4]).
+1
+> tl([1,2,3,4]).
+[2,3,4]
+\end{minted}
+
 Kao i većina funkcionalnih jezika, i Erlang podržava shvatanje listi (eng. list comprehensions), što ilustrujemo narednim primerima.
 \begin{minted}{erlang}
 > [X || X <- [1,2,a,3,4,b,5,6], X > 3].
