@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{on\PYGZus{}exit}\PYG{p}{(}\PYG{n+nv}{Pid}\PYG{p}{,} \PYG{n+nv}{Fun}\PYG{p}{)} \PYG{o}{\PYGZhy{}\PYGZgt{}}
+    \PYG{n+nb}{spawn}\PYG{p}{(}\PYG{k}{fun}\PYG{p}{()} \PYG{o}{\PYGZhy{}\PYGZgt{}}
+                   \PYG{n+nb}{process\PYGZus{}flag}\PYG{p}{(}\PYG{n}{trap\PYGZus{}exit}\PYG{p}{,} \PYG{n}{true}\PYG{p}{),}
+                   \PYG{n+nb}{link}\PYG{p}{(}\PYG{n+nv}{Pid}\PYG{p}{),}
+                   \PYG{k}{receive}
+                       \PYG{p}{\PYGZob{}}\PYG{n}{\PYGZsq{}EXIT\PYGZsq{}}\PYG{p}{,} \PYG{n+nv}{Pid}\PYG{p}{,} \PYG{n+nv}{Why}\PYG{p}{\PYGZcb{}} \PYG{o}{\PYGZhy{}\PYGZgt{}}
+                              \PYG{n+nv}{Fun}\PYG{p}{(}\PYG{n+nv}{Why}\PYG{p}{)}
+                   \PYG{k}{end}
+          \PYG{k}{end}\PYG{p}{).}
+\end{Verbatim}
