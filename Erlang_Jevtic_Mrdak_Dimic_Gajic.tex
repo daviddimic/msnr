@@ -76,7 +76,7 @@ Na samom početku rada u poglavlju \ref{sec:nastanak} ćemo se upoznati sa istor
 \section{Nastanak i istorijski razvoj}
 \label{sec:nastanak}
 1981. godine je oformljena nova laboratorija, Erikson CSLab (eng.~{\em The Ericsson CSLab}) u okviru firme Erikson sa
-ciljem da predlaže i stvara nove arhitekture, koncepte i strukture za buduće softverske sisteme. %TODO ref
+ciljem da predlaže i stvara nove arhitekture, koncepte i strukture za buduće softverske sisteme \cite{phdthesis}.
 Eksperimentisanje sa dodavanjem konkurentnih procesa u programski jezik Prolog je bio jedan
 od projekata Erikson CSLab-a i predstavlja začetak novog programskog jezika.
 Taj programski jezik je 1987. godine nazvan Erlang
@@ -92,7 +92,7 @@ Od decembra 1998. godine, Erlang i OTP su postali deo slobodnog softvera (eng.~{
 i mogu se slobodno preuzeti sa Erlangovog zvaničnog sajta \cite{sajt}.
 Danas, veliki broj kompanija koristi Erlang u razvoju
 svojih softverskih rešenja. Neke od njih su: Erikson, Motorola, Votsap (eng.~{\em Whatsapp}), 
-Jahu (eng.~{\em Yahoo!}), Amazon, Fejsbuk (eng.~{\em Facebook}). %TODO ref odakle podatak da ih koriste?
+Jahu (eng.~{\em Yahoo!}), Fejsbuk (eng.~{\em Facebook}) \cite{sajt}.
 
 
 \subsection{Uticaji}
@@ -110,8 +110,7 @@ svaka funkcionalna celina se završava tačkom), oba jezika u velikoj meri koris
 (eng.~{\em pattern matching}). \\
 
 Sa druge strane, Erlang je uticao na nastanak programskog jezika Eliksir (eng.~{\em Elixir}). Eliksir,
-uz izmenjenu Erlangovu sintaksu, dopunjenu Erlangovu standardnu biblioteku, uživa široku popularnost. %TODO ref - neki link gde se vidi da je Elixir pri vrhu medj funkcionalnim jezicima
-
+uz izmenjenu Erlangovu sintaksu, dopunjenu Erlangovu standardnu biblioteku, uživa široku popularnost (lista kompanija koje ga svakodnevno koriste https://elixir-companies.com/). 
 
 \section{Osnovna namena, svrha i mogućnosti}
 \label{sec:namena}
@@ -248,14 +247,6 @@ i ponašaju se isto na svim operativnim sistemima \cite{book_joe}.
 \label{fig:concurrency}
 \end{figure} 
 
-%TODO mozda bi ovo poglavlje moglo da se izbaci ili skrati?
-Poređenja radi, koncept konkurentnosti korišćen od strane većine programskih jezika je takozvani 
-koncept konkurentnosti deljenih stanja (eng.~{\em shared state concurrency}) gde procesi 
-menjaju memoriju (nasuprot tome, u Erlangu vrednost promenljivoj može biti dodeljena samo jednom) \cite{book_joe}. 
-U slučaju da više procesa žele da menjaju istu memoriju, tzv. kritična sekcija, potrebno je 
-nekako zaštiti taj deo memorije (muteksi, katanci i dr.). U slučaju da do greške dođe baš u kritičnoj sekciji,
-ostali procesi ne znaju kako da se nose sa datom situacijom i u najboljem slučaju sistem prekida sa radom.
-
 \subsection{Slanje i primanje poruka}
 %Slanje
 Erlang omogućava jednostavano kreiranje novog procesa pozivom funkcije {\em spawn} koja vraća pid (eng.~{\em process identifier}) na osnovu kojeg svaki proces može da razlikuje ostale procese.
@@ -321,8 +312,7 @@ Ako proces A iznenada prestane sa radom onda se proces B obaveštava takozvanim 
 Ukoliko je obrnuto, obaveštava se proces A. 
 Šta se dešava kada proces dobije završni signal? 
 Ako proces nije bio aktivan u tom trenutku onda se on uništava, 
-a inače proces može da traži da se uhvate signali. Proces u ovakvom stanju se naziva {\em sistemskim procesom}. \\
-%TODO neka referenca na knjigu ?
+a inače proces može da traži da se uhvate signali. Proces u ovakvom stanju se naziva {\em sistemskim procesom} \cite{book_joe}. \\
 
 Sledeći primer prikazuje kako uhvatiti završni signal.
 Funkcija {\em on\_exit(Pid, Fun) } pravi link ka procesu {\em Pid}. 
@@ -654,7 +644,7 @@ Ako je P  primitivni obrazac i T term, onda kažemo da se obrazac P poklapa sa T
 U poglavlju \ref{sec:okruzenja} smo se upoznali sa glavnim predstavnicima Erlang veb okruženja i videli njihove osnovne karakteristike. Prikazaćemo nekoliko primera u veb okruženjima. \\ 
 
 %TODO samo malkice objasniti primer.
-Prvo ćemo pokazati jedan napredniji primer od "Hello World" u {\em ChicagoBoss} okruženju. Erlang fajl bi izgledao ovako:
+Prvo ćemo pokazati jedan napredniji primer programa "Hello World" u {\em ChicagoBoss} okruženju. Erlang fajl bi izgledao ovako:
 \begin{minted}{erlang}
 -module(appname_my_controller, [Req]).
 -compile(export_all).
