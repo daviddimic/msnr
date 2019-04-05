@@ -37,15 +37,16 @@ tijanatijanajevtic@gmail.com, mrdakj@gmail.com,\\daviddimic@hotmail.com, zokaaa\
 \maketitle
 
 \abstract{
+Kroz ovaj rad čitalac će steći globalnu sliku o jeziku Erlang 
+i detaljniji pogled na neke važne koncepte. 
+Biće izložena potreba nastanka ovakog konkuretno-orijentisanog jezika u oblasti telekomunikacije. 
+Kao takav je, ne samo dominantan u oblasti za koju je nastao, 
+već je ušao i u širu upotrebu, pa i uticao na nastanak drugih popularnih jezika kao što je Eliksir. 
+Erlagov koncept konkurentnosti kroz upotrebu funkcionalnog stila, 
+rukovanje greškama
+i lakoća rada sa procesima, portovima i distribuiranim programima čini ga jezikom vrendnim pažnje i izučavanja.
+}
 
-Nakon čitanja rada, čitalac će imati globalnu sliku o jeziku i detaljniji pogled na neke važne koncepte, 
-kao i uvid u korišćenu literaturu koju može konsultovati radi daljeg informisanja o temi.
-
-% Pocetak onaj sam ubacila u uvod, msm da mu je tamo mesto!
-%TODO ovu recenicu bih mozda ostavila za kraj abstrakta, samo da se ne kaze detaljniji pogled na neke vazne koncepte vec "i detaljan pogled na osnovnu specificnost jezika"
-%TODO 1. Problem i glavne rezultate
-% 			 2. Motivacija - zasto je tema interesantna i vazna, kako utice na nas. (poglavlje 3 + mozda reci "pokazacemo vam zasto bas ovaj jezik koriste svetske kompanije" kao neku motivaciju)
-%		     3.	 Cilj i svrha rada - da ubedimo citaoce da je Erlang veoma super zgodan jezik za funkcionalno programiranje, da docaramo moc jezika
 
 \setcounter{tocdepth}{1} 
 \tableofcontents
@@ -53,22 +54,17 @@ kao i uvid u korišćenu literaturu koju može konsultovati radi daljeg informis
 \newpage
 
 \section{Uvod}
-\label{sec:uvod}
-%TODO 1. Zaintrigirati !
-%			 2. Navesti siru oblast i sam problem koji je tema rada konkretnije 
-% 			 3. Sumirati relevantna postignuca na datu temu, reci sto su bitna i interesantna
-% 			 4. Sta je ono sto nije uradjeno u oblasti - ne nasem radu, nego u programskom jeziku
-% 		      5. Cilj rada, pristup resenju i glavne rezultate.
-% 			 6. Najaviti sta ce biti u radu - poglavlja, poslednji pasus uvoda. 
-
-U ovom radu je prikazan programski jezik Erlang iz različitih uglova.
-Kroz niz poglavlja i primera, ispričana je njegova istorija - kad, kako, gde i zašto je nastao, 
-po čemu je karakterističan, šta ga to izdvaja od drugih programskih jezika, koji su to 
-koncepti koji su svojevrsni Erlangu.
-Akcenat će biti na funkcionalnoj i konkuretnoj paradigmi.\\
+\label{sec:uvod} 
+U oblasti telekomunikacije bilo je potrebno izgraditi dovoljno 
+dobar programski jezik za pisanje brzih konkurentnih i distribuiranih programa i sitema \cite{book_joe}. 
+Kao odgovor na ovakve zahteve nastao je i razvio se jezik Erlang \cite{phdthesis}.
+Njegova svojstva i osobine koje ga izdvajaju od ostalih programskih jezika
+biće prikazane u ovom radu iz nekoliko uglova, ilustrovane primerima \cite{book_fred, book_joe}.
+Poseban akcenat biće na njegovoj konkurentnosti i obradi grešaka \cite{book_concurrent},
+po čemu je karakterističan, a što je omogućila funkcionalna i deklarativna paradigma. Sa druge strane, biće pokazano kako se kroz okruženja može prilagoditi vebu \cite{ChicagoBossDocumentation, DjangoTempDoc, ZotonicDocumentation}.\\
 
 % Opis po poglavljima 
-Kroz niz poglavlja i primera, biće ispričana njegova istorija - kad, kako, gde i zašto je nastao \ref{sec:nastanak}, 
+Kroz niz poglavlja i primera, biće ispričana istorija Erlanga - kad, kako, gde i zašto je nastao \ref{sec:nastanak}, 
 po čemu je karakterističan i koja mu je osnovna namena \ref{sec:namena}. 
 Dalje, u poglavju \ref{sec:osobine} biće opisane osnovne osobine i konstrukcije jezika, da bismo u poglavlju \ref{sec:konkurentnost} posvetili posebnu pažnju konkuretnosti i greškama u konkurentnim programima. 
 U delu \ref{sec:okruzenja} upoznaćemo se sa okruženjima ChicagoBoss, Nitrogen i Zotonic. Potom ćemo videti kako se instalira i pokreće Erlang \ref{sec:instalacija}
@@ -270,7 +266,9 @@ Svaki proces ima svoje sanduče gde se nalaze poruke u redosledu pristizanja.
 Poruke se porede poklapanjem obrazaca. 
 Kada poklapanje uspe poruka se vadi iz sandučeta i izvršava se navedena akcija. 
 {\em Receive} vraća vrednost poslednjg izraza iz izvršene akcije.
-Ako poslata poruka nikad ne stigne na odredište, što se može desiti npr. kao posledica pada procesa koji je poslao poruku, izbegavamo beskonačno čekanje tako što se uvodi maksimalno vreme čekanja (eng.~{\em timeout}).
+Ako poslata poruka nikad ne stigne na odredište, 
+što se može desiti npr. kao posledica pada procesa koji je poslao poruku, 
+izbegavamo beskonačno čekanje tako što se uvodi maksimalno vreme čekanja (eng.~{\em timeout}).
 \begin{minted}{erlang}
 receive
     Pattern1 [when Guard1] ->
@@ -295,9 +293,11 @@ Pid ! {self(), Message}
 \subsection{Klijent-server model}
 \label{sec:ksmodel}
 Kada šaljemo poruku procesu moramo znati njegov pid. 
-Ovo često nije praktično zbog mogućeg velikog broja procesa, niti poželjno iz bezbedonosnih razloga 
+Ovo često nije praktično zbog mogućeg velikog broja procesa, 
+niti poželjno iz bezbedonosnih razloga 
 (neki procesi bi trebalo da sakriju svoj identitet). 
-Da bi bilo omogućeno slanje poruka bez poznavanja identifikatora uvodi se pojam {\em registrovanja procesa}, tj. davanje imena koje mora biti atom \cite{book_joe, phdthesis}.
+Da bi bilo omogućeno slanje poruka bez poznavanja identifikatora uvodi se pojam {\em registrovanja procesa}, 
+tj. davanje imena koje mora biti atom \cite{book_joe, phdthesis}.
 Funkcijom {\mintinline{erlang}{register(name, Pid)}} atom {\em name} se vezuje za {\em Pid} i na dalje ga možemo indentifikovati preko dodeljenog atoma.\\
 
 Glavni razlog registrovanja procesa je da se omogući {\em klijent-server model} koji je ključni za komunikaciju između procesa u Erlangu \cite{book_concurrent, book_joe, phdthesis}.
@@ -319,7 +319,8 @@ a inače proces može da traži da se uhvate signali. Proces u ovakvom stanju se
 
 Sledeći primer prikazuje kako uhvatiti završni signal.
 Funkcija {\em on\_exit(Pid, Fun) } pravi link ka procesu {\em Pid}. 
-Pozivom funkcije {\em process\_flag} kreirani novi proces se transformiše u sistemski proces i onda se povezuje se sa procesom {\em Pid} uz pomoć funkcije {\em link(Pid)}. 
+Pozivom funkcije {\em process\_flag} kreirani novi proces se transformiše u sistemski proces 
+i onda se povezuje se sa procesom {\em Pid} uz pomoć funkcije {\em link(Pid)}. 
 Kada proces umre onda je primljen i obrađen blokom {\em receive}.
 \begin{minted}{erlang} 
 on_exit(Pid, Fun) ->	
@@ -360,7 +361,10 @@ Zdravo
 <0.61.0> died with:{badarg,[{erlang,list_to_atom,[hello]}]}
 \end{minted}
 
-Još jedan način za razrešavanje greški je takozvanim živo-održivim procesima (eng.~{\em a keep-alive process}). Ideja je kreirati registrovane procese, koje smo spomenuli u \ref{sec:ksmodel}, koji će uvek biti živi i ako prestanu sa radom iz bilo kog razloga, odmah će se restartovati. U narednom primeru se kreira registrovani proces pod nazivom {\em Name} koji izvršava {\em spawn(Fun)}. 
+Još jedan način za razrešavanje greški je takozvanim živo-održivim procesima (eng.~{\em a keep-alive process}). 
+Ideja je kreirati registrovane procese, koje smo spomenuli u \ref{sec:ksmodel}, 
+koji će uvek biti živi i ako prestanu sa radom iz bilo kog razloga, 
+odmah će se restartovati. U narednom primeru se kreira registrovani proces pod nazivom {\em Name} koji izvršava {\em spawn(Fun)}. 
 \begin{minted}{erlang} 
 keep_alive(Name, Fun) ->
     register(Name, Pid = spawn(Fun)),
@@ -370,7 +374,9 @@ keep_alive(Name, Fun) ->
 
 \section{Okruženja i njihove karakteristike}
 \label{sec:okruzenja}
-Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}), ali takođe nudi mnoštvo mogućnosti koje ga čine dobrim jezikom za veb programiranje. Na primer, mogućnost reagovanja na više korisničkih zahteva istovremeno, ne razmišljajući o problemima konkurentnosti.
+Erlang je poznat za podržavanje skalabilnih sistema otpornih na greške (eng.~{\em scalable fault-tolerant systems}), 
+ali takođe nudi mnoštvo mogućnosti koje ga čine dobrim jezikom za veb programiranje. Na primer, mogućnost reagovanja na više korisničkih zahteva istovremeno, 
+ne razmišljajući o problemima konkurentnosti.
 U tabeli \ref{tab:tabela_okruzenja} je prikazano poređenje 3 glavna veb okruženja: {\em ChicagoBoss}, {\em Nitrogen} i {\em Zotonic} po nekim interesantnim osobinama.
 
 \begin{table}[h!]
@@ -405,13 +411,18 @@ Na primer, slanje e-pošte u okruženju {\em ChicahoBoss} izgleda ovako:
 boss_mail:send(FromAddress, ToAddress, Subject, Body)
 \end{minted} 
 
-U tabeli \ref{tab:tabela_okruzenja} vidimo da sva tri okruženja podržavaju i okruženje za testove, gde su testovi struktuirani kao stabla nadovezivanja (eng.~{\em trees of continuations}) \cite{EvanMillerTesting}. 
-Postoje gotove funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je provera da li je e-pošta ispravno primljena/poslata, da li je stranica na vebu modifikovana itd. \\
+U tabeli \ref{tab:tabela_okruzenja} vidimo da sva tri okruženja podržavaju 
+i okruženje za testove, gde su testovi struktuirani kao stabla nadovezivanja (eng.~{\em trees of continuations}) \cite{EvanMillerTesting}. 
+Postoje gotove funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je 
+provera da li je e-pošta ispravno primljena/poslata, da li je stranica na vebu modifikovana itd. \\
 
 {\em Django} šabloni (eng.~{\em Django templates}) \cite{DjangoTempDoc} služe za jednostavnije i brže generisanje dinamičkih HTML stranica pomoću gotovih šablona.
  {\em Nitrogen} ima svoje {\em Nitrogen HTML} šablone ali je u procesu prelazak na {\em Django} šablone.\\
  
-Svaki od opisanih okruženja ima svoje prednosti i mane, te zato nije jednostavno presuditi koji od ovih okruženja treba koristiti zasigurno, a koji ne treba. U zavisnosti od onoga šta je prioritet bira se odgovarajuće okruženje. U dodatku \ref{sec:dodatak_primeri_okruzenja} možete pogledati primere u nekim od spomenutih okruženja.
+Svaki od opisanih okruženja ima svoje prednosti i mane, 
+te zato nije jednostavno presuditi koji od ovih okruženja treba koristiti zasigurno, a koji ne treba. 
+U zavisnosti od onoga šta je prioritet bira se odgovarajuće okruženje. 
+U dodatku \ref{sec:dodatak_primeri_okruzenja} možete pogledati primere u nekim od spomenutih okruženja.
 
 \section{Instalacija i pokretanje}
 \label{sec:instalacija}
@@ -535,9 +546,12 @@ loop() ->
 U ovom radu su ukratko, ali jezgrovito objašnjene najvažnije osobine i paradigme programskog jezika Erlang: 
 od upoznavanja sa sintaksom, preko elementarnih primera, do njegovog specifičnog koncepta konkurentnosti. 
 Elegantan i jednostavan rad sa procesima u potpunosti je opravdao ideju i namenu za koju je jezik nastao.
-Ipak, nijedna tehnologija, niti programski jezik nisu univerzalno rešenje, pa tako nije ni Erlang. Njegova ekspertiza su sigurni konkurentni i distribuirani
-sistemi, aplikacije za telekomunikaciju, Internet serveri, dok nije najbolji izbor za obradu slika, signala i velike količine podataka \cite{sajt}. 
-Kroz izložene koncepte ovaj rad pruža odličan uvod za upoznavanje sa Erlangom i podstrek čitaocu na dalje i dublje istraživanje koje bi se moglo ticati distribuiranosti, radu sa portovima, obradom grešaka i slično.
+Ipak, nijedna tehnologija, niti programski jezik nisu univerzalno rešenje, 
+pa tako nije ni Erlang. Njegova ekspertiza su sigurni konkurentni i distribuirani
+sistemi, aplikacije za telekomunikaciju, 
+Internet serveri, dok nije najbolji izbor za obradu slika, signala i velike količine podataka \cite{sajt}. 
+Kroz izložene koncepte ovaj rad pruža odličan uvod za upoznavanje sa Erlangom 
+i podstrek čitaocu na dalje i dublje istraživanje koje bi se moglo ticati distribuiranosti, radu sa portovima, obradom grešaka i slično.
 
 
 \addcontentsline{toc}{section}{Literatura}
@@ -577,10 +591,9 @@ Ako je P  primitivni obrazac i T term, onda kažemo da se obrazac P poklapa sa T
 
 \subsection{Primeri koda u veb okruženjima}
 \label{sec:dodatak_primeri_okruzenja}
+U poglavlju \ref{sec:okruzenja} smo se upoznali sa glavnim predstavnicima Erlang veb okruženja i videli njihove osnovne karakteristike. 
+Prikazaćemo nekoliko primera u veb okruženjima. \\ 
 
-U poglavlju \ref{sec:okruzenja} smo se upoznali sa glavnim predstavnicima Erlang veb okruženja i videli njihove osnovne karakteristike. Prikazaćemo nekoliko primera u veb okruženjima. \\ 
-
-%TODO samo malkice objasniti primer.
 Prvo ćemo pokazati jedan napredniji primer programa "Hello World" u {\em ChicagoBoss} okruženju. Erlang fajl bi izgledao ovako:
 \begin{minted}{erlang}
 -module(appname_my_controller, [Req]).
@@ -594,7 +607,11 @@ Dok je u HTML fajlu neophodno napisati:
 Hello, {{ name }}.
 \end{minted} 
 
-Primer u okruženju {\em Nitrogen} sa ispisom poruke kao reagovanje na klik. Prvo se učitava gotov šablon HTML strane i postavlja se naslov strane. Zatim se dodaje tekst ispod kojeg se kreira dugme sa njegovim identifikatorom i obezbeđuje se reagovanje na klik. Postoji hvatač događaja {\em event(click)} koji će ispisati poruku kada se klikne na dugme i zameniti sve ono što se nalazi u telu (eng.~{\em html body}) sa novom porukom.
+Primer u okruženju {\em Nitrogen} sa ispisom poruke kao reagovanje na klik. 
+Prvo se učitava gotov šablon HTML strane i postavlja se naslov strane. 
+Zatim se dodaje tekst ispod kojeg se kreira dugme sa njegovim identifikatorom i obezbeđuje se reagovanje na klik. 
+Postoji hvatač događaja {\em event(click)} koji će ispisati poruku kada se klikne na dugme 
+i zameniti sve ono što se nalazi u telu (eng.~{\em html body}) sa novom porukom.
 \begin{minted}{erlang}
 -module(module_name).
 -compile(export_all).
