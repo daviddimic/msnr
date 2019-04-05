@@ -64,14 +64,16 @@ kao i uvid u korišćenu literaturu koju može konsultovati radi daljeg informis
 U ovom radu je prikazan programski jezik Erlang iz različitih uglova.
 Kroz niz poglavlja i primera, ispričana je njegova istorija - kad, kako, gde i zašto je nastao, 
 po čemu je karakterističan, šta ga to izdvaja od drugih programskih jezika, koji su to 
-koncepti koji su svojevrsni Erlangu. 
+koncepti koji su svojevrsni Erlangu.
+Akcenat će biti na funkcionalnoj i konkuretnoj paradigmi.\\
 
-Akcenat će biti na funkcionalnoj paradigmi i uobičajenim mehanizmima koji funkcionalni jezici implementiraju, kao što su: sakupljači otpadaka, poklapanje obrazaca, načini izračunavanja izraza itd.
+% Opis po poglavljima 
+Kroz niz poglavlja i primera, biće ispričana njegova istorija - kad, kako, gde i zašto je nastao \ref{sec:nastanak}, 
+po čemu je karakterističan i koja mu je osnovna namena \ref{sec:namena}. 
+Dalje, u poglavju \ref{sec:osobine} biće opisane osnovne osobine i konstrukcije jezika, da bismo u poglavlju \ref{sec:konkurentnost} posvetili posebnu pažnju konkuretnosti i greškama u konkurentnim programima. 
+U delu \ref{sec:okruzenja} upoznaćemo se sa okruženjima ChicagoBoss, Nitrogen i Zotonic. Potom ćemo videti kako se instalira i pokreće Erlang \ref{sec:instalacija}
+i bolje upoznati sa jezikom kroz konkretne primere sa objašnjenjima \ref{sec:primeri}.
 
-%TODO Mozemo pocetak za pogavlja ovako 
-Kroz niz poglavlja i primera, ispričana je njegova istorija - kad, kako, gde i zašto je nastao \ref{sec:nastanak}, po čemu je karakterističan i koja mu je osnovna namena \ref{sec:namena} \ref{sec:osobine}. 
-% ili ovako
-Na samom početku rada u poglavlju \ref{sec:nastanak} ćemo se upoznati sa istorijskim razvojem jezika. Nešto više reči o nameni, mogućnostima i osnovnim osobinama Erlang-a će biti u poglavljima \ref{sec:namena} \ref{sec:osobine}. U narednom poglavlju \ref{sec:konkurentnost} posvetićemo posebnu pažnju konkuretnosti. Onda ćemo videti uticaj Erlang-a u veb programiranju, upoznaćemo se sa veb okruženjima ChicagoBoss, Nitrogen i Zotonic u poglavlju \ref{sec:okruzenja}. Sekcija \ref{sec:instalacija} je posvećena instalaciji i pokretanju Erlang-a, nakon čega sledi sekcija \ref{sec:primeri} sa primerima kodova.
 
 \section{Nastanak i istorijski razvoj}
 \label{sec:nastanak}
@@ -439,10 +441,10 @@ Na operativnom sistemu {\em Windows}, Erlang se može instalirati preuzimanjem b
 
 \section{Primeri kodova sa objašnjenjima}
 \label{sec:primeri}
-Počećemo od jednostavnog primera ''Hello World'' i videti osnovnu sintaksu jezika. 
+Počećemo od primera ''Hello World'' i videti osnovnu sintaksu jezika. 
 Jednolinijski komentari počinju znakom \%. 
 Prvo navodimo naziv našeg modula u kome se nalaze funkcije koje pišemo, 
-a da bi one mogle da se koriste izvan modula potrebno je da ih navedemo u export naredbi. /0 označava da funkcija \textit{start} prima 0 argumenata.
+a da bi one mogle da se koriste izvan modula potrebno je da ih navedemo u export naredbi. start/0 označava da funkcija \textit{start} prima 0 argumenata.
 Da bismo željeni tekst prikazali u konzoli, koristimo \textbf{io} modul koji sadrži potrebne IO funkcije u Erlangu.
 \begin{minted}{erlang}
 % hello world program
@@ -452,99 +454,20 @@ Da bismo željeni tekst prikazali u konzoli, koristimo \textbf{io} modul koji sa
 start() -> 
    io:fwrite("Hello, world!\n").
 
-> Hello, world!
 \end{minted}
 
-Kako su rekurzija i liste jedna od prvih asocijacija na funkcionalni jezik, po\v ce\' cemo primere od faktorijela, pa \' cemo nastaviti sa listama.\\
+Omogućene su sve klasične funkcionalne konstrukcije jezika. 
+Pogledajmo samo neke od njih, kao što je razumevanje listi (eng.~{\em list comprehension}), funkcija {\em map} i implementacija neke funkcije kao što je {\em QuickSort}.\\
 
-U narednom primeru je dat modul koji defini\v se rekurzivnu funkciju za ra\v cunanje faktorijela i pritom ilustruje poklapanje \v sablona i \v cuvare (engl. guards).
-
+Izdvajanje svih celobrojnih vrednosti iz liste većih od nekog broja putem razumevanja liste sastoji se od generatora <- i filtera liste.
 \begin{minted}{erlang}
- -module(math).
- -export([factorial/1]).
-
- factorial(0) ->
-   1;
- factorial(X) when X > 0 ->
-   X * factorial(X-1).
-\end{minted}
-
-Liste predstavljaju osnovu svih funkcionalnih jezika, pa i Erlang-a. Liste mogu sadr\v zati brojeve, torke, druge liste itd. Stringovi su tako\dj e liste, \v sto mo\v zemo videti u primeru.
-
-\begin{minted}{erlang}
-> [97, 98, 99].
-"abc"
-\end{minted}
-
-Posmatrajmo slede\' ci primer:
-\begin{minted}{erlang}
-> [97,98,99,4,5,6].
-[97,98,99,4,5,6]
-> [233].
-"é"
-\end{minted}
-
-Dakle, Erlang \' ce listu brojeva posmatrati kao listu brojeva ako ne postoji broj u listi koji je ujedno i karakter.
-
-Za konkatenaciju dve liste koristi se operator $++$, dok je njemu suprotan operator $--$.
-\begin{minted}{erlang}
-> [1,2,3] ++ [4,5].
-[1,2,3,4,5]
-> [1,2,3,4,5] -- [1,2,3].
-[4,5]
-> [2,4,2] -- [2,4].
-[2]
-> [2,4,2] -- [2,4,2].
-[]
-\end{minted}
-
-Oba ova operatora su desno asocijativna.
-\begin{minted}{erlang}
-> [1,2,3] -- [1,2] -- [3].
-[3]
-> [1,2,3] -- [1,2] -- [2].
-[2,3]
-\end{minted}
-
-Glavu liste dobijamo pomoću funkcije \textbf{hd}, dok za rep koristimo funkciju \textbf{tl}.
-\begin{minted}{erlang}
-> hd([1,2,3,4]).
-1
-> tl([1,2,3,4]).
-[2,3,4]
-\end{minted}
-
-Kao i većina funkcionalnih jezika, i Erlang podržava shvatanje listi (eng. list comprehensions), što ilustrujemo narednim primerima.
-\begin{minted}{erlang}
-> [X || X <- [1,2,a,3,4,b,5,6], X > 3].
-[a,4,b,5,6]
-\end{minted}
-Notacija {\mintinline{erlang}{X <- [1, 2, a, ...]}} je generator, dok je izraz {\mintinline{erlang}{X>3}} filter.\\
-
-Možemo primeniti više filtera.
-\begin{minted}{erlang}
-> [X || X <- [1,2,a,3,4,b,5,6], integer(X), X > 3].
+> [X || X <- [{1,5}, 2, 3, 4, crveno, 5, 6], integer(X), X>3].
 [4,5,6]
 \end{minted}
 
-Takođe, moguće je kombinovati i generatore. Na primer, Dekartov proizvod dve liste možemo napisati kao
-\begin{minted}{erlang}
-> [{X, Y} || X <- [1,2,3], Y <- [a,b]].
-[{1,a},{1,b},{2,a},{2,b},{3,a},{3,b}]
-\end{minted}
-
-Algoritam QuickSort u Erlangu se može implementirati na sledeći način:
-\begin{minted}{erlang}
-sort([Pivot|T]) ->
-    sort([ X || X <- T, X < Pivot]) ++
-    [Pivot] ++
-    sort([ X || X <- T, X >= Pivot]);
-sort([]) -> [].
-\end{minted}
-Izraz {\mintinline{erlang}{[X || X <- T, X < Pivot]}} e lista svih elemenata iz T koji su manji od pivota. Slično, {\mintinline{erlang}{[X || X <- T, X >= Pivot]}} je lista svih elemenata iz T koji su veći ili jednaki od pivota.\\
-
-Neizostavna funkcija svih funkcionalnih programskih jezika jeste map.
-map(F, List) je funkcija koja prima funkciju F i listu L i vraća novu listu dobijenu primernom funkcije F na svaki element liste L.
+Primetimo da liste mogu da sadrže elemente različitog tipa.
+Pogledajmo funcionalni način obrade liste putem funkcije map - njenu implementaciju i primenu.
+{\em map(F, List)} vraća novu listu dobijenu primernom funkcije {\em F} na svaki element liste {\em L}.
 \begin{minted}{erlang}
 map(F, [H|T]) -> [F(H)|map(F, T)];
 map(F, [])    -> [].
@@ -555,9 +478,21 @@ double(L)  -> map(fun(X) -> 2*X end, L).
 [2,4,6,8]
 \end{minted}
 
+Sortirajmo listu putem {\em QuickSort} algoritma. 
+Koristeći poklapanje obrazaca razdvajamo definicju na slučaj kada imamo bar jedan 
+element i slučaj prazne liste. Kada imamo jedan element možemo ga proglasiti pivotom i u odnosu na njega podeliti na sve manje i sve veće od njega razumevanjem liste.
+Potom rekurzivno obrađujemo dalje podliste.
+\begin{minted}{erlang}
+sort([Pivot|T]) ->
+    sort([ X || X <- T, X < Pivot]) ++
+    [Pivot] ++
+    sort([ X || X <- T, X >= Pivot]);
+sort([]) -> [].
+\end{minted}
 
 %primer konkurentnost
-Naredni primer pokazuje kako komuniciraju procesi u klijent-server modelu opisanog u delu \ref{sec:konkurentnost}.
+Pošto smo se upoznali sa elementarnim konstrkcijama, pogledajmo nešto što je 
+karakteristično za Erlang. Naredni primer pokazuje kako komuniciraju procesi u klijent-server modelu opisanog u delu \ref{sec:konkurentnost}.
 Klijent šalje zahtev serveru za računanje hipotenuze ili površine pravouglog trougla,
 a server vrši izračunavanje u funkciji {\em loop} i vraća odgovoru klijentu. 
 Kada modul {\em trougao} bude implementiran, izvršavanje će izgledati ovako: U liniji 1 kreiramo novi serverski proces i dobijemo njegov pid, 
