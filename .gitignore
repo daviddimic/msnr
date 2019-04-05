@@ -1,3 +1,5 @@
+_minted*
+*.pyg
 *.aux
 *.bbl
 *.blg

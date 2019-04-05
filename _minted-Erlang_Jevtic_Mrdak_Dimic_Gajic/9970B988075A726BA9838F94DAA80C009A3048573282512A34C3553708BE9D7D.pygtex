@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{l+m+mi}{4}\PYG{o}{\PYGZgt{}} \PYG{n+nv}{Pid} \PYG{o}{!} \PYG{n+nv}{Zdravo}\PYG{p}{.}
-\PYG{n+nv}{Zdravo}
-\PYG{o}{\PYGZlt{}}\PYG{l+m+mi}{0}\PYG{p}{.}\PYG{l+m+mi}{61}\PYG{p}{.}\PYG{l+m+mi}{0}\PYG{o}{\PYGZgt{}} \PYG{n}{died} \PYG{n+nn}{with}\PYG{p}{:\PYGZob{}}\PYG{n}{badarg}\PYG{p}{,[\PYGZob{}}\PYG{n}{erlang}\PYG{p}{,}\PYG{n+nb}{list\PYGZus{}to\PYGZus{}atom}\PYG{p}{,[}\PYG{n}{hello}\PYG{p}{]\PYGZcb{}]\PYGZcb{}}
-\end{Verbatim}
