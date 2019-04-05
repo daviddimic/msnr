@@ -659,7 +659,7 @@ Dok je u HTML fajlu neophodno napisati:
 Hello, {{ name }}.
 \end{minted} 
 
-Primer u okruženju {\em Nitrogen} sa ispisom poruke kao reagovanje na klik:
+Primer u okruženju {\em Nitrogen} sa ispisom poruke kao reagovanje na klik. Prvo se učitava gotov šablon HTML strane i postavlja se naslov strane. Zatim se dodaje tekst ispod kojeg se kreira dugme sa njegovim identifikatorom i obezbeđuje se reagovanje na klik. Postoji hvatač događaja {\em event(click)} koji će ispisati poruku kada se klikne na dugme i zameniti sve ono što se nalazi u telu (eng.~{\em html body}) sa novom porukom.
 \begin{minted}{erlang}
 -module(module_name).
 -compile(export_all).
