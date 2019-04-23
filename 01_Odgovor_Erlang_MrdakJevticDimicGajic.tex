@@ -1,0 +1,320 @@
+
+
+ % !TEX encoding = UTF-8 Unicode
+
+\documentclass[a4paper]{report}
+
+\usepackage[T2A]{fontenc} % enable Cyrillic fonts
+\usepackage[utf8x,utf8]{inputenc} % make weird characters work
+\usepackage[serbian]{babel}
+%\usepackage[english,serbianc]{babel}
+\usepackage{amssymb}
+
+\usepackage{color}
+\usepackage{url}
+\usepackage[unicode]{hyperref}
+\hypersetup{colorlinks,citecolor=green,filecolor=green,linkcolor=blue,urlcolor=blue}
+
+\newcommand{\odgovor}[1]{\textcolor{blue}{#1}}
+
+\begin{document}
+
+\title{Erlang - funkcionalno rešenje za konkurentni svet\\ \small{Tijana Jevtić, Jelena Mrdak, David Dimić, Zorana Gajić}}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Uputstva}
+\emph{Prilikom predavanja odgovora na recenziju, obrišite ovo poglavlje.}
+
+Neophodno je odgovoriti na sve zamerke koje su navedene u okviru recenzija. Svaki odgovor pišete u okviru okruženja \verb"\odgovor", \odgovor{kako bi vaši odgovori bili lakše uočljivi.} 
+\begin{enumerate}
+
+\item Odgovor treba da sadrži na koji način ste izmenili rad da bi adresirali problem koji je recenzent naveo. Na primer, to može biti neka dodata rečenica ili dodat pasus. Ukoliko je u pitanju kraći tekst onda ga možete navesti direktno u ovom dokumentu, ukoliko je u pitanju duži tekst, onda navedete samo na kojoj strani i gde tačno se taj novi tekst nalazi. Ukoliko je izmenjeno ime nekog poglavlja, navedite na koji način je izmenjeno, i slično, u zavisnosti od izmena koje ste napravili. 
+
+\item Ukoliko ništa niste izmenili povodom neke zamerke, detaljno obrazložite zašto zahtev recenzenta nije uvažen.
+
+\item Ukoliko ste napravili i neke izmene koje recenzenti nisu tražili, njih navedite u poslednjem poglavlju tj u poglavlju Dodatne izmene.
+\end{enumerate}
+
+Za svakog recenzenta dodajte ocenu od 1 do 5 koja označava koliko vam je recenzija bila korisna, odnosno koliko vam je pomogla da unapredite rad. Ocena 1 označava da vam recenzija nije bila korisna, ocena 5 označava da vam je recenzija bila veoma korisna. 
+
+NAPOMENA: Recenzije ce biti ocenjene nezavisno od vaših ocena. Na osnovu recenzije ja znam da li je ona korisna ili ne, pa na taj način vama idu negativni poeni ukoliko kažete da je korisno nešto što nije korisno. Vašim kolegama šteti da kažete da im je recenzija korisna jer će misliti da su je dobro uradili, iako to zapravo nisu. Isto važi i na drugu stranu, tj nemojte reći da nije korisno ono što jeste korisno. Prema tome, trudite se da budete objektivni. 
+\chapter{Recenzent \odgovor{--- ocena:} }
+
+
+\section{O čemu rad govori?}
+% Напишете један кратак пасус у којим ћете својим речима препричати суштину рада (и тиме показати да сте рад пажљиво прочитали и разумели). Обим од 200 до 400 карактера.
+U prvi plan rada se stavlja konkurentnost programskoj jezika Erlang koja zajedno sa funkcionalnom paradigmom kojoj jezik pripada, omogućava programiranje pouzdanih velikih konkurentnih i distribuiranih sistema. Zahvaljujući svemu navedenom, dolazi se do zaključka da je Erlang preporučljiv programski jezik za pisanje aplikacija za telekomunikaciju i Internet servera.
+\section{Krupne primedbe i sugestije}
+% Напишете своја запажања и конструктивне идеје шта у раду недостаје и шта би требало да се промени-измени-дода-одузме да би рад био квалитетнији.
+U radu se pominje da Erlang koristi viruelnu mašinu, BEAM, i ta karakteristika je navedeno samo u jednoj rečenici kao sporedna činjenica. Sugerišem autorima da malo više obrate pažnju na tu informaciju, jer bi to značilo da je za izvršavanje programa napisanih u Erlangu potrebno instalirati BEAM na uređaj, što je značajna osobina koja potencijalno omogućava portabilnost.
+\section{Sitne primedbe}
+% Напишете своја запажања на тему штампарских-стилских-језичких грешки
+Primećena su sledeća zapažanja:
+\begin{itemize}
+    \item Strana 1:
+    \begin{itemize}
+        \item U apstraktu u poslednjem redu se nalazi greška prilikom kucanja \textit{vrendnim}.
+    \end{itemize}
+    \item Strana 2:
+    \begin{itemize}
+        \item Glava 2 počinje sa godinom, što nije u duhu srpskog jezika. Sugestija je da se zameni red reči i da glava započne sa \textit{Godine 1981.}. Pored toga, pravilan engleski naziv aplikacije Votsap je \textit{WhatsApp}. Javlja se i nekonzistentnost prilikom upotreba iskošenog stila, gde je u glavi 1 reč ChicagoBoss napisana normalnim tekstualnim stilom, dok je u nastavku rada (npr. glava 6) iskorišćen iskošen stil. Sugestija autorima je da usklade stilove.
+        U podsekciji 2.1, u prvoj rečenici drugog pasusa, sugestija autorima je da se izbaci reč \textit{neki}
+    \end{itemize}
+    \item Strana 3:
+    \begin{itemize}
+        \item Sugestija autorima da koriste ili \textit{npr.} ili \textit{na primer} koji se javlja na više mesta u tekstu od \textit{npr.} Pored ovoga, javljaju se greške prilikom kucanja u četvrtoj glavi: \textit{podžani}, \textit{milisekudni}, \textit{osibine}. U podsekciji 4.1, u duhu srpskog jezika je napisati rečima \textit{osam} umesto korišćenja broja.
+    \end{itemize}
+    \item Strana 4:
+    \begin{itemize}
+        \item Prilikom nabrajanja tipova, sugestija autorima je da druga stavka bude preformulisana tako da bude smislenija. Pored toga, stavkama dva, tri i četiri nedostaje tačka na kraju rečenice. U drugoj liniji pasusa, nepotreban je zarez pre veznika \textit{i}. U trećem pasusu, javlja se greška prilikom kucanja \textit{funkicija}, dok se u podsekciji 4.2 javlja pravopisna greška \textit{ni jedan}, gde je pravilno napisati \textit{nijedan}. Dodatno, preporučujem da reči iz sekcije 4.2 \textit{a koja} budu zamenjene sa \textit{koja}.
+    \end{itemize}
+    \item Strana 5:
+    \begin{itemize}
+        \item U drugom pasusu se javlja greška prilikom kucanja \textit{pokpalanja} i gramatička greška \textit{uz korišćenjem}, gde treba da stoji \textit{uz korišćenje}. U podsekciji 4.3, skraćenici \textit{itd.} predstoji zarez. U rečenici nakon toga, upotrebljen je termin \textit{anonimna lambda funkcija}. Sugestija autorima je da koriste ili \textit{anonimna funkcija} ili \textit{lambda izraz}, a ne i \texit{anonimna} i \textit{lambda}. 
+    \end{itemize}
+    \item Strana 7:
+    \begin{itemize}
+        \item U podsekciji 5.3 u prvom pasusu javlja se pravopisna greška \texit{bezbedonosnih}. Pravilna reč je \texit{bezbednosnih}. U pretposlednjoj rečenici strane 7, preporučujem autorima da umesto zamenice \texit{on} iskoriste \textit{završni signal}, kako ne bi došlo do pogrešne interpretacije.
+    \end{itemize}
+    \item Strana 8:
+    \begin{itemize}
+        \item U drugoj rečenici se javlja zamenica \texit{se} više puta nego što je potrebno. U poslednjem redu strane, u duhu srpskog jezika je napisati rečima broj \texit{tri}.
+    \end{itemize}
+    \item Strana 10:
+    \begin{itemize}
+        \item Sugestija autorima je da koriste Linuks i Vindouz ili Linux i Windows, ali ne i mešovita upotreba imena.
+        U sekciji 8, napisati \textit{...prima nula argumenata...} umesto \texit{...prima 0 argumenata...}. U zadnjoj rečenici na strani javlja se greška prilikom kucanja \texit{primernom}.
+    \end{itemize}
+    \item Strana 11:
+    \begin{itemize}
+        \item U drugom pasusu, javlja se grešaka prilikom kucanja \texit{konstrkcijama}. U trećem pasusu, javlja se greška pilikom kucanja \texit{slobodan}, kao i jezička greška \texit{pošaljilac}. U četvrtom pasusu, javlja se štamparska greška \texit{klijetske}.
+    \end{itemize}
+\end{itemize}
+
+Od krupnijih grešaka, smatram da je upotreba imenice \textit{promenjiva}, iako pravila u svakodnenom životu i sinonim imenici \textit{promenljiva}, nepravilna u matematici i računarstvu i da je potrebno ispraviti sva pojavljivanja slova \textit{nj} u imenici \textit{promenjiva} u slovo \textit{lj}.
+Pored toga, preporučujem autorima da usklade pojavljivanje koda u tekstu. Na pojedinim mestima je obojen i stilizovan, dok je na ostalim mestima ili samo upotrebljena iskošenost teksta ili nije ništa upotrebljeno. 
+
+\section{Provera sadržajnosti i forme seminarskog rada}
+% Oдговорите на следећа питања --- уз сваки одговор дати и образложење
+
+\begin{enumerate}
+\item Da li rad dobro odgovara na zadatu temu?\\
+Rad je opisao sve potrebne stavke koje su navedene na zvaničnoj strani kursa.
+\item Da li je nešto važno propušteno?\\
+U radu ništa nije propuštenu i sve teme su dovoljno dobro obrađene.
+\item Da li ima suštinskih grešaka i propusta?\\
+Ne postoje suštinske greške i propusti, jer su se autori držali teme i stavki sa zvanične strane kursa.
+\item Da li je naslov rada dobro izabran?\\
+Naslov rada je dobro izabran, jer opisuje suštinu jezika.
+\item Da li sažetak sadrži prave podatke o radu?\\
+Sažetak sadrži prave podatke o radu i ne sadrži činjenice koje nisu pomenute u radu.
+\item Da li je rad lak-težak za čitanje?\\
+Rad je lak za čitanje, jer nema prevelikog odstupanja u stilu pisanja.
+\item Da li je za razumevanje teksta potrebno predznanje i u kolikoj meri?\\
+Potrebno je osnovno znanje iz programskih paradigmi, jer čitalac mora da bude upoznat sa osnovnim konceptima funkcionalne i konkurentne paradigme. 
+\item Da li je u radu navedena odgovarajuća literatura?\\
+Korišćena je odgovarajuća literatura.
+\item Da li su u radu reference korektno navedene?\\
+U radu su reference korektno navedene.
+\item Da li je struktura rada adekvatna?\\
+Struktura rada je adekvatna.
+\item Da li rad sadrži sve elemente propisane uslovom seminarskog rada (slike, tabele, broj strana...)?\\
+Rad sadrži sve elemente propisane uslovom seminarskog rada.
+\item Da li su slike i tabele funkcionalne i adekvatne?\\
+Navedena slika odgovara delu teksta u kojem se pominje, kao i tabela. 
+\end{enumerate}
+
+\section{Ocenite sebe}
+% Napišite koliko ste upućeni u oblast koju recenzirate: 
+% a) ekspert u datoj oblasti
+% b) veoma upućeni u oblast
+% c) srednje upućeni
+d) malo upućeni 
+% e) skoro neupućeni
+% f) potpuno neupućeni
+% Obrazložite svoju odluku
+Paradigme koje su pomenute u radu poznajem samo kroz kurseve koji nisu bili namenjeni konkretno njima, već su paradigme bile deo kursa.
+
+\chapter{Recenzent \odgovor{--- ocena:} }
+
+
+\section{O čemu rad govori?}
+% Напишете један кратак пасус у којим ћете својим речима препричати суштину рада (и тиме показати да сте рад пажљиво прочитали и разумели). Обим од 200 до 400 карактера.
+Rad se bazira na predstavljanju ključnih koncepata programskog jezika Erlang. Akcenat je stavljen na podršci konkurentnom i distribuiranom izvršavanju koje jezik pruža. Najpre je predstavljen nastanak jezika kao i paradigme koje podržava. Predstavljeni su osnovni tipovi i strukture podataka. Posebna pažnja je posvećena procesima kao jednom od osnovnih i ravnopravnih tipova u Erlangu.    
+
+\section{Krupne primedbe i sugestije}
+Kroz ceo rad se provlači teza o jednostavnosti i elegantnosti samog jezika. Na primerima to ne deluje toliko jednostavno. Možda bi moglo da se u okviru koda za recimo komunikaciju dva procesa, koji zaista nije trivijalna operacija, priloži kod nekog drugog programskog jezika (C, Java, ...) i da se onda uporedi i jednostavnost i elegantnost.
+Takođe, na više mesta u tekstu se spominje da je jezik pogodan za konkurentno i distribuirano izvršavanje, pozivajući se na funkcionalnu paradigmu koju jezik podržava. Onome ko dobro poznaje tu paradigmu je jasno, ali treba imati u vidu da ova paradigma nije toliko poznata većini ljudi koji su u svetu programiranja. Potrebno je u najkraćim crtama objasniti zašto je to tako (referencijalna prozirnost, redosled izračunavanja i sl.) i eventualno staviti referencu do nekog naučnog rada koji je posvećen ovoj temi. Možda bi neka informacija o sakupljaču otpada došla u obzir pošto nisu u svakom jeziku isti. Neki značajno usporavaju, čak i blokiraju rad programa. Bez previše detalja, ali mislim da je to bitno za jezik.
+\paragraph{}
+Uvodni pasus poglavlja 4.3 je dosta nejasan. Nakon nekoliko čitanja mi i dalje nije jasno šta tu tačno piše.
+\paragraph{} 
+Primetio sam značajan broj grešaka u kucanju. Evidentno je da su autori rada uložili dosta vremena i napora da napišu ovaj rad, to se vidi po tome što ceo rad prati nekoliko osnovnih teza, znači da nisu nadjene činjenice negde i samo prevedene na srpski jezik, nego je uloženo vremena da se sve to uobliči u jednu celinu i mogu reći priču. Usled svega toga izgubi se fokus na sitnicama, a te sitnice često mogu da pokvare sliku o celom radu. Zato je moj savet da pre izdavanja rada, nađete petu osobu, pošto je vas četvoro radilo, po mogućstvu bez poznavanja termina iz sveta programiranja i da ta osoba pročita rad i ukaže vam na greške ovakve vrste.
+Sve u svemu dobar rad koji daje osnovna znanja o jeziku i inspiriše na dalja istraživanja.
+\section{Sitne primedbe}
+% Напишете своја запажања на тему штампарских-стилских-језичких грешки
+Štamparske greške:
+\begin{enumerate}
+\item ,,konkuretno-orijentisanog'' (Sažetak str. 1)
+\item ,,vrendnim'' (Sažetak str. 1)
+\item ,,sitema'' (Uvod str. 2)
+\item ,,poglavju'' (Uvod str. 2)
+\item ,,konkuretnosti'' (Uvod str. 2)
+\item ,,podžani'' (Osnovne osobine str. 3)
+\item ,,milisekudni'' (Osnovne osobine str. 3)
+\item ,,osibine'' (Osnovne osobine str. 3)
+\item ,,promenjihiv'' (Tipovi i promeljive str. 4)
+\item ,,funkicija'' (Tipovi i promeljive str. 4)
+\item ,,pokpalanja'' (Poklapanje obrazaca str. 5)
+\item ,,građni'' (Funkcije str. 5)
+\item ,,lamda'' (Funkcije str. 5)
+\item ,,jednostavano'' (Slanje i primanje poruka str. 6)
+\item ,,evoluira'' -> ,,evaluira (evaluacija izraza)'' (Slanje i primanje poruka str. 6)
+\item ,,poslednjg'' (Slanje i primanje poruka str. 6)
+\item ,,indentifikovati'' -> ''identifikovati'' (Klijent-server model str. 7)
+\item ,,primernom'' -> ,,primenom'' (Primeri kodova sa objašnjenjima str. 10)
+\item ,,definicju'' (Primeri kodova sa objašnjenjima str. 10)
+\item ,,konstrkcijama'' (Primeri kodova sa objašnjenjima str. 10)
+\item ,,slobodan'' -> ,,slobodna'' (Primeri kodova sa objašnjenjima str. 11)
+\item ,,klijetske'' (Primeri kodova sa objašnjenjima str. 11)
+\item ,,osnonvni'' (Dodatak str. 13)
+\item ,,Pokpalanje obrazaca'' (Dodatak A1 naslov str. 13) 
+\end{enumerate}
+Gramatičke i pravopisne greške:
+\begin{enumerate}
+\item ,,liste vrednost'' -> ,,liste vrednosti'' (Tipovi i promenjive str. 4)
+\item ,,uz korišćenjem'' -> ,,,,uz korišćenje'' (Poklapanje obrazaca str. 5)
+\item ,,razrešavanje greški'' -> ,,razrešavanje grešaka'' (Greške u konkurentnim programima str. 8)
+\item ,,struktuirani'' -> ,,strukturirani'' (Okruženja i njihove karakteristike str. 9.)
+\item ,,pošaljilac'' -> ,,pošiljalac'' (Primeri kodova sa objašnjenjima str. 11)
+\end{enumerate}
+Stilske greške i sugestije:
+\begin{enumerate}
+\item ,,Telo funkcije od niza razdvojenih ',' .'' (Funkcije str. 5) -> Rečenica nema predikat,niti je razumljiva u kontekstu celog pasusa.
+\item ,,Mnoge funkcije u Erlangu dizajnirane su da se vrte u beskonačnim petljama...'' -> Mislim da je pogodnije za naučni rad iskoristiti neku drugu reč (npr. ,,izvršavaju''). (Funkcije str. 5)
+\item \label{prevod} ,,Pretpostavićemo da su procesi A i B linkovani.'' -> U dosadašnjem tekstu svaka reč, nekada ne toliko laka za prevod koji bi sačuvao kontekst i značenje (,,list comprehension'' npr.) je prevođena, zato mislim da je i ovde to potrebno uraditi (povezani). (Greške u konkurentnim programima str. 7)
+\item ,,Erlang je poznat za podržavanje...'' -> Možda je bolje ovaj deo promeniti u npr: ,,Erlang je poznat kao jezik koji podržava...''. (Okruženja i njihove karakteristike str. 9.)
+\item ,,Postoje gotove funkcije...'' -> Mislim da je previše žargonski. Može zameniti sa: ,,Postoje već implementirane funkcije...'' ili nešto slično. (Okruženja i njihove karakteristike str. 9.)
+\item ,,Linuksovom kernelu'' -> Iz istog razloga kao i \ref{prevod}: ,,Linuksovom jezgru'' (Instalacija i pokretanje str. 9).
+\item ,,adekvatnih flegova'' -> Iz istog razloga kao i \ref{prevod}: ,,adekvatnih argumenata komandne linije (eng.~{\em flags})'' (Linux str. 10).
+\item ,,oficijalnog'' -> Iz istog razloga kao i \ref{prevod}: ,,zvaničnog'' (Linux str. 10).
+\item Naziv poglavlja je ,,Linux'', dok se u narednom poglavlju koristi ,,Linuks''. Izabrati jedno od ta dva zbog doslednosti. (str. 10)
+\end{enumerate}
+
+
+
+
+\section{Provera sadržajnosti i forme seminarskog rada}
+% Oдговорите на следећа питања --- уз сваки одговор дати и образложење
+
+\begin{enumerate}
+\item Da li rad dobro odgovara na zadatu temu?\\Da. Predstavljeni su generalni koncepti kao i specifičnosti programskog jezika.
+\item Da li je nešto važno propušteno?\\Ne. Svi bitni koncepti, okruženja, instalacija su tu.
+\item Da li ima suštinskih grešaka i propusta?\\Ne. Nije potrebno nišsta bitno izmeniti.
+\item Da li je naslov rada dobro izabran?\\Da. Inspiriše na čitanje rada i oslikava suštinu programskog jezika u jednoj rečenici.
+\item Da li sažetak sadrži prave podatke o radu?\\ Da. Stekne se utisak o tome šta će se saznati čitanjem.
+\item Da li je rad lak-težak za čitanje?\\Lak je. Ima svoju osnovnu priču i prati je ceo rad.
+\item Da li je za razumevanje teksta potrebno predznanje i u kolikoj meri?\\Potrebno je predznanje iz oblasti funkcionalne paradigme.
+\item Da li je u radu navedena odgovarajuća literatura?\\Da. Nalazi se oficijalni sajt kao i odgovarajuće knjige.
+\item Da li su u radu reference korektno navedene?\\Da. Korišćen je metod koji se najčešće koristi u radovima iz oblasti računarstva.
+\item Da li je struktura rada adekvatna?\\Da.
+\item Da li rad sadrži sve elemente propisane uslovom seminarskog rada (slike, tabele, broj strana...)?\\Da.
+\item Da li su slike i tabele funkcionalne i adekvatne?\\Tabela-da. Slika-nisam siguran da je baš jasno samo iz slike i opisa shvatiti dobro sliku.
+\end{enumerate}
+
+\section{Ocenite sebe}
+U samu sintaksu jezika sam malo upućen s obzirom da ništa više nisam implementirao u jeziku nego što je navedeno u radu.
+Što se tiče koncepata na kojima je jezik implementiran, tu sam više upućen, pogotovo u oblasti funkcionalne paradigme kao i cele teorijske pozadine programskog jezika Prolog pod čijim velikim  uticajem je nastao Erlang.
+
+\chapter{Recenzent \odgovor{--- ocena:} }
+
+
+\section{O čemu rad govori?}
+% Напишете један кратак пасус у којим ћете својим речима препричати суштину рада (и тиме показати да сте рад пажљиво прочитали и разумели). Обим од 200 до 400 карактера.
+Rad opisuje programski jezik Erlang. Sam početak rada se odnosi na nastanak jezika, njegov razvoj i uticaj na druge jezike koji će nastati po njegovom uzoru. Dalje su opisane osnovne karakteristike samog jezika poput njegove sintakse. Nakon sintakse, bačen je akcenat na prednosti jezika, pre svega na konkurentnost i distribuiranost, gde je detaljno objašnjeno kreiranje procesa u Erlangu i njihova međusobna komunikacija. Nakon toga su opisana tri Erlangova veb okruženja i definisane njihove sličnosti i razlike. Na samom kraju se nalazi objašnjenje kako instalirati i pokrenuti Erlang, kao i nekoliko kratkih kodova sa objašnjenjima.
+    
+    
+\section{Krupne primedbe i sugestije}
+% Напишете своја запажања и конструктивне идеје шта у раду недостаје и шта би требало да се промени-измени-дода-одузме да би рад био квалитетнији.
+Nemam krupnih primedbi na rad. Smatram da je rad ispunio sve potrebne kriterijume vezane za tehničke stvari, a da je pritom  u potpunosti odgovorio na temu.
+
+
+\section{Sitne primedbe}
+% Напишете своја запажања на тему штампарских-стилских-језичких грешки
+U tekstu postoji nekoliko sitnih grešaka koje bi se mogle ukloniti. Na primer, neke od tih grešaka su "razrešavanje greški"   umesto "razrešavanje grešaka", "lamda račun" umesto "lambda račun". Ne računajući ovih nekoliko sitnih propusta, tekst ne sadrži bilo kakve stilske, gramatičke ili jezičke greške. Rečenice nisu predugačke, već sažete i gramatički ispravne. Stručnih termina nije previše i rad je zbog toga dosta lakše čitati i razumeti.
+
+
+
+\section{Provera sadržajnosti i forme seminarskog rada}
+% Oдговорите на следећа питања --- уз сваки одговор дати и образложењ
+
+\begin{enumerate}
+\item Da li rad dobro odgovara na zadatu temu?\\    
+Rad u potpunosti odgovara na zadatu temu. Pored uvodnog dela koji se odnosi na razvoj i osnovne karakteristike jezika, akcenat se baca upravo na konkurentno i distribuirano programiranje u funkcionalnom jeziku Erlang, što i jeste tema ovog rada. 
+
+
+\item Da li je nešto važno propušteno?\\
+U radu ništa krupno nije izostavljeno. Tema je bila da se opiše konkurentnost jezika Erlang, a to je urađeno sažeto, jasno, razumljivo.
+
+
+\item Da li ima suštinskih grešaka i propusta?\\
+U radu nema suštinskih grešaka.
+
+
+\item Da li je naslov rada dobro izabran?\\
+Tekst u potpunosti prati naslov rada. Pored navođenja istorijata i nekih osnovnih karakteristika funkcionalnog jezika Erlang, u najvećoj meri se govori o procesima, komunikaciji među procesima i konkurentnom izvršavanju procesa u tom jeziku.
+
+
+\item Da li sažetak sadrži prave podatke o radu?\\
+Sažetak sadrži prave podatke o radu. U nekoliko rečenica je dat jasan uvid u to šta će u radu biti razmatrano. Redosled kojim su navedene celine koje će se obrađivati odgovara redosledu kojim su celine obrađivane u radu.
+
+
+\item Da li je rad lak-težak za čitanje?\\
+Rad nije preterano težak za čitanje i razumevanje. Naišao sam na nekoliko stvari sa kojim se ranije nisam sretao, ali je to sve jako dobro objašnjeno da mi jedno čitanje celog rada nije ostavilo nikakvih nejasnoća. 
+
+
+
+\item Da li je za razumevanje teksta potrebno predznanje i u kolikoj meri?\\
+Za uvodne delove rada je potrebno elementarno znanje iz funkcionalnih programskih jezika, jer se pored istorijata i samog razvoja jezika pominju i neke osnovne karakteristike Erlanga poput sintakse i tipova podataka. Za drugu polovinu rada je potrebno solidno predznanje, možda najviše iz operativnih sistema. U tom delu se govori o nekim specifičnostima jezika vezanih za distribuirano i konkurentno izvršavanje, komunikaciju između procesa, klijent-server arhitekturu itd.
+
+
+\item Da li je u radu navedena odgovarajuća literatura?\\
+Zahtevi su bili da kao literatura bude navedena jedna smislena knjiga, jedan naučni rad i jedan sajt, a ukupno barem 6 elemenata literature. U ovom radu je navedeno 9 elemenata literature, od kojih neki elementi nisu dostupni na internetu, pa nisam bio u mogućnosti da ih proverim. Naveden je jedan kratak naučni rad iz juna 2010.godine koji je moguće proveriti na internetu. Navedeno je nekoliko sajtova među kojima je i zvanični sajt jezika Erlang. Takođe, navedeno je i nekoliko knjiga koje uglavnom nisu dostupne na internetu. Međutim, knjiga "Making reliable distributed systems in the presence of software errors" je obimnija, moguće ju je pronaći u pdf formatu i tematika iz te knjige se pominje u delu 5.4 koji govori o greškama u konkurentnim programa, tako da je ona u potpunosti adekvatna za ovaj rad.
+
+
+\item Da li su u radu reference korektno navedene?\\
+Sve reference u radu su korektno navedene. 
+
+
+\item Da li je struktura rada adekvatna?\\
+Rad je pravilno podeljen u celine koje su smisleno raspoređene, gde na početku rada stoji neka vrsta uvoda i opšte stvari o samom jeziku, da bi se kasnije prešlo na konkretne stvari vezane za konkurentnost. Deo koji govori o konkurentnosti, koji je ujedno i najobimniji, podeljen je na podceline radi boljeg razumevanja. Te celine se među sobom ne prepliću, jedna celina govori o jednoj stvari, pa je rad sasvim dobro strukturiran. Pasusi su sažeti, razumljivi. 
+
+
+\item Da li rad sadrži sve elemente propisane uslovom seminarskog rada (slike, tabele, broj strana...)?\\
+Rad sadrži jednu sliku i jednu tabelu što predstavlja minimum od zahtevanog broja. Naslov za tabelu se nalazi iznad same tabele, a naslov za sliku se nalazi ispod slike. Tabela i slika ne govore o istim stvarima. Slika nije preterano složena i nije prenatrpana informacijama, tako da su zadovoljeni svi tehnički uslovi što se tiče slike i tabele. Ako posmatramo broj strana koji mora da bude između 10 i 12, ne računajući dodatak, ovaj rad zadovoljava zadati kriterijum. Iako sa dodatkom rad prelazi dozvoljenih 12 strana, smatram da je dobro to što je ostatak stavljen na sam kraj rada, posebno je označen oznakom "A" i može poslužiti onome ko želi više da sazna.
+
+
+\item Da li su slike i tabele funkcionalne i adekvatne?\\
+Tabela i slika znatno olakšavaju razumevanje pročitanog teksta. Slika nije previše složena i pomaže čitaocu da razume koncept konkurentnog programiranja i veze među procesima unutar jezika. Tabela mi se učinila izuzetno zanimljivom. Pored toga što poredi tri različita veb okruženja za jezik Erlang, ona na taj način pomaže čitaocu da izabere okruženje koje mu u budućnosti može zatrebati prilikom razvoja Erlang aplikacija.
+
+
+\end{enumerate}
+
+\section{Ocenite sebe}
+% Napišite koliko ste upućeni u oblast koju recenzirate: 
+% a) ekspert u datoj oblasti
+% b) veoma upućeni u oblast
+% c) srednje upućeni
+% d) malo upućeni 
+% e) skoro neupućeni
+% f) potpuno neupućeni
+% Obrazložite svoju odluku
+c) srednje upućen - znam osnove funkcionalnog programiranja, klijent-server arhitekturu, kao i stvari vezane za same procese, njihovo kreiranje, komunikaciju i njihovo konkurentno izvršavanje. Međutim, postoji nekoliko stvari u radu sa kojima se prvi put srećem.
+
+
+\chapter{Dodatne izmene}
+%Ovde navedite ukoliko ima izmena koje ste uradili a koje vam recenzenti nisu tražili. 
+
+\end{document}
