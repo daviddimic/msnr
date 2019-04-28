@@ -73,7 +73,7 @@ i bolje upoznati sa jezikom kroz konkretne primere sa objašnjenjima \ref{sec:pr
 
 \section{Nastanak i istorijski razvoj}
 \label{sec:nastanak}
-Godine 1981.  je oformljena nova laboratorija, Erikson CSLab (eng.~{\em The Ericsson CSLab}) u okviru firme Erikson sa
+Godine 1981. oformljena је nova laboratorija, Erikson CSLab (eng.~{\em The Ericsson CSLab}) u okviru firme Erikson sa
 ciljem da predlaže i stvara nove arhitekture, koncepte i strukture za buduće softverske sisteme \cite{phdthesis}.
 Eksperimentisanje sa dodavanjem konkurentnih procesa u programski jezik Prolog je bio jedan
 od projekata Erikson CSLab-a i predstavlja začetak novog programskog jezika.
@@ -89,7 +89,7 @@ i u nastanku standardne biblioteke OTP (eng.~{\em The Open Telecom Platform}) \c
 Od decembra 1998. godine, Erlang i OTP su postali deo slobodnog softvera (eng.~{\em open source software})
 i mogu se slobodno preuzeti sa Erlangovog zvaničnog sajta \cite{sajt}.
 Danas, veliki broj kompanija koristi Erlang u razvoju
-svojih softverskih rešenja. Neke od njih su: Erikson, Motorola, Votsap (eng.~{\em }), 
+svojih softverskih rešenja. Neke od njih su: Erikson, Motorola, Votsap (eng.~{\em WhatsApp}), 
 Jahu (eng.~{\em Yahoo!}), Fejsbuk (eng.~{\em Facebook}) \cite{sajt}.
 
 
@@ -100,7 +100,7 @@ Na njega, kao na funkcionalan jezik, uticao je Lisp funkcionalnom paradigmom koj
 prvi predstavio. Na planu konkurentnosti Erlang je svojevrstan primer (detaljnije u poglavlju \ref{sec:osobine}). \\ 
 
 Na početku, Erlang je stvaran kao dodatak na Prolog, vremenom prerastao u 
-dijalekt Prologa, a kasnije je zbog svoje kompleksnosti i sveobuhvatnosti evaluirao
+dijalekt Prologa, a kasnije je zbog svoje kompleksnosti i sveobuhvatnosti evoluirao
 u potpuno novi programski jezik. Stoga je uticaj Prologa na Erlang bio 
 neminovan. Sintaksa Erlanga u velikoj meri podseća na Prologovu 
 (na primer. promenljive moraju počinjati velikim slovom, 
@@ -141,20 +141,26 @@ kao i neka osnovna svojstva i koncepte.
 
 
 
-\subsection{Tipovi i promenjive}
+\subsection{Tipovi i promenljive}
 Erlang je dinamički i jako tipiziran jezik. 
 Na raspolaganju nam je osam primitivnih tipova \cite{phdthesis}. 
 Osim uobičajnih celobrojnih, realnih vrednosti i referenci, Erlang uvodi i neke specifične tipove:
 \begin{list}{•}{}
-\item Atomi koji se pišu malim slovima i predstavljaju konstante i enumerisane tipove. Samo ime je njihova vrednost. Pandan su makroima i enumerisanim tipovima u C-u.
-\item Binarne vrednosti omogućavaju lako i čitljivo prelamanje broja na segmente u binarni zapis na zadatoj širini. U oznaci <<vrednost:širina>>.
+\item Atomi koji se pišu malim slovima i predstavljaju konstante i enumerisane tipove. Samo ime je njihova vrednost. Pandan su makroima i enumerisanim tipovima u jeziku C.
+\item Binarne vrednosti i bitovska sintaksa omogućavaju lako i čitljivo prelamanje broja na binarne segmente zadate širine. 
+Na primer, boje obično označavamo heksadekadno u RGB oznaci kao tri bajta - jedan bajt za crvenu, jedan za plavu i jedan za zelenu boju.
+Ako nam je data neka boja, recimo {\mintinline{erlang}{16#FF9A29}} i
+želimo da vidimo koje vrednosti imaju pojedinačni delovi boje, možemo
+prelomti broj na tri dela po osam bitova, odnosno na širinu 24, što se 
+zapisuje kao {\mintinline{erlang}{<<16#FF9A29:24>>}}. Rezultat je {\mintinline{erlang}{<<255,154,41>>}}.
 \item Identifikatori procesa predstavljaju reference na procese. Kreiraju se funkcijom spawn.
 \item Portovi služe za komunikaciju sa spoljašnjim svetom. Ako su u skladu sa protokolom portova preko njih se mogu slati i primati poruke.
 \end{list}
  
-Tu su i dve osnovne strukture koje mogu da sadrže bilo koje tipove: torke $\{elem_1, eleme_2, ... elemt_n\}$ za fiksirani broj elemenata u njima 
-i liste $[elem_1, elem_2, ...]$ za čuvanje promenjivog broja elemenata. 
-Osnovni operator konstrukcije liste je $[Glava | Rep]$. 
+Tu su i dve osnovne strukture koje mogu da sadrže bilo koje tipove: torke
+{\mintinline{erlang}{{Elem1, Elem2,... ElemN}}} za fiksirani broj elemenata u njima 
+i liste {\mintinline{erlang}{[Elem1, Elem2,...]}} za čuvanje promenjivog broja elemenata. 
+Osnovni operator konstrukcije liste je {\mintinline{erlang}{[Glava|Rep]}}. 
 U okviru listi se prikazuju i niske, za koje ne postoji ugrađeni poseban tip, 
 već su one liste vrednosti koje odgovaraju vrednostima karaktera. Ako svi elementi liste mogu da se prikažu kao karakteri onda će lista biti ispisana kao niska, što ilustruje naredni primer.
 \begin{minted}{erlang}
@@ -163,23 +169,23 @@ već su one liste vrednosti koje odgovaraju vrednostima karaktera. Ako svi eleme
 2> [65,97,2].
 [65,97,2]
 \end{minted}
-U drugom primeru 2 se ne može prikazati kao karakter pa lista nije prikazana kao niska. 
+U drugom primeru se ne može prikazati kao karakter pa lista nije prikazana kao niska. 
 Ovde vidimo i neka elementarna izračunavanja i kako sa \# možemo elegantno koristiti bilo koju brojevnu osnovu. 
-Da bismo sačuvali izračunavanja potrebne su nam promenjive.\\
+Da bismo sačuvali izračunavanja potrebne su nam promenljive.\\
 
-Promenjive mogu biti vezane (eng.~{\em bound}), one kojima je ''dodeljena'' neka vrednost, i slobodne. 
+Promenljive mogu biti vezane (eng.~{\em bound}), one kojima je ,,dodeljena'' neka vrednost, i slobodne. 
 Vezivanje se vrši najviše jednom i vrednost vezanih promenljivih više se ne može menjati (eng.~{\em single assignment variables}) 
-osim ako se u interpreteru ne pozove funkcija f() koja sve promenjive načini slobodnim \cite{book_fred}. 
+osim ako se u interpreteru ne pozove funkcija  {\mintinline{erlang}{f()}} koja sve promenljive načini slobodnim \cite{book_fred}. 
 Ovo je u skladu sa idejom funkcionalnih jezika da nema sporednih efekata 
 što za posledicu ima jednostavno izvođenje konkurentnosti, 
 iako Erlang nije čisto funkcionalan jezik.
-Zapravo, operator = ne predstavlja nikakvu dodelu već poklapanje obrazaca.
+Zapravo, operator '=' ne predstavlja nikakvu dodelu već poklapanje obrazaca.
 
 
 \subsection{Poklapanje obrazaca}
-Većinu funkcija u Erlangu, kao i svako vezivanje promenjivih pišemo putem poklapanja obrazaca (eng.~{\em pattern matching}). Neformalno\footnote{ Formalna definicija u dodatku \ref{sec:poklapanje_obrazaca_formalno}}, to je postupak poređenja terma sa obrascem. Ako obrazac i term imaju isti oblik, poklapanje uspeva, pri čemu će svaka promenljiva biti vezana sa podatkom na njemu odgovarajućoj poziciji. 
-Ovaj proces poznat je kao {\em unifikacija}. 
-Pri unifikaciji na raspolaganju je i posebna anonimna promenljiva \_ koju koristimo kada nas neka vrednost ne zanima i ne želimo nijednu promenjivu da vežemo za tu vrednost. U sledećem primeru prve tri linije pokazuju uspešnu unifikaciju, dok je u poslednjoj pokušana unifikacija X sa 51, što nije uspelo kako je X već vezano za \{137, 42\}.
+Većinu funkcija u Erlangu, kao i svako vezivanje promenljivih pišemo putem poklapanja obrazaca (eng.~{\em pattern matching}). Neformalno\footnote{ Formalna definicija u dodatku \ref{sec:poklapanje_obrazaca_formalno}}, to je postupak poređenja terma sa obrascem. Ako obrazac i term imaju isti oblik, poklapanje uspeva, pri čemu će svaka promenljiva biti vezana sa podatkom na njemu odgovarajućoj poziciji. 
+Ovaj proces poznat je kao unifikacija. 
+Pri unifikaciji na raspolaganju je i posebna anonimna promenljiva '\_' koju koristimo kada nas neka vrednost ne zanima i ne želimo nijednu promenljivu da vežemo za tu vrednost. U sledećem primeru prve tri linije pokazuju uspešnu unifikaciju, dok je u poslednjoj pokušana unifikacija {\mintinline{erlang}{X}} sa {\mintinline{erlang}{51}}, što nije uspelo kako je {\mintinline{erlang}{X}} već vezano za {\mintinline{erlang}{{137, 42}}}.
 
 \begin{minted}{erlang}
 1> Z = 2.
@@ -188,18 +194,20 @@ Pri unifikaciji na raspolaganju je i posebna anonimna promenljiva \_ koju korist
 4> {X, Y} = {51, kuce}.
 \end{minted}
 
-Jedno proširenje mogućnosti poklapanja obrazaca, korisno za izvođenje jednostavnih testova i poređenja u šablonu daju nam čuvari (eng.~{\em guards}) sa ključnom rečju {\em when}. Čuvari su izrazi odvojeni sa ',' koji sadrže samo predikate poređenja\footnote{ Operatori poređenja su: <, =<, >, =>, ==, /=, =:=, =/=} kao u sledećem primeru.
+Jedno proširenje mogućnosti poklapanja obrazaca, korisno za izvođenje jednostavnih testova i poređenja u šablonu daju nam čuvari (eng.~{\em guards}) sa ključnom rečju {\mintinline{erlang}{when}}. Čuvari su izrazi odvojeni sa ',' koji sadrže samo predikate poređenja\footnote{ Operatori poređenja su: <, =<, >, =>, ==, /=, =:=, =/=} kao u sledećem primeru.
 \begin{minted}{erlang}
 max(X, Y) when X > Y -> X;
 max(X, Y) -> Y.
 \end{minted}
-Funkcija {\em max} je definisana preko poklapanja obrazaca uz korišćenje čuvara jednog uslova koji određuje povratnu vrednost. U narednom delu formalizovaćemo šta su funkcije u Erlangu.
+Funkcija {\mintinline{erlang}{max(X,Y)}} je definisana preko poklapanja obrazaca uz korišćenje čuvara jednog uslova koji određuje povratnu vrednost. U narednom delu formalizovaćemo šta su funkcije u Erlangu.
 
 
 \subsection{Funkcije}
-Svaka funkcija može imati više slučajeva odvojenih sa ';' 
-do kojih će doći poklapanjem obrazaca ili preko argumenata ili preko čuvara u {\em when} delu koji je opcioni. 
-Telo funkcije od niza izraza razdvojenih ','.
+Jedna definicija funkcije može se podeliti u više slučajeva
+razdvojenih sa ';' do kojih se dolazi putem poklapanja obrazaca.
+Obrasci se mogu naći u argumentima funkcije ili u opcionom čuvaru,
+osnosno {\mintinline{erlang}{when}} delu. 
+Telo funkcije sastoji se od niza izraza razdvojenih sa ','.
 Tačkom se završava definicija i odvaja od ostalih funkcija. 
 Njihovi primeri i korišćenja biće detaljnije opisani u delu \ref{sec:primeri}.
 \begin{minted}{erlang}
@@ -248,12 +256,12 @@ i ponašaju se isto na svim operativnim sistemima \cite{book_joe}.
 
 \subsection{Slanje i primanje poruka}
 %Slanje
-Erlang omogućava jednostavno kreiranje novog procesa pozivom funkcije {\em spawn} koja vraća pid (eng.~{\em process identifier}) na osnovu kojeg svaki proces može da razlikuje ostale procese.
+Erlang omogućava jednostavno kreiranje novog procesa pozivom funkcije {\mintinline{erlang}{spawn(...)}} koja vraća pid (eng.~{\em process identifier}) na osnovu kojeg svaki proces može da razlikuje ostale procese.
 \begin{minted}{erlang}
 Pid = spawn([Module], FunctionName, [ArgumentList]) 
 \end{minted}
 
-Jedini način za ostvarivanje komunikacije između dva procesa je putem slanja poruka korišćenjem operatora '!'. U {\mintinline{erlang}{Pid ! Message}} procesu sa identifikatorom {\em Pid} šalje se poruka sadržana u promenljivoj {\em Message}, 
+Jedini način za ostvarivanje komunikacije između dva procesa je putem slanja poruka korišćenjem operatora '!'. U {\mintinline{erlang}{Pid ! Message}} procesu sa identifikatorom {\mintinline{erlang}{Pid}} šalje se poruka sadržana u promenljivoj {\mintinline{erlang}{Message}}, 
 pri čemu poruka može biti bilo koji validni term. 
 Operator slanja evaluira svoje argumente – prvo levi argument da bi se dobio pid procesa koji prima poruku, 
 a potom desni da bi se dobila poruka koja se šalje. 
@@ -261,11 +269,11 @@ Povratna vrednost je baš ta poruka.
 Slanje poruka je asinhrono, pošiljalac neće čekati da poslata poruka stigne na odredište niti da bude primljena \cite{book_joe, book_concurrent}.\\
 
 %Primanje
-Za primanje poruka koristi se operator {\em receive}. 
+Za primanje poruka koristi se operator {\mintinline{erlang}{receive}}. 
 Svaki proces ima svoje sanduče gde se nalaze poruke u redosledu pristizanja. 
 Poruke se porede poklapanjem obrazaca. 
 Kada poklapanje uspe poruka se vadi iz sandučeta i izvršava se navedena akcija. 
-{\em Receive} vraća vrednost poslednjeg izraza iz izvršene akcije.
+{\mintinline{erlang}{Receive}} vraća vrednost poslednjeg izraza iz izvršene akcije.
 Ako poslata poruka nikad ne stigne na odredište, 
 što se može desiti na primer kao posledica pada procesa koji je poslao poruku, 
 izbegavamo beskonačno čekanje tako što se uvodi maksimalno vreme čekanja (eng.~{\em timeout}).
@@ -281,11 +289,11 @@ receive
 end
 \end{minted}
 
-Ukoliko želimo da primimo bilo koju poruku to može da se uradi korišćenjem {\em AnyMessage}. 
-Ali, češće želimo da primamo samo one poruke koje su namenjene nama. 
+Ukoliko želimo da primimo bilo koju poruku to može da se uradi korišćenjem {\mintinline{erlang}{AnyMessage}}, 
+ali češće želimo da primamo samo one poruke koje su namenjene nama. 
 Da bismo to ostvarili moramo poslati svoj pid 
 (ako šaljemo pismo moramo napisati svoju adresu da bismo dobili odgovor) 
-što se postiže sa funkcijom self().
+što se postiže sa funkcijom {\mintinline{erlang}{self()}}.
 \begin{minted}{erlang}
 Pid ! {self(), Message}
 \end{minted}
@@ -296,11 +304,11 @@ Kada šaljemo poruku procesu moramo znati njegov pid.
 Ovo često nije praktično zbog mogućeg velikog broja procesa, 
 niti poželjno iz bezbednosnih razloga 
 (neki procesi bi trebalo da sakriju svoj identitet). 
-Da bi bilo omogućeno slanje poruka bez poznavanja identifikatora uvodi se pojam {\em registrovanja procesa}, 
+Da bi bilo omogućeno slanje poruka bez poznavanja identifikatora uvodi se pojam registrovanja procesa, 
 tj. davanje imena koje mora biti atom \cite{book_joe, phdthesis}.
-Funkcijom {\mintinline{erlang}{register(name, Pid)}} atom {\em name} se vezuje za {\em Pid} i na dalje ga možemo identifikovati preko dodeljenog atoma.\\
+Funkcijom {\mintinline{erlang}{register(name, Pid)}} atom {\mintinline{erlang}{name}} se vezuje za {\mintinline{erlang}{Pid}} i na dalje ga možemo identifikovati preko dodeljenog atoma.\\
 
-Glavni razlog registrovanja procesa je da se omogući {\em klijent-server model} koji je ključni za komunikaciju između procesa u Erlangu \cite{book_concurrent, book_joe, phdthesis}.
+Glavni razlog registrovanja procesa je da se omogući klijent-server model koji je ključni za komunikaciju između procesa u Erlangu \cite{book_concurrent, book_joe, phdthesis}.
 U ovom modelu obe strane mogu biti procesi na istoj ili različitim mašinama. 
 Klijent uvek započinje neko izračunavanje obraćajući se serveru, 
 koji obrađuje zahtev i vraća odgovor klijentu. Jedan jednostavan primer ovog modela biće objašnjen u delu \ref{sec:primeri}.
@@ -309,19 +317,20 @@ koji obrađuje zahtev i vraća odgovor klijentu. Jedan jednostavan primer ovog m
 Za pravljenje sistema otpornog na greške neophodna su nam dva računara, 
 jedan {\em radnik} koji će izvršavati posao i drugi {\em supervizor} 
 koji će posmatrati i biti spreman da preuzme posao u trenutku kada se dogodi pad prvog  (eng.~{\em worker-supervisor relationship}) \cite{book_joe}. 
-U Erlangu je ovo omogućeno korišćenjem povezivanja procesa funkcijom {\em link}. 
+U Erlangu je ovo omogućeno korišćenjem povezivanja procesa funkcijom {\mintinline{erlang}{link(...)}}.
 Pretpostavićemo da su neki procesi A i B  povezani. 
-Ako proces A iznenada prestane sa radom onda se proces B obaveštava takozvanim {\em završnim signalom}. 
+Ako proces A iznenada prestane sa radom onda se proces B obaveštava takozvanim završnim signalom. 
 Ukoliko je obrnuto, obaveštava se proces A. 
 Šta se dešava kada proces dobije završni signal? 
 Ako proces nije bio aktivan u tom trenutku onda se on uništava, 
-a inače proces može da traži da se uhvate signali. Proces u ovakvom stanju se naziva {\em sistemskim procesom} \cite{book_joe}. \\
+a inače proces može da traži da se uhvate signali. Proces u ovakvom stanju se naziva sistemskim procesom \cite{book_joe}. \\
 
-Sledeći primer prikazuje kako uhvatiti završni signal.
-Funkcija {\em on\_exit(Pid, Fun) } pravi link ka procesu {\em Pid}. 
-Pozivom funkcije {\em process\_flag} kreirani novi proces se transformiše u sistemski proces 
-i onda se povezuje sa procesom {\em Pid} uz pomoć funkcije {\em link(Pid)}. 
-Kada proces umre onda je primljen i obrađen blokom {\em receive}.
+Sledeći primer prikazuje kako uhvatiti završni signal. 
+Link ka procesu {\mintinline{erlang}{Pid}} pravi se pomoću funkcije
+{\mintinline{erlang}{on_exit(Pid, Fun)}}. 
+Pozivom funkcije {\mintinline{erlang}{process_flag(...)}} novokreirani proces se transformiše u sistemski proces 
+i onda se povezuje sa procesom {\mintinline{erlang}{Pid}} uz pomoć funkcije {\mintinline{erlang}{link(Pid)}}. 
+Kada proces umre onda je primljen i obrađen blokom {\mintinline{erlang}{receive}}.
 \begin{minted}{erlang} 
 on_exit(Pid, Fun) ->	
     spawn(fun() ->    
@@ -334,9 +343,9 @@ on_exit(Pid, Fun) ->
           end).
 \end{minted}
 
-Testiranje se vrši kreiranjem funkcije {\em F} 
-koja čeka na poruku {\em X} od koje onda kreira atom i nekog procesa {\em Pid}. 
-Onda se za nadgledanje postavlja funkcija {\em on\_exit}.
+Testiranje se vrši kreiranjem funkcije {\mintinline{erlang}{F}}
+koja čeka na poruku {\mintinline{erlang}{X}} od koje onda kreira atom i nekog procesa {\mintinline{erlang}{Pid}}. 
+Potom se za nadgledanje postavlja funkcija {\mintinline{erlang}{on_exit(...)}.
 \begin{minted}{erlang} 
 1> F = fun() ->
      receive
@@ -353,8 +362,8 @@ Onda se za nadgledanje postavlja funkcija {\em on\_exit}.
 
 \end{minted}
 
-Ako se procesu {\em Pid} pošalje atom, on će umreti jer će pokušati da izračuna funkciju {\em list\_to\_atom} 
-sa argumentom koji nije lista i onda će funkcija {\em on\_exit} prijaviti grešku.
+Ako se procesu {\mintinline{erlang}{Pid}} pošalje atom, on će umreti jer će pokušati da izračuna funkciju {\mintinline{erlang}{list_to_atom(...)}}
+sa argumentom koji nije lista i onda će funkcija {\mintinline{erlang}{on_exit(...)}} prijaviti grešku.
 \begin{minted}{erlang} 
 4> Pid ! Zdravo.
 Zdravo
@@ -364,7 +373,7 @@ Zdravo
 Još jedan način za razrešavanje grešaka je takozvanim živo-održivim procesima (eng.~{\em a keep-alive process}). 
 Ideja je kreirati registrovane procese, koje smo spomenuli u \ref{sec:ksmodel}, 
 koji će uvek biti živi i ako prestanu sa radom iz bilo kog razloga, 
-odmah će se restartovati. U narednom primeru se kreira registrovani proces pod nazivom {\em Name} koji izvršava {\em spawn(Fun)}. 
+odmah će se restartovati. U narednom primeru se kreira registrovani proces pod nazivom {\mintinline{erlang}{Name}} koji izvršava {\mintinline{erlang}{spawn(Fun)}}. 
 \begin{minted}{erlang} 
 keep_alive(Name, Fun) ->
     register(Name, Pid = spawn(Fun)),
@@ -387,13 +396,13 @@ U tabeli \ref{tab:tabela_okruzenja} je prikazano poređenje tri glavna veb okru�
 Razvoj zasnovan na događajima &\checkmark  &\checkmark & \checkmark  \\ 
 Okruženje za testove &\checkmark  &\checkmark & \checkmark  \\ 
 Generisanje koda &\checkmark & - & - \\ 
-Django šabloni &\checkmark & - &\checkmark  \\
+Đango šabloni &\checkmark & - &\checkmark  \\
 Integrisani mejl server &\checkmark & - &\checkmark  \\ 
 UTF-8 u Erlang kodu &\checkmark & - &\checkmark  \\ 
 Višejezični podaci & - & - &\checkmark  \\ 
 Generisanje {\em JavaScript} koda & - &\checkmark & \checkmark  \\ 
 Generisanje {\em JSON} formata &\checkmark  &\checkmark & \checkmark  \\ 
-Integrisani WebSocket &\checkmark  &\checkmark & \checkmark  \\ \hline
+Integrisani {\em WebSocket} &\checkmark  &\checkmark & \checkmark  \\ \hline
  \end{tabular}
 \label{tab:tabela_okruzenja}
 \end{center}
@@ -416,8 +425,8 @@ i okruženje za testove, gde su testovi strukturirani kao stabla nadovezivanja (
 Postoje već implementirane funkcije koje olakšavaju testiranje nekih opšte poznatih akcija kao što je 
 provera da li je e-pošta ispravno primljena/poslata, da li je stranica na vebu modifikovana,  itd. \\
 
-{\em Django} šabloni (eng.~{\em Django templates}) \cite{DjangoTempDoc} služe za jednostavnije i brže generisanje dinamičkih HTML stranica pomoću gotovih šablona.
- {\em Nitrogen} ima svoje {\em Nitrogen HTML} šablone ali je u procesu prelazak na {\em Django} šablone.\\
+Đango šabloni (eng.~{\em Django templates}) \cite{DjangoTempDoc} služe za jednostavnije i brže generisanje dinamičkih HTML stranica pomoću gotovih šablona.
+ {\em Nitrogen} ima svoje {\em Nitrogen HTML} šablone ali je u procesu prelazak na Đango šablone.\\
  
 Svaki od opisanih okruženja ima svoje prednosti i mane, 
 te zato nije jednostavno presuditi koji od ovih okruženja treba koristiti zasigurno, a koji ne treba. 
@@ -428,34 +437,34 @@ U dodatku \ref{sec:dodatak_primeri_okruzenja} možete pogledati primere u nekim 
 \label{sec:instalacija}
 Postoji više načina da se instalira Erlang sa neophodnim paketima.
 Ovde će biti predstavljena instalacija korišćenjem prekompajliranih binarnih fajlova 
-za neke operativne sisteme zasnovane na Linuksovom jezgru i pokretanje na jednom od njih, kao i instalacija za Vindouz.
+za neke operativne sisteme zasnovane na Linuksovom jezgru i pokretanje na jednom od njih, kao i instalacija za Vindouz (eng.~{\em Windows}).
 
 
 \subsection{Linuks}
 \label{subsec:instalacijaLinux}
 Na operativnim sistemima zasnovanim na {\em Ubuntu}, Erlang se može instalirati sa:
-{\em sudo apt-get install erlang}. 
-Nakon uspešne instalacije, Erlang kod je moguće kompajlovati
+{\mintinline{bash}{sudo apt-get install erlang}}. 
+Nakon uspešne instalacije, Erlang k\^ od je moguće kompajlovati
 ili interpretirati i pokretati u interpretatoru.
-Interpretator se pokreće kucanjem komande {\em erl} u terminalu, a iz istog
-se izlazi sa {\em Ctrl+G} iza kog sledi {\em q} \cite{book_joe}.
-Erlang interpretator ima u sebi ugrađen editor teksta koji je baziran na {\em emacs-u} \cite{book_fred}.
-K\^od iz datoteke se kompajluje komandom {\em erlc} i navođenjem imena fajla sa ekstenzijom {\em erl}.
+Interpretator se pokreće kucanjem komande {\mintinline{bash}{erl}} u terminalu, a iz istog
+se izlazi sa {\mintinline{bash}{Ctrl+G}} iza kog sledi {\mintinline{bash}{q}} \cite{book_joe}.
+Erlang interpretator ima u sebi ugrađen editor teksta koji je baziran na Emaksu (eng.~{\em Emacs}) \cite{book_fred}.
+K\^od iz datoteke se kompajluje komandom {\mintinline{erlang}{erlc}} i navođenjem imena fajla sa ekstenzijom {\em .erl}.
 Nakon toga se dobija izvršna datoteka sa ekstenzijom {\em beam} koja se može
 pokrenuti uz navođenje adekvatnih argumenata komandne linije (eng.~{\em flags}).
 
 \subsection{Vindouz}
 \label{subsec:instalacijaWindows}
-Na operativnom sistemu {\em Vindouz}, Erlang se može instalirati preuzimanjem binarne datoteke sa zvaničnog sajta \cite{sajt} programskog jezika. Posle duplog klika na {\em .exe} fajl samo je potrebno ispratiti uputstva. Pokretanje interpretatora se vrši na isti način kao i na Linuks sistemima.
+Na operativnom sistemu Vindouz, Erlang se može instalirati preuzimanjem binarne datoteke sa zvaničnog sajta \cite{sajt} programskog jezika. Posle duplog klika na {\em .exe} fajl samo je potrebno ispratiti uputstva. Pokretanje interpretatora se vrši na isti način kao i na Linuks sistemima.
 
 
 \section{Primeri kodova sa objašnjenjima}
 \label{sec:primeri}
-Počećemo od primera ''Hello World'' i videti osnovnu sintaksu jezika. 
+Počećemo od primera {\em ,,Hello World''} i videti osnovnu sintaksu jezika. 
 Jednolinijski komentari počinju znakom \%. 
 Prvo navodimo naziv našeg modula u kome se nalaze funkcije koje pišemo, 
-a da bi one mogle da se koriste izvan modula potrebno je da ih navedemo u export naredbi. start/0 označava da funkcija \textit{start} prima nula argumenata.
-Da bismo željeni tekst prikazali u konzoli, koristimo \textbf{io} modul koji sadrži potrebne IO funkcije u Erlangu.
+a da bi one mogle da se koriste izvan modula potrebno je da ih navedemo u {\mintinline{erlang}{-export}} naredbi. {\mintinline{erlang}{start/0}} označava da funkcija {\mintinline{erlang}{start()} prima nula argumenata.
+Da bismo željeni tekst prikazali u konzoli, koristimo {\mintinline{erlang}{io}} modul koji sadrži potrebne IO funkcije u Erlangu.
 \begin{minted}{erlang}
 % hello world program
 -module(helloworld). 
@@ -467,9 +476,9 @@ start() ->
 \end{minted}
 
 Omogućene su sve klasične funkcionalne konstrukcije jezika. 
-Pogledajmo samo neke od njih, kao što je razumevanje listi (eng.~{\em list comprehension}), funkcija {\em map} i implementacija neke funkcije kao što je {\em QuickSort}.\\
+Pogledajmo samo neke od njih, kao što je razumevanje listi (eng.~{\em list comprehension}), funkcija {\mintinline{erlang}{map(F,L)}} i implementacija neke funkcije kao što je {\em QuickSort}.\\
 
-Izdvajanje svih celobrojnih vrednosti iz liste većih od nekog broja putem razumevanja liste sastoji se od generatora <- i filtera liste.
+Izdvajanje svih celobrojnih vrednosti iz liste većih od nekog broja putem razumevanja liste sastoji se od generatora {\mintinline{erlang}{<-}} i filtera liste.
 \begin{minted}{erlang}
 > [X || X <- [{1,5}, 2, 3, 4, crveno, 5, 6], integer(X), X>3].
 [4,5,6]
@@ -477,7 +486,7 @@ Izdvajanje svih celobrojnih vrednosti iz liste većih od nekog broja putem razum
 
 Primetimo da liste mogu da sadrže elemente različitog tipa.
 Pogledajmo funcionalni način obrade liste putem funkcije map - njenu implementaciju i primenu.
-{\em map(F, List)} vraća novu listu dobijenu primenom funkcije {\em F} na svaki element liste {\em L}.
+{\mintinline{erlang}{map(F, List)}} vraća novu listu dobijenu primenom funkcije {\mintinline{erlang}{F}} na svaki element liste {\mintinline{erlang}{L}}.
 \begin{minted}{erlang}
 map(F, [H|T]) -> [F(H)|map(F, T)];
 map(F, [])    -> [].
@@ -504,9 +513,9 @@ sort([]) -> [].
 Pošto smo se upoznali sa elementarnim konstrukcijama, pogledajmo nešto što je 
 karakteristično za Erlang. Naredni primer pokazuje kako komuniciraju procesi u klijent-server modelu opisanog u delu \ref{sec:konkurentnost}.
 Klijent šalje zahtev serveru za računanje hipotenuze ili površine pravouglog trougla,
-a server vrši izračunavanje u funkciji {\em loop} i vraća odgovoru klijentu. 
-Kada modul {\em trougao} bude implementiran, izvršavanje će izgledati ovako: U liniji 1 kreiramo novi serverski proces i dobijemo njegov pid, 
-potom ga registrujemo i pozovemo funkciju {\em klijent} koja enkapsulira slanje zahteva i primanje odgovora.
+a server vrši izračunavanje u funkciji {\mintinline{erlang}{loop()}} i vraća odgovoru klijentu. 
+Kada modul {\mintinline{erlang}{trougao}} bude implementiran, izvršavanje će izgledati ovako: U liniji 1 kreiramo novi serverski proces i dobijemo njegov pid, 
+potom ga registrujemo i pozovemo funkciju {\mintinline{erlang}{klijent(...)}} koja enkapsulira slanje zahteva i primanje odgovora.
 \begin{minted}{erlang}
 1> Pid = spawn(fun trougao:loop/0).
 2> register(server, Pid).
@@ -514,8 +523,8 @@ potom ga registrujemo i pozovemo funkciju {\em klijent} koja enkapsulira slanje 
 5.0
 \end{minted}
 
-U klijentskoj funkciji pošiljalac mora da uključi svoju adresu sa {\em self()} i pošalje zahtev na serverski proces.
-Potom čeka odgovor koji je namenjen njemu, odnosno prihvata odgovor kada se poklopi obrazac torke \{Pid, Response\}. Tačnije, {\em Pid} je vezan, a {\em Response} je slobodna promenljiva koja će biti vezana kada stigne odgovor.
+U klijentskoj funkciji pošiljalac mora da uključi svoju adresu sa {\mintinline{erlang}{self()}} i pošalje zahtev na serverski proces.
+Potom čeka odgovor koji je namenjen njemu, odnosno prihvata odgovor kada se poklopi obrazac torke {\mintinline{erlang}{{Pid, Response}}}. Tačnije, {\mintinline{erlang}{Pid}} je vezan, a {\mintinline{erlang}{Response}} je slobodna promenljiva koja će biti vezana kada stigne odgovor.
 \begin{minted}{erlang}
 klijent(Pid, Request) ->
     Pid ! {self(), Request},
@@ -573,7 +582,7 @@ se definiše kao primitivni tip, uređeni par ili lista osnovnog terma.
 
 \begin{definition}{Obrazac ili šablon (eng.~{\em pattern})}
 može biti primitivni tip, promenljiva, uređeni par ili lista šablona.
-Ako su u obrascu sve promenjive različite onda se on naziva primitivnim.
+Ako su u obrascu sve promenljive različite onda se on naziva primitivnim.
 \end{definition}
 
 \begin{definition}{}
@@ -593,7 +602,7 @@ Ako je P  primitivni obrazac i T term, onda kažemo da se obrazac P poklapa sa T
 U poglavlju \ref{sec:okruzenja} smo se upoznali sa glavnim predstavnicima Erlang veb okruženja i videli njihove osnovne karakteristike. 
 Prikazaćemo nekoliko primera u veb okruženjima. \\ 
 
-Prvo ćemo pokazati jedan napredniji primer programa "Hello World" u {\em ChicagoBoss} okruženju. Erlang fajl bi izgledao ovako:
+Prvo ćemo pokazati jedan napredniji primer programa {\em ,,Hello World''} u {\em ChicagoBoss} okruženju. Erlang fajl bi izgledao ovako:
 \begin{minted}{erlang}
 -module(appname_my_controller, [Req]).
 -compile(export_all).
@@ -609,7 +618,7 @@ Hello, {{ name }}.
 Primer u okruženju {\em Nitrogen} sa ispisom poruke kao reagovanje na klik. 
 Prvo se učitava gotov šablon HTML strane i postavlja se naslov strane. 
 Zatim se dodaje tekst ispod kojeg se kreira dugme sa njegovim identifikatorom i obezbeđuje se reagovanje na klik. 
-Postoji hvatač događaja {\em event(click)} koji će ispisati poruku kada se klikne na dugme 
+Postoji hvatač događaja {\mintinline{erlang}{event(click)}} koji će ispisati poruku kada se klikne na dugme 
 i zameniti sve ono što se nalazi u telu (eng.~{\em html body}) sa novom porukom.
 \begin{minted}{erlang}
 -module(module_name).
@@ -621,7 +630,7 @@ title() -> "My Hello World".
 
 body() ->
     #panel{body=[
-        "Click on button below!!"
+        "Click on button below!!!"
         #br{},
         #button{
             id=button_id_name,
@@ -633,7 +642,7 @@ body() ->
 event(click) ->
     NewBody = #panel{
         id=id_name_of_the_replacement,
-        text="You clicked!!"
+        text="You clicked!!!"
     },
     wf:replace(button_id_name, NewBody).
 \end{minted}
