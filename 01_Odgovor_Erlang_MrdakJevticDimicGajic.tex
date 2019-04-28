@@ -25,22 +25,6 @@
 
 \tableofcontents
 
-\chapter{Uputstva}
-\emph{Prilikom predavanja odgovora na recenziju, obrišite ovo poglavlje.}
-
-Neophodno je odgovoriti na sve zamerke koje su navedene u okviru recenzija. Svaki odgovor pišete u okviru okruženja \verb"\odgovor", \odgovor{kako bi vaši odgovori bili lakše uočljivi.} 
-\begin{enumerate}
-
-\item Odgovor treba da sadrži na koji način ste izmenili rad da bi adresirali problem koji je recenzent naveo. Na primer, to može biti neka dodata rečenica ili dodat pasus. Ukoliko je u pitanju kraći tekst onda ga možete navesti direktno u ovom dokumentu, ukoliko je u pitanju duži tekst, onda navedete samo na kojoj strani i gde tačno se taj novi tekst nalazi. Ukoliko je izmenjeno ime nekog poglavlja, navedite na koji način je izmenjeno, i slično, u zavisnosti od izmena koje ste napravili. 
-
-\item Ukoliko ništa niste izmenili povodom neke zamerke, detaljno obrazložite zašto zahtev recenzenta nije uvažen.
-
-\item Ukoliko ste napravili i neke izmene koje recenzenti nisu tražili, njih navedite u poslednjem poglavlju tj u poglavlju Dodatne izmene.
-\end{enumerate}
-
-Za svakog recenzenta dodajte ocenu od 1 do 5 koja označava koliko vam je recenzija bila korisna, odnosno koliko vam je pomogla da unapredite rad. Ocena 1 označava da vam recenzija nije bila korisna, ocena 5 označava da vam je recenzija bila veoma korisna. 
-
-NAPOMENA: Recenzije ce biti ocenjene nezavisno od vaših ocena. Na osnovu recenzije ja znam da li je ona korisna ili ne, pa na taj način vama idu negativni poeni ukoliko kažete da je korisno nešto što nije korisno. Vašim kolegama šteti da kažete da im je recenzija korisna jer će misliti da su je dobro uradili, iako to zapravo nisu. Isto važi i na drugu stranu, tj nemojte reći da nije korisno ono što jeste korisno. Prema tome, trudite se da budete objektivni. 
 \chapter{Recenzent \odgovor{--- ocena: 4} }
 
 
@@ -51,7 +35,7 @@ U prvi plan rada se stavlja konkurentnost programskoj jezika Erlang koja zajedno
 % Напишете своја запажања и конструктивне идеје шта у раду недостаје и шта би требало да се промени-измени-дода-одузме да би рад био квалитетнији.
 U radu se pominje da Erlang koristi viruelnu mašinu, BEAM, i ta karakteristika je navedeno samo u jednoj rečenici kao sporedna činjenica. Sugerišem autorima da malo više obrate pažnju na tu informaciju, jer bi to značilo da je za izvršavanje programa napisanih u Erlangu potrebno instalirati BEAM na uređaj, što je značajna osobina koja potencijalno omogućava portabilnost.\\
 
-\odgovor{TODO dodati još neku rečenicu o BEAM}
+\odgovor{Predlog je prihvaćen i naglašeno je da su Erlang programi portabilni upravo zbog toga što se izvršavaju na virtuelnoj mašini. Ažuriran deo teksta sada izgleda ovako "...To je moguće zbog toga što se programi napisani na Erlangu izvršavaju na BEAM virtuelnoj mašini (upravo zbog ovoga se ti isti programi odlikuju visokom portabilnošću).". Što se instalacije tiče, sve je adekvatno objašnjeno u poglavlju koje se bavi ovim pitanjem. Nismo želeli više pažnje da posvetimo BEAM-u jer nije od presudne važnosti za čitaoca koji se tek upoznaje sa Erlangom. U svakom slučaju, ono što je i naglašeno u zaključku rada, čitalac može konsultovati datu literaturu za sve što ga detaljnije i dodatno zanima. Konkretno, interesantna priča o nastanku i evoluciji BEAM-a se može naći u "Making reliable distributed systems in the presence of software errors" Joe-a Armstrong-a.}
 
 \section{Sitne primedbe}
 % Напишете своја запажања на тему штампарских-стилских-језичких грешки
@@ -164,13 +148,14 @@ Kroz ceo rad se provlači teza o jednostavnosti i elegantnosti samog jezika. Na 
 Takođe, na više mesta u tekstu se spominje da je jezik pogodan za konkurentno i distribuirano izvršavanje, pozivajući se na funkcionalnu paradigmu koju jezik podržava. Onome ko dobro poznaje tu paradigmu je jasno, ali treba imati u vidu da ova paradigma nije toliko poznata većini ljudi koji su u svetu programiranja. Potrebno je u najkraćim crtama objasniti zašto je to tako (referencijalna prozirnost, redosled izračunavanja i sl.) i eventualno staviti referencu do nekog naučnog rada koji je posvećen ovoj temi. Možda bi neka informacija o sakupljaču otpada došla u obzir pošto nisu u svakom jeziku isti. Neki značajno usporavaju, čak i blokiraju rad programa. Bez previše detalja, ali mislim da je to bitno za jezik.\\
 
 \odgovor{Ovaj predlog nije prihvaćen. Struktura rada fokusira se na 
-najvižnije osobine i neke jedinstvenosti Erlanga kojih nema u drugim jezicima. Rad se prezentuje publici koja ima
+najvažnije osobine i neke jedinstvenosti Erlanga kojih nema u drugim jezicima. Rad se prezentuje publici koja ima
 elementarno programersko znanje, kako funkcionalne paradigme, tako i
-operativnih sistema. Svako ko se interesuje o konkurentnosti, morao je
-poglati neki kod u jezicima C ili Java, pa je jasno koliko je taj kod 
-kraći u Erlangu. Dok oni koji nisu imali prilike, lako mogu te kodove
-pronaći, te nema potrebe stavljati dugačke programe i komplikovati
-strukturu rada.}
+operativnih sistema. Svakome kome je blizak koncept konkurentnosti morao je
+videti implementaciju iste u jezicima C ili Java, pa je tako jasno koliko je implementacija istog koncepta kraća, jednostavnija, samim tim i elegantnija u Erlangu. Dok oni koji nisu imali prilike, lako mogu te kodove pronaći, te nema potrebe stavljati dugačke programe i komplikovati
+strukturu rada.
+Što se tiče sakupljača otpada, nismo želeli više pažnje da mu
+posvetimo jer nije od presudne važnosti za čitaoca koji se tek upoznaje
+sa Erlangom. U svakom slučaju, ono što je i naglašeno u zaključku rada, čitalac može konsultovati datu literaturu za sve što ga detaljnije i dodatno zanima.}
 
 \paragraph{}
 Uvodni pasus poglavlja 4.3 je dosta nejasan. Nakon nekoliko čitanja mi i dalje nije jasno šta tu tačno piše.\\
@@ -254,7 +239,9 @@ Stilske greške i sugestije:
 \item Da li su u radu reference korektno navedene?\\Da. Korišćen je metod koji se najčešće koristi u radovima iz oblasti računarstva.
 \item Da li je struktura rada adekvatna?\\Da.
 \item Da li rad sadrži sve elemente propisane uslovom seminarskog rada (slike, tabele, broj strana...)?\\Da.
-\item Da li su slike i tabele funkcionalne i adekvatne?\\Tabela-da. Slika-nisam siguran da je baš jasno samo iz slike i opisa shvatiti dobro sliku.
+\item Da li su slike i tabele funkcionalne i adekvatne?\\Tabela-da. Slika-nisam siguran da je baš jasno samo iz slike i opisa shvatiti dobro sliku.\\
+
+\odgovor{Čitalac može bez mnogo truda razumeti šta slika prikazuje - gomilu procesa koji međusobno komuniciraju, dakle, koncept konkurentnosti u Erlangu (može se saznati iz opisa slike).}
 \end{enumerate}
 
 \section{Ocenite sebe}
@@ -317,7 +304,7 @@ Za uvodne delove rada je potrebno elementarno znanje iz funkcionalnih programski
 \item Da li je u radu navedena odgovarajuća literatura?\\
 Zahtevi su bili da kao literatura bude navedena jedna smislena knjiga, jedan naučni rad i jedan sajt, a ukupno barem 6 elemenata literature. U ovom radu je navedeno 9 elemenata literature, od kojih neki elementi nisu dostupni na internetu, pa nisam bio u mogućnosti da ih proverim. Naveden je jedan kratak naučni rad iz juna 2010.godine koji je moguće proveriti na internetu. Navedeno je nekoliko sajtova među kojima je i zvanični sajt jezika Erlang. Takođe, navedeno je i nekoliko knjiga koje uglavnom nisu dostupne na internetu. Međutim, knjiga "Making reliable distributed systems in the presence of software errors" je obimnija, moguće ju je pronaći u pdf formatu i tematika iz te knjige se pominje u delu 5.4 koji govori o greškama u konkurentnim programa, tako da je ona u potpunosti adekvatna za ovaj rad.\\
 
-\odgovor{TODO dati neki odgovor na ovo}
+\odgovor{"Making reliable distributed systems in the presence of software errors" je doktorska disertacija Joe-a Armstrong-a, čoveka koji je bio jedan od glavnih ljudi koji su radili na stvaranju Erlanga. Knjiga "Learn You Some Erlang for Great Good!" može se čitati \href{https://learnyousomeerlang.com/}{ovde}. O tome da su ostale navedene knjige relevantna literatura nam govori činjenica da ih potpisuje ponovo Joe Armstrong, a svakako se mogu kupiti preko interneta.}
 
 \item Da li su u radu reference korektno navedene?\\
 Sve reference u radu su korektno navedene. 
