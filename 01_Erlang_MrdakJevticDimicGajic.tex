@@ -153,7 +153,7 @@ Ako nam je data neka boja, recimo {\mintinline{erlang}{16#FF9A29}} i
 želimo da vidimo koje vrednosti imaju pojedinačni delovi boje, možemo
 prelomti broj na tri dela po osam bitova, odnosno na širinu 24, što se 
 zapisuje kao {\mintinline{erlang}{<<16#FF9A29:24>>}}. Rezultat je {\mintinline{erlang}{<<255,154,41>>}}.
-\item Identifikatori procesa predstavljaju reference na procese. Kreiraju se funkcijom \mintinline{erlang}spawn.
+\item Identifikatori procesa predstavljaju reference na procese. Kreiraju se funkcijom \mintinline{erlang}{spawn(...)}.
 \item Portovi služe za komunikaciju sa spoljašnjim svetom. Ako su u skladu sa protokolom portova preko njih se mogu slati i primati poruke.
 \end{list}
  
